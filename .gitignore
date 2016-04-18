@@ -1,0 +1,35 @@
+# Ignore configuration files that may contain sensitive information.
+sites/*/settings*.php
+sites/*/services*.yml
+
+# Ignore paths that contain user-generated content.
+sites/*/files
+sites/*/private
+
+# Ignore SimpleTest multi-site environment.
+sites/simpletest
+
+# If you prefer to store your .gitignore file in the sites/ folder, comment
+# or delete the previous settings and uncomment the following ones, instead.
+
+# Ignore configuration files that may contain sensitive information.
+# */settings*.php
+
+# Ignore paths that contain user-generated content.
+# */files
+# */private
+
+# Ignore files
+sites/all/themes/*/config.codekit
+config.rb
+
+# Ignore folders
+sites/all/config/active/
+
+sites/all/tests/vendor
+sites/all/tests/features/failures
+sites/all/tests/failures
+
+sites/all/.sass-cache
+
+settings.php.orig
