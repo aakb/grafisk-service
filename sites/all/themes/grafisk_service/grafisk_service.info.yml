@@ -1,0 +1,8 @@
+name: Grafisk service
+type: theme
+description: Grafisk service theme
+package: Core
+regions:
+  header: Header
+  content: Content
+  footer: Footer
