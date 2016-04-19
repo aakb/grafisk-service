@@ -13,7 +13,7 @@ _core:
 id: grafisk_service_admin
 theme: grafisk_service
 region: '-1'
-weight: -3
+weight: -2
 provider: null
 plugin: 'system_menu_block:admin'
 settings:

@@ -9,7 +9,7 @@ _core:
 id: grafisk_service_local_actions
 theme: grafisk_service
 region: '-1'
-weight: -1
+weight: -3
 provider: null
 plugin: local_actions_block
 settings:

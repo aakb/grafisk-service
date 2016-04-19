@@ -11,7 +11,7 @@ _core:
 id: grafisk_service_login
 theme: grafisk_service
 region: '-1'
-weight: -2
+weight: -1
 provider: null
 plugin: user_login_block
 settings:
