@@ -1,7 +1,7 @@
 name: Grafisk service
 type: theme
 description: Grafisk service theme
-package: Core
+package: Grafisk service
 regions:
   header: Header
   content: Content

@@ -1,16 +1,24 @@
 module:
   block: 0
+  breakpoint: 0
   dblog: 0
   dynamic_page_cache: 0
+  editor: 0
   field: 0
+  field_group: 0
+  field_ui: 0
   file: 0
   filter: 0
+  grafisk_service_base: 0
+  inline_form_errors: 0
   language: 0
   locale: 0
   node: 0
   page_cache: 0
   system: 0
   text: 0
+  toolbar: 0
+  update: 0
   user: 0
   minimal: 1000
 theme:
