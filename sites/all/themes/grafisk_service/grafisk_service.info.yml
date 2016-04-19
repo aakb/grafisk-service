@@ -6,3 +6,4 @@ regions:
   header: Header
   content: Content
   footer: Footer
+core: '8.x'
