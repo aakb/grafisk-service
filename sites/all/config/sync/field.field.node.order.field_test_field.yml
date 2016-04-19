@@ -1,0 +1,21 @@
+uuid: 5c0a61c3-28c8-41ed-8741-7ee7d0ad5354
+langcode: da
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_test_field
+    - node.type.order
+  module:
+    - text
+id: node.order.field_test_field
+field_name: field_test_field
+entity_type: node
+bundle: order
+label: 'Test field'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text

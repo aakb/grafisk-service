@@ -1,0 +1,24 @@
+<?php
+/**
+ * Implemnets hook_form_FORM_ID_alter()
+ *
+ * @param $form
+ * @param \Drupal\Core\Form\FormStateInterface $form_state
+ * @param $form_id
+ */
+function grafisk_service_form_node_order_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
+  $form['#theme'] = array('grafisk_service_custom_add_order');
+}
+
+
+
+/**
+ * Implements hook_theme().
+ */
+function grafisk_service_theme($existing, $type, $theme, $path) {
+  return array(
+    'grafisk_service_custom_add_order' => array(
+      'render element' => 'form',
+    ),
+  );
+}

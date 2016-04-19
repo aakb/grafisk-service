@@ -1,0 +1,21 @@
+uuid: 3de912a8-1ba6-45ff-823a-6c4f9cc58913
+langcode: da
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_test_textarea
+    - node.type.order
+  module:
+    - text
+id: node.order.field_test_textarea
+field_name: field_test_textarea
+entity_type: node
+bundle: order
+label: 'Test textarea'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

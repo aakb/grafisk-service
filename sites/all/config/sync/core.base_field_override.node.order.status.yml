@@ -1,0 +1,22 @@
+uuid: 43f9f867-8caf-48fe-83c2-9ff783bab798
+langcode: da
+status: true
+dependencies:
+  config:
+    - node.type.order
+id: node.order.status
+field_name: status
+entity_type: node
+bundle: order
+label: Publiceringsstatus
+description: 'En boolsk værdi som angiver hvorvidt indholdselementets er udgivet.'
+required: false
+translatable: true
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: Tilsluttet
+  off_label: Afbrudt
+field_type: boolean

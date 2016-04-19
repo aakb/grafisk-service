@@ -1,0 +1,11 @@
+uuid: 77882077-c4eb-4376-a1f0-012911a74f4c
+langcode: da
+status: true
+dependencies: {  }
+name: Ordre
+type: order
+description: ''
+help: ''
+new_revision: false
+preview_mode: 0
+display_submitted: false
