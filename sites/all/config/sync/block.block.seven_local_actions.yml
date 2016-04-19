@@ -1,0 +1,20 @@
+uuid: a7cc0600-15e7-4004-bd74-5854107a5d32
+langcode: da
+status: false
+dependencies:
+  theme:
+    - seven
+_core:
+  default_config_hash: PffmQ-ABSz5tFjWmVsR7NesunDnEivvopnJnBjl8KNE
+id: seven_local_actions
+theme: seven
+region: '-1'
+weight: -1
+provider: null
+plugin: local_actions_block
+settings:
+  id: local_actions_block
+  label: 'Primære adminsitratorhandlinger'
+  provider: core
+  label_display: '0'
+visibility: {  }

@@ -1,0 +1,26 @@
+uuid: 9dffd0d9-54cb-484f-9cb5-3954422cee5c
+langcode: da
+status: false
+dependencies:
+  config:
+    - system.menu.admin
+  module:
+    - system
+  theme:
+    - grafisk_service
+_core:
+  default_config_hash: DWAB7HaAfAJerAmyT8B2K-6qxicu9n0PcKVpDr--N4c
+id: grafisk_service_admin
+theme: grafisk_service
+region: '-1'
+weight: -3
+provider: null
+plugin: 'system_menu_block:admin'
+settings:
+  id: 'system_menu_block:admin'
+  label: Administration
+  provider: system
+  label_display: visible
+  level: 1
+  depth: 0
+visibility: {  }

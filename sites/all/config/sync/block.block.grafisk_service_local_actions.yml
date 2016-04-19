@@ -1,0 +1,20 @@
+uuid: f07b720c-9476-4970-8eb1-ae7594f1ee07
+langcode: da
+status: false
+dependencies:
+  theme:
+    - grafisk_service
+_core:
+  default_config_hash: PffmQ-ABSz5tFjWmVsR7NesunDnEivvopnJnBjl8KNE
+id: grafisk_service_local_actions
+theme: grafisk_service
+region: '-1'
+weight: -1
+provider: null
+plugin: local_actions_block
+settings:
+  id: local_actions_block
+  label: 'Primære adminsitratorhandlinger'
+  provider: core
+  label_display: '0'
+visibility: {  }

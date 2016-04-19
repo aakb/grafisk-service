@@ -1,0 +1,22 @@
+uuid: d7a63512-0394-467d-b9f1-267430846600
+langcode: da
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - grafisk_service
+_core:
+  default_config_hash: 5MNdk3fpMKx_xxBTcz2T11DL4XEU1H5SgHl8BsYdFsA
+id: grafisk_service_messages
+theme: grafisk_service
+region: header
+weight: -3
+provider: null
+plugin: system_messages_block
+settings:
+  id: system_messages_block
+  label: Statusmeddelelser
+  provider: system
+  label_display: '0'
+visibility: {  }
