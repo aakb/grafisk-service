@@ -1,0 +1,8 @@
+services:
+  logger.channel.grafisk_service_order:
+    parent: logger.channel_base
+    arguments: [ 'grafisk_service_order' ]
+
+  grafisk_service_order.harvest_api:
+    class: Drupal\grafisk_service_order\Service\HarvestApiProxy
+    arguments: [ '@config.factory', '@logger.channel.grafisk_service_order' ]
