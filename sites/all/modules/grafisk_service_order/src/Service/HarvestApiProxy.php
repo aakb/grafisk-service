@@ -6,7 +6,7 @@ use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Url;
 use Drupal\node\Entity\Node;
-use Harvest\HarvestApi;
+use Harvest\HarvestAPI;
 use Harvest\Model\Client;
 use Harvest\Model\Project;
 use Psr\Log\LoggerInterface;
@@ -32,7 +32,7 @@ class HarvestApiProxy {
 
   private function getApi() {
     if (!$this->api) {
-      $this->api = new HarvestApi();
+      $this->api = new HarvestAPI();
       $this->api->setUser($this->configuration['username']);
       $this->api->setPassword($this->configuration['password']);
       $this->api->setAccount($this->configuration['account']);
