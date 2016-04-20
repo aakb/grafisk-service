@@ -1,0 +1,21 @@
+uuid: 0ba294ea-3f35-47f1-bbe3-745fa3ba8718
+langcode: da
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_gs_delivery_date
+    - node.type.gs_order
+  module:
+    - datetime
+id: node.gs_order.field_gs_delivery_date
+field_name: field_gs_delivery_date
+entity_type: node
+bundle: gs_order
+label: 'Delivery date'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: datetime

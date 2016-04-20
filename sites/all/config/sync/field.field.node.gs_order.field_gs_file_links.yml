@@ -1,0 +1,23 @@
+uuid: 2bfaddca-f92d-4bea-9a3d-a1d4fab3e5f7
+langcode: da
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_gs_file_links
+    - node.type.gs_order
+  module:
+    - link
+id: node.gs_order.field_gs_file_links
+field_name: field_gs_file_links
+entity_type: node
+bundle: gs_order
+label: 'File links'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  link_type: 16
+  title: 1
+field_type: link

@@ -1,0 +1,20 @@
+uuid: 02a474e4-ffa4-43d1-9eeb-dce75ce8efa1
+langcode: da
+status: true
+dependencies:
+  module:
+    - node
+id: node.field_gs_quantity
+field_name: field_gs_quantity
+entity_type: node
+type: integer
+settings:
+  unsigned: false
+  size: normal
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

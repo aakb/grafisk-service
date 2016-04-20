@@ -1,0 +1,19 @@
+uuid: e3a55078-5fb6-4327-b3e9-77dcf7d365c9
+langcode: da
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_gs_email
+    - node.type.gs_order
+id: node.gs_order.field_gs_email
+field_name: field_gs_email
+entity_type: node
+bundle: gs_order
+label: E-mail
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: email

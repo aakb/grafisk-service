@@ -1,16 +1,16 @@
-uuid: 99e8c02e-484b-4d28-9810-a9eb3850fc89
+uuid: 46f3e3e0-2e94-4c5d-b044-9f5aac4be389
 langcode: da
 status: true
 dependencies:
   module:
     - node
-    - text
-id: node.field_test_textarea
-field_name: field_test_textarea
+id: node.field_gs_comments
+field_name: field_gs_comments
 entity_type: node
-type: text_long
-settings: {  }
-module: text
+type: string_long
+settings:
+  case_sensitive: false
+module: core
 locked: false
 cardinality: 1
 translatable: true

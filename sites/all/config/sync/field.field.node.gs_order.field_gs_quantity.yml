@@ -1,0 +1,23 @@
+uuid: d7a4152c-9504-4201-8ae3-73719e1c65c2
+langcode: da
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_gs_quantity
+    - node.type.gs_order
+id: node.gs_order.field_gs_quantity
+field_name: field_gs_quantity
+entity_type: node
+bundle: gs_order
+label: Quantity
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: 1
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: integer
