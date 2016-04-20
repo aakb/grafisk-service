@@ -1,17 +1,18 @@
-uuid: d9d7be09-4162-4d40-a20a-6d7e1c080b21
+uuid: 7732cd8a-aecf-4cf1-9dff-66996482091a
 langcode: da
 status: true
 dependencies:
   module:
     - node
-    - text
-id: node.field_test_field
-field_name: field_test_field
+id: node.field_gs_city
+field_name: field_gs_city
 entity_type: node
-type: text
+type: string
 settings:
   max_length: 255
-module: text
+  is_ascii: false
+  case_sensitive: false
+module: core
 locked: false
 cardinality: 1
 translatable: true

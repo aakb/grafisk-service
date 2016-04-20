@@ -1,0 +1,159 @@
+uuid: 2bb28aeb-1928-4b8c-aba1-9ee9c55913f0
+langcode: da
+status: true
+dependencies:
+  config:
+    - field.field.node.gs_order.field_gs_address
+    - field.field.node.gs_order.field_gs_city
+    - field.field.node.gs_order.field_gs_comments
+    - field.field.node.gs_order.field_gs_contact_person
+    - field.field.node.gs_order.field_gs_delivery_address
+    - field.field.node.gs_order.field_gs_delivery_city
+    - field.field.node.gs_order.field_gs_delivery_date
+    - field.field.node.gs_order.field_gs_department
+    - field.field.node.gs_order.field_gs_ean
+    - field.field.node.gs_order.field_gs_email
+    - field.field.node.gs_order.field_gs_file_links
+    - field.field.node.gs_order.field_gs_files
+    - field.field.node.gs_order.field_gs_harvest_project_id
+    - field.field.node.gs_order.field_gs_marketing_account
+    - field.field.node.gs_order.field_gs_phone
+    - field.field.node.gs_order.field_gs_product_type
+    - field.field.node.gs_order.field_gs_quantity
+    - field.field.node.gs_order.field_gs_type
+    - node.type.gs_order
+  module:
+    - datetime
+    - file
+    - link
+id: node.gs_order.default
+targetEntityType: node
+bundle: gs_order
+mode: default
+content:
+  field_gs_address:
+    weight: 3
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+  field_gs_city:
+    weight: 4
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+  field_gs_comments:
+    weight: 12
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textarea
+  field_gs_contact_person:
+    weight: 2
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+  field_gs_delivery_address:
+    weight: 16
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+  field_gs_delivery_city:
+    weight: 17
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+  field_gs_delivery_date:
+    weight: 15
+    settings: {  }
+    third_party_settings: {  }
+    type: datetime_default
+  field_gs_department:
+    weight: 1
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+  field_gs_ean:
+    weight: 7
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+  field_gs_email:
+    weight: 5
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: email_default
+  field_gs_file_links:
+    weight: 14
+    settings:
+      placeholder_url: ''
+      placeholder_title: ''
+    third_party_settings: {  }
+    type: link_default
+  field_gs_files:
+    weight: 13
+    settings:
+      progress_indicator: throbber
+    third_party_settings: {  }
+    type: file_generic
+  field_gs_marketing_account:
+    weight: 8
+    settings:
+      display_label: false
+    third_party_settings: {  }
+    type: boolean_checkbox
+  field_gs_phone:
+    weight: 6
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+  field_gs_product_type:
+    weight: 10
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+  field_gs_quantity:
+    weight: 11
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+    type: number
+  field_gs_type:
+    weight: 0
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+  title:
+    type: string_textfield
+    weight: 9
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden:
+  created: true
+  field_gs_harvest_project_id: true
+  langcode: true
+  promote: true
+  sticky: true
+  uid: true

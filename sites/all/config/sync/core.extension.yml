@@ -1,6 +1,7 @@
 module:
   block: 0
   breakpoint: 0
+  datetime: 0
   dblog: 0
   dynamic_page_cache: 0
   editor: 0
@@ -12,8 +13,10 @@ module:
   grafisk_service_base: 0
   inline_form_errors: 0
   language: 0
+  link: 0
   locale: 0
   node: 0
+  options: 0
   page_cache: 0
   system: 0
   text: 0

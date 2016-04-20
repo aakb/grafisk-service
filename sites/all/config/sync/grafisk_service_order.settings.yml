@@ -1,0 +1,6 @@
+harvest:
+  api:
+    username: null
+    password: null
+    account: null
+langcode: da

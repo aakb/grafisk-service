@@ -1,0 +1,19 @@
+uuid: 9655f2db-2831-403f-abf6-62c3fb5fefd8
+langcode: da
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_gs_city
+    - node.type.gs_order
+id: node.gs_order.field_gs_city
+field_name: field_gs_city
+entity_type: node
+bundle: gs_order
+label: City
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

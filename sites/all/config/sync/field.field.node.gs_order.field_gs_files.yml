@@ -1,25 +1,25 @@
-uuid: bb18e681-1ad2-450f-8248-d695a5b278e4
+uuid: faabf108-4be2-45a1-a960-cde0fb614e72
 langcode: da
 status: true
 dependencies:
   config:
-    - field.storage.node.field_file_upload
-    - node.type.order
+    - field.storage.node.field_gs_files
+    - node.type.gs_order
   module:
     - file
-id: node.order.field_file_upload
-field_name: field_file_upload
+id: node.gs_order.field_gs_files
+field_name: field_gs_files
 entity_type: node
-bundle: order
-label: 'Upload fil'
+bundle: gs_order
+label: Files
 description: ''
 required: false
-translatable: false
+translatable: true
 default_value: {  }
 default_value_callback: ''
 settings:
   file_directory: ''
-  file_extensions: 'txt pdf doc docx'
+  file_extensions: 'txt pdf doc docx jpg tiff png'
   max_filesize: ''
   description_field: false
   handler: 'default:file'
