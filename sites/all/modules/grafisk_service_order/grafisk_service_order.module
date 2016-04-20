@@ -1,0 +1,36 @@
+<?php
+use Drupal\Core\Entity\Entity;
+use Drupal\node\Entity\Node;
+
+define('GS_ORDER_NODE_TYPE', 'gs_order');
+
+/**
+  * Implements hook_ENTITY_TYPE_insert().
+  */
+function grafisk_service_order_cron() {
+  // entityQuery does not support getting entities by "is null".
+  // Get all order ids.
+  $query = \Drupal::entityQuery('node')
+         ->condition('type', GS_ORDER_NODE_TYPE)
+         ->condition('status', NODE_PUBLISHED);
+  $allOrderIds = $query->execute();
+
+  // Get ids for orders having a Harvest project id.
+  $query->condition('field_gs_harvest_project_id', '', '!=');
+  $processedOrderIds = $query->execute();
+
+  // Get new order ids.
+  $newOrderIds = array_diff($allOrderIds, $processedOrderIds);
+
+  if ($newOrderIds) {
+    $orders = Node::loadMultiple(array_values($newOrderIds));
+    if ($orders) {
+      $api = \Drupal::service('grafisk_service_order.harvest_api');
+      foreach ($orders as $order) {
+        $projectId = $api->createProject($order);
+        $order->field_gs_harvest_project_id = $projectId;
+        $order->save();
+      }
+    }
+  }
+}

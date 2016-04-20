@@ -1,0 +1,7 @@
+{
+	"name": "itk/grafisk_service_order",
+	"description": "Grafisk service order",
+  "require": {
+    "gridonic/hapi": "^0.1.0"
+  }
+}
