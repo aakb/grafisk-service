@@ -3,4 +3,6 @@ harvest:
     username: null
     password: null
     account: null
+_core:
+  default_config_hash: UAOag3-XqNoVzw-C9gSOxpFEIL1yRANOgdf5sfvJF9c
 langcode: da

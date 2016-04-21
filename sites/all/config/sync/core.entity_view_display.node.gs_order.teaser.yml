@@ -16,7 +16,7 @@ dependencies:
     - field.field.node.gs_order.field_gs_email
     - field.field.node.gs_order.field_gs_file_links
     - field.field.node.gs_order.field_gs_files
-    - field.field.node.gs_order.field_gs_harvest_project_id
+    - field.field.node.gs_order.field_gs_harvest_data
     - field.field.node.gs_order.field_gs_marketing_account
     - field.field.node.gs_order.field_gs_phone
     - field.field.node.gs_order.field_gs_product_type
@@ -45,7 +45,7 @@ hidden:
   field_gs_email: true
   field_gs_file_links: true
   field_gs_files: true
-  field_gs_harvest_project_id: true
+  field_gs_harvest_data: true
   field_gs_marketing_account: true
   field_gs_phone: true
   field_gs_product_type: true

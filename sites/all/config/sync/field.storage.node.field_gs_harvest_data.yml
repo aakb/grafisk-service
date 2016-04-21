@@ -1,16 +1,14 @@
-uuid: 4d58a5bf-5083-425c-8726-0e8c134fc626
+uuid: 4d7ae595-d5de-4a7f-9c86-80f78d023c09
 langcode: da
 status: true
 dependencies:
   module:
     - node
-id: node.field_gs_harvest_project_id
-field_name: field_gs_harvest_project_id
+id: node.field_gs_harvest_data
+field_name: field_gs_harvest_data
 entity_type: node
-type: string
+type: string_long
 settings:
-  max_length: 255
-  is_ascii: false
   case_sensitive: false
 module: core
 locked: false

@@ -24,7 +24,7 @@ module:
   toolbar: 0
   update: 0
   user: 0
-  views: 10
+  views: 0
   minimal: 1000
 theme:
   stable: 0

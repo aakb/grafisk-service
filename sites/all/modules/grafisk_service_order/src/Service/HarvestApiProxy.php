@@ -5,7 +5,6 @@ namespace Drupal\grafisk_service_order\Service;
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Url;
-use Drupal\node\Entity\Node;
 use Harvest\HarvestAPI;
 use Harvest\Model\Client;
 use Harvest\Model\Project;
@@ -30,6 +29,12 @@ class HarvestApiProxy {
 
   private $api;
 
+  /**
+   * Get an instance of the HarvestAPI.
+   *
+   * @return HarvestAPI
+   *   The API instance.
+   */
   private function getApi() {
     if (!$this->api) {
       $this->api = new HarvestAPI();
@@ -41,13 +46,23 @@ class HarvestApiProxy {
     return $this->api;
   }
 
+  /**
+   * Create a project in Harvest.
+   *
+   * @param EntityInterface $order
+   *   The order.
+   *
+   * @return int
+   *   The id of the created project.
+   */
   public function createProject(EntityInterface $order) {
     $clientId = $this->getClientId($order);
 
-    $nodeUrl = Url::fromRoute('entity.node.canonical', [ 'node' => $order->id() ], [ 'absolute' => true ])->toString();
+    $nodeUrl = Url::fromRoute('entity.node.canonical', ['node' => $order->id()], ['absolute' => TRUE])->toString();
 
     $project = new Project();
-    $project->set('name', $order->getTitle() . ' (#' . $order->id() . ')'); // Project names must be unique.
+    // Project names must be unique in Harvest.
+    $project->set('name', $order->getTitle() . ' (#' . $order->id() . ')');
     $project->set('client_id', $clientId);
     $project->set('active', TRUE);
     $project->set('notes', '[' . $nodeUrl . ']' . PHP_EOL . PHP_EOL . '*** Do not edit below this line! ***' . PHP_EOL . '---' . PHP_EOL . json_encode($this->getOrderData($order)));
@@ -61,7 +76,7 @@ class HarvestApiProxy {
 
     $projectId = $result->data;
 
-    $this->logger->info(json_encode([ $clientId, $projectId ]));
+    $this->logger->info('HarvestApiProxy.createProject: !clientId !projectId', ['!clientId' => $clientId, '!projectId' => $projectId]);
 
     return $projectId;
   }
@@ -69,10 +84,15 @@ class HarvestApiProxy {
   /**
    * Get a client id for an order.
    *
-   * Client names must be unique so we first look for an existing client and then, if not found, we create a new client.
+   * Client names must be unique so we first look for an existing client and
+   * then, if not found, we create a new client.
    *
    * @param \Drupal\Core\Entity\EntityInterface $order
-   * @return mixed
+   *   The order.
+   *
+   * @return int
+   *   The id of the created client.
+   *
    * @throws \Exception
    */
   private function getClientId(EntityInterface $order) {
@@ -102,7 +122,7 @@ class HarvestApiProxy {
 
     $client = new Client();
     $client->set('name', $clientName);
-    $client->set('details', 'xxxx' . $order->field_gs_address->value . PHP_EOL . $order->field_gs_city->value);
+    $client->set('details', $order->field_gs_address->value . PHP_EOL . $order->field_gs_city->value);
 
     $result = $api->createClient($client);
 
@@ -120,14 +140,41 @@ class HarvestApiProxy {
    * Get order data to store in Harvest.
    *
    * @param \Drupal\Core\Entity\EntityInterface $order
+   *   The order.
+   *
    * @return array
+   *   The data.
    */
   private function getOrderData(EntityInterface $order) {
     // @TODO: What do we send to Harvest?
     return [];
   }
 
+  /**
+   * Get Harvest data stored in an order entity.
+   *
+   * @param string|\Drupal\Core\Entity\EntityInterface $order
+   *   The order or order data (json).
+   *
+   * @return array
+   *   The Harvest data.
+   */
+  public function getData($order) {
+    $value = is_string($order) ? $order : $order->field_gs_harvest_data->value;
+    return json_decode($value);
+  }
+
+  /**
+   * Get Harvest project url.
+   *
+   * @param int $projectId
+   *   The Harvest project id.
+   *
+   * @return string
+   *   The project url.
+   */
   public function getProjectUrl($projectId) {
     return 'https://' . $this->configuration['account'] . '.harvestapp.com/projects/' . $projectId;
   }
+
 }

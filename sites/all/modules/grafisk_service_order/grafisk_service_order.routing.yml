@@ -1,8 +1,0 @@
-grafisk_service_order.list:
-  path: 'orders'
-  defaults:
-    _controller: '\Drupal\grafisk_service_order\Controller\OrderController::listAction'
-  requirements:
-    _permission: 'access content'
-  options:
-    _admin_route: TRUE
