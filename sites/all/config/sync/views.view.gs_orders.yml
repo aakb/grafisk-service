@@ -8,7 +8,7 @@ dependencies:
     - field.storage.node.field_gs_email
     - field.storage.node.field_gs_file_links
     - field.storage.node.field_gs_files
-    - field.storage.node.field_gs_harvest_project_id
+    - field.storage.node.field_gs_harvest_data
     - node.type.gs_order
   module:
     - file
@@ -16,8 +16,6 @@ dependencies:
     - link
     - node
     - user
-_core:
-  default_config_hash: n5VpPD9SONfCqgeLTG-PF2GaCXimepwndBvgD8sjNPk
 id: gs_orders
 label: Orders
 module: views
@@ -515,14 +513,14 @@ display:
           separator: ', '
           field_api_classes: false
           plugin_id: field
-        field_gs_harvest_project_id:
-          id: field_gs_harvest_project_id
-          table: node__field_gs_harvest_project_id
-          field: field_gs_harvest_project_id
+        field_gs_harvest_data:
+          id: field_gs_harvest_data
+          table: node__field_gs_harvest_data
+          field: field_gs_harvest_data
           relationship: none
           group_type: group
           admin_label: ''
-          label: 'Harvest project id'
+          label: 'Harvest data'
           exclude: false
           alter:
             alter_text: false
@@ -564,7 +562,7 @@ display:
           empty_zero: false
           hide_alter_empty: true
           click_sort_column: value
-          type: grafisk_service_order_project_id
+          type: grafisk_service_order_harvest_data
           settings:
             link_to_entity: 0
           group_column: value
@@ -687,7 +685,7 @@ display:
         - 'config:field.storage.node.field_gs_email'
         - 'config:field.storage.node.field_gs_file_links'
         - 'config:field.storage.node.field_gs_files'
-        - 'config:field.storage.node.field_gs_harvest_project_id'
+        - 'config:field.storage.node.field_gs_harvest_data'
   page_1:
     display_plugin: page
     id: page_1
@@ -710,4 +708,4 @@ display:
         - 'config:field.storage.node.field_gs_email'
         - 'config:field.storage.node.field_gs_file_links'
         - 'config:field.storage.node.field_gs_files'
-        - 'config:field.storage.node.field_gs_harvest_project_id'
+        - 'config:field.storage.node.field_gs_harvest_data'

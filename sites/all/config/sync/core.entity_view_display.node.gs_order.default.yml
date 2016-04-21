@@ -15,7 +15,7 @@ dependencies:
     - field.field.node.gs_order.field_gs_email
     - field.field.node.gs_order.field_gs_file_links
     - field.field.node.gs_order.field_gs_files
-    - field.field.node.gs_order.field_gs_harvest_project_id
+    - field.field.node.gs_order.field_gs_harvest_data
     - field.field.node.gs_order.field_gs_marketing_account
     - field.field.node.gs_order.field_gs_phone
     - field.field.node.gs_order.field_gs_product_type
@@ -119,13 +119,6 @@ content:
     settings: {  }
     third_party_settings: {  }
     type: file_default
-  field_gs_harvest_project_id:
-    weight: 18
-    label: above
-    settings:
-      link_to_entity: false
-    third_party_settings: {  }
-    type: string
   field_gs_marketing_account:
     weight: 8
     label: above
@@ -168,4 +161,5 @@ content:
     settings: {  }
     third_party_settings: {  }
 hidden:
+  field_gs_harvest_data: true
   langcode: true
