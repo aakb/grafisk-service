@@ -16,6 +16,8 @@ dependencies:
     - link
     - node
     - user
+_core:
+  default_config_hash: n5VpPD9SONfCqgeLTG-PF2GaCXimepwndBvgD8sjNPk
 id: gs_orders
 label: Orders
 module: views
