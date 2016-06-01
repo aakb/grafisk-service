@@ -19,15 +19,15 @@
 
 <div class="progress is-step-1 js-progress">
   <div class="progress--bar">
-	<div class="progress--bar-transition js-progress-bar is-step-1"></div>
+    <div class="progress--bar-transition js-progress-bar is-step-1"></div>
   </div>
   <div class="progress--container form--flex-wrapper">
-	{% for index, key in group_keys %}
-	  <div class="progress--item is-done js-progress-circle">
-		<span class="progress--circle">{{ index + 1 }}</span>
-		<span class="progress--label">{{ groups[key].label }}</span>
-	  </div>
-	{% endfor %}
+    {% for index, key in group_keys %}
+      <div class="progress--item is-done js-progress-circle">
+        <span class="progress--circle">{{ index + 1 }}</span>
+        <span class="progress--label">{{ groups[key].label }}</span>
+      </div>
+    {% endfor %}
   </div>
 </div>
 
@@ -44,23 +44,23 @@
     </div>
 
     <div class="buttons--container">
-	  <a href="#" class="button buttons--back js-back is-hidden is-grayscale">{% trans %}Tilbage{% endtrans %}</a>
-      <a href="#" class="button buttons--forward js-forward">{% trans %}Next step{% endtrans %}</a>
+      <a href="#" class="button buttons--back js-back is-hidden is-grayscale">Tilbage</a>
+      <a href="#" class="button buttons--forward js-forward">Fortsæt</a>
     </div>
   </div>
 
   <div class="form--page form--page-2 form--flex-wrapper js-progress-page is-hidden">
-	<div class="form--page-description">
+    <div class="form--page-description">
       <div class="form--label">Beskrivelse af opgaven</div>
     </div>
 
-	{{ form.group_step_2.title }}
+    {{ form.group_step_2.title }}
     {{ form.group_step_2.field_gs_product_type }}
     {{ form.group_step_2.field_gs_quantity }}
     {{ form.group_step_2.field_gs_comments }}
-	{{ form.group_step_2.field_gs_files }}
+    {{ form.group_step_2.field_gs_files }}
 
-	<div class="buttons--container">
+    <div class="buttons--container">
       <a href="#" class="button buttons--back js-back is-hidden is-grayscale">Tilbage</a>
       <a href="#" class="button buttons--forward js-forward">Fortsæt</a>
     </div>
@@ -74,7 +74,7 @@
     {{ form.group_step_3.field_gs_ean }}
     {{ form.group_step_3.field_gs_marketing_account }}
 
-	<div class="buttons--container">
+    <div class="buttons--container">
       <a href="#" class="button buttons--back js-back is-hidden is-grayscale">Tilbage</a>
       <a href="#" class="button buttons--forward js-forward">Fortsæt</a>
     </div>
@@ -85,16 +85,16 @@
       <div class="form--label">Hvor skal ordren leveres?</div>
     </div>
 
-	{{ form.group_step_4.field_gs_delivery_date }}
-	{{ form.group_step_4.field_gs_delivery_comments }}
-	{{ form.group_step_4.field_gs_delivery_department }}
-	{{ form.group_step_4.field_gs_delivery_address }}
-	{{ form.group_step_4.field_gs_delivery_zip_code }}
-	{{ form.group_step_4.field_gs_delivery_city }}
+    {{ form.group_step_4.field_gs_delivery_date }}
+    {{ form.group_step_4.field_gs_delivery_comments }}
+    {{ form.group_step_4.field_gs_delivery_department }}
+    {{ form.group_step_4.field_gs_delivery_address }}
+    {{ form.group_step_4.field_gs_delivery_zip_code }}
+    {{ form.group_step_4.field_gs_delivery_city }}
 
-	<div class="buttons--container">
-      <a href="#" class="button buttons--back js-back is-hidden is-grayscale">{% trans %}Tilbage{% endtrans %}</a>
-	  <button type="submit" name="op" value="Gem og udgiv" class="button js-form-submit form-submit">Bestil</button>
+    <div class="buttons--container">
+      <a href="#" class="button buttons--back js-back is-hidden is-grayscale">Tilbage</a>
+      <button type="submit" name="op" value="Gem og udgiv" class="button js-form-submit form-submit">Bestil</button>
     </div>
   </div>
 
