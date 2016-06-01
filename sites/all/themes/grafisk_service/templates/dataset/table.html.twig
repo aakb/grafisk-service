@@ -39,6 +39,7 @@
  * @see template_preprocess_table()
  */
 #}
+
 <table{{ attributes }}>
   {% if caption %}
     <caption>{{ caption }}</caption>
@@ -56,6 +57,7 @@
     {% endif %}
   {% endfor %}
 
+  {#
   {% if header %}
     <thead>
       <tr>
@@ -67,6 +69,7 @@
       </tr>
     </thead>
   {% endif %}
+  #}
 
   {% if rows %}
     <tbody>
@@ -87,6 +90,8 @@
       </tr>
     </tbody>
   {% endif %}
+
+  {#
   {% if footer %}
     <tfoot>
       {% for row in footer %}
@@ -100,4 +105,5 @@
       {% endfor %}
     </tfoot>
   {% endif %}
+  #}
 </table>
