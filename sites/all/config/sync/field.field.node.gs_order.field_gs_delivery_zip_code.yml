@@ -1,18 +1,18 @@
-uuid: 1998574e-a2a1-49c1-8dc0-f1a5be0cd721
+uuid: afd008a9-93c5-4c72-93e3-4857ce50a86c
 langcode: da
 status: true
 dependencies:
   config:
-    - field.storage.node.field_gs_department
+    - field.storage.node.field_gs_delivery_zip_code
     - node.type.gs_order
-id: node.gs_order.field_gs_department
-field_name: field_gs_department
+id: node.gs_order.field_gs_delivery_zip_code
+field_name: field_gs_delivery_zip_code
 entity_type: node
 bundle: gs_order
-label: Afdeling
+label: Postnummer
 description: ''
 required: true
-translatable: true
+translatable: false
 default_value: {  }
 default_value_callback: ''
 settings: {  }

@@ -11,7 +11,7 @@ id: node.gs_order.field_gs_files
 field_name: field_gs_files
 entity_type: node
 bundle: gs_order
-label: Files
+label: Filer
 description: ''
 required: false
 translatable: true
@@ -19,8 +19,8 @@ default_value: {  }
 default_value_callback: ''
 settings:
   file_directory: ''
-  file_extensions: 'txt pdf doc docx jpg tiff png'
-  max_filesize: ''
+  file_extensions: 'txt pdf doc docx'
+  max_filesize: '16 MB'
   description_field: false
   handler: 'default:file'
   handler_settings: {  }

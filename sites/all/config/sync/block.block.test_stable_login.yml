@@ -1,0 +1,22 @@
+uuid: 1d232d91-e68b-4477-9c54-f26e3367812e
+langcode: da
+status: false
+dependencies:
+  module:
+    - user
+  theme:
+    - test_stable
+_core:
+  default_config_hash: 4QlSnWBcxxKMIFRM8sbu_MjSkcp3NjGgnVrc-lynQHI
+id: test_stable_login
+theme: test_stable
+region: '-1'
+weight: -2
+provider: null
+plugin: user_login_block
+settings:
+  id: user_login_block
+  label: 'Log ind'
+  provider: user
+  label_display: visible
+visibility: {  }

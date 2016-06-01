@@ -2,10 +2,10 @@ uuid: ffc0f2c2-e1c4-4ef0-93fc-add88f0b0d34
 langcode: da
 status: true
 dependencies: {  }
-name: Order
+name: Bestilling
 type: gs_order
 description: ''
 help: ''
 new_revision: false
-preview_mode: 1
-display_submitted: true
+preview_mode: 0
+display_submitted: false

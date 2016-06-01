@@ -1,16 +1,14 @@
-uuid: 988ade80-032b-4485-a170-cf29d8542e48
+uuid: 686960c4-a5e3-4e7e-9322-4576cd8ec879
 langcode: da
 status: true
 dependencies:
   module:
     - node
-id: node.field_gs_address
-field_name: field_gs_address
+id: node.field_gs_delivery_comments
+field_name: field_gs_delivery_comments
 entity_type: node
-type: string
+type: string_long
 settings:
-  max_length: 255
-  is_ascii: false
   case_sensitive: false
 module: core
 locked: false

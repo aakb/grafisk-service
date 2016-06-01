@@ -1,0 +1,22 @@
+uuid: 83525f24-eb0c-4b08-b904-2b3b9a31153d
+langcode: da
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - test_stable
+_core:
+  default_config_hash: 5MNdk3fpMKx_xxBTcz2T11DL4XEU1H5SgHl8BsYdFsA
+id: test_stable_messages
+theme: test_stable
+region: header
+weight: -4
+provider: null
+plugin: system_messages_block
+settings:
+  id: system_messages_block
+  label: Statusmeddelelser
+  provider: system
+  label_display: '0'
+visibility: {  }

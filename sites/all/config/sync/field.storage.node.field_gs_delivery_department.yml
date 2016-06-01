@@ -1,11 +1,11 @@
-uuid: 7732cd8a-aecf-4cf1-9dff-66996482091a
+uuid: 2635b168-4dfa-458b-aa0a-bbd5d65d54fe
 langcode: da
 status: true
 dependencies:
   module:
     - node
-id: node.field_gs_city
-field_name: field_gs_city
+id: node.field_gs_delivery_department
+field_name: field_gs_delivery_department
 entity_type: node
 type: string
 settings:

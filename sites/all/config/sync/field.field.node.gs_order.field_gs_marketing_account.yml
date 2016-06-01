@@ -9,7 +9,7 @@ id: node.gs_order.field_gs_marketing_account
 field_name: field_gs_marketing_account
 entity_type: node
 bundle: gs_order
-label: 'Marketing account'
+label: Betaling
 description: ''
 required: false
 translatable: true
@@ -18,6 +18,6 @@ default_value:
     value: 0
 default_value_callback: ''
 settings:
-  on_label: 'Marketing account'
+  on_label: 'Borgerservice og bibliotekers markedsføringskonto?'
   off_label: '0'
 field_type: boolean
