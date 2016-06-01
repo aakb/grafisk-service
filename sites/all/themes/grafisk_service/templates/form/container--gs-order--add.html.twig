@@ -1,0 +1,6 @@
+{#
+{% if logged_in or attributes.id != 'edit-actions' %}
+  {% include '@stable/form/container.html.twig' %}
+{% endif %}
+#}
+{{ children }}

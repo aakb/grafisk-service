@@ -1,0 +1,15 @@
+/**
+ *
+ * IE 9 styles
+ *
+ */
+
+.button,
+.button:link,
+.button:visited {
+  display: inline-block;
+
+  &.is-block {
+    display: inline-block;
+  }
+}

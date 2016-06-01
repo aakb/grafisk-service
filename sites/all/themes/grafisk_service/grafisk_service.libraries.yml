@@ -1,0 +1,16 @@
+grafisk-service:
+  version: VERSION
+  css:
+    theme:
+      css/styles.css: {}
+      css/jquery-ui.css: {}
+  js:
+    js/progress.js: {}
+    js/filefield.js: {}
+    js/modal.js: {}
+    js/jquery-ui.js: {}
+    js/datepicker-config.js: {}
+    node_modules/jquery-validation/dist/jquery.validate.js: {}
+    node_modules/jquery-validation/dist/localization/messages_da.js: {}
+  dependencies:
+    - core/jquery

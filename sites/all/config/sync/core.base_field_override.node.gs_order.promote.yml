@@ -1,0 +1,22 @@
+uuid: dfadb419-f5cf-4666-9d40-40de230fe08e
+langcode: da
+status: true
+dependencies:
+  config:
+    - node.type.gs_order
+id: node.gs_order.promote
+field_name: promote
+entity_type: node
+bundle: gs_order
+label: 'Forfremmet til forsiden'
+description: ''
+required: false
+translatable: true
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: Tilsluttet
+  off_label: Afbrudt
+field_type: boolean

@@ -9,7 +9,7 @@ id: node.gs_order.field_gs_comments
 field_name: field_gs_comments
 entity_type: node
 bundle: gs_order
-label: Comments
+label: Kommentar
 description: ''
 required: false
 translatable: true

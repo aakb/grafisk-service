@@ -9,9 +9,9 @@ id: node.gs_order.field_gs_department
 field_name: field_gs_department
 entity_type: node
 bundle: gs_order
-label: Department
+label: Afdeling
 description: ''
-required: false
+required: true
 translatable: true
 default_value: {  }
 default_value_callback: ''

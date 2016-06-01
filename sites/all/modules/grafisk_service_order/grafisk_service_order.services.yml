@@ -6,3 +6,8 @@ services:
   grafisk_service_order.harvest_api:
     class: Drupal\grafisk_service_order\Service\HarvestApiProxy
     arguments: [ '@config.factory', '@logger.channel.grafisk_service_order' ]
+
+  theme.negotiator.grafisk_service_order:
+    class: Drupal\grafisk_service_order\Theme\ThemeNegotiator
+    tags:
+      - { name: theme_negotiator, priority: 10 }

@@ -1,3 +1,11 @@
+{{ dump(form|keys) }}
+
+{{ form.group_step_2['#attributes'] }}
+
+[[[
+{{ form.group_step_2.title }}
+{{ form.group_step_2.field_gs_files }}
+
 {{ form.title }}
 {{ form.field_test_field }}
 {{ form.field_test_textarea }}
@@ -8,3 +16,4 @@
 {{ form.form_token }}
 {{ form.form_id }}
 {{ form.actions }}
+]]]

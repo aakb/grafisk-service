@@ -9,5 +9,6 @@ label: 'Anonym bruger'
 weight: 0
 is_admin: false
 permissions:
-  - 'access content'
-  - 'create order content'
+  1: 'create order content'
+  2: 'create gs_order content'
+  3: 'access content'

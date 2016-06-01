@@ -3,50 +3,33 @@ langcode: da
 status: true
 dependencies:
   config:
-    - field.field.node.gs_order.field_gs_address
-    - field.field.node.gs_order.field_gs_city
     - field.field.node.gs_order.field_gs_comments
     - field.field.node.gs_order.field_gs_contact_person
     - field.field.node.gs_order.field_gs_delivery_address
     - field.field.node.gs_order.field_gs_delivery_city
+    - field.field.node.gs_order.field_gs_delivery_comments
     - field.field.node.gs_order.field_gs_delivery_date
+    - field.field.node.gs_order.field_gs_delivery_department
+    - field.field.node.gs_order.field_gs_delivery_zip_code
     - field.field.node.gs_order.field_gs_department
     - field.field.node.gs_order.field_gs_ean
     - field.field.node.gs_order.field_gs_email
-    - field.field.node.gs_order.field_gs_file_links
     - field.field.node.gs_order.field_gs_files
     - field.field.node.gs_order.field_gs_harvest_data
     - field.field.node.gs_order.field_gs_marketing_account
     - field.field.node.gs_order.field_gs_phone
     - field.field.node.gs_order.field_gs_product_type
     - field.field.node.gs_order.field_gs_quantity
-    - field.field.node.gs_order.field_gs_type
     - node.type.gs_order
   module:
     - datetime
     - file
-    - link
-    - options
     - user
 id: node.gs_order.default
 targetEntityType: node
 bundle: gs_order
 mode: default
 content:
-  field_gs_address:
-    weight: 3
-    label: above
-    settings:
-      link_to_entity: false
-    third_party_settings: {  }
-    type: string
-  field_gs_city:
-    weight: 4
-    label: above
-    settings:
-      link_to_entity: false
-    third_party_settings: {  }
-    type: string
   field_gs_comments:
     weight: 11
     label: above
@@ -74,6 +57,12 @@ content:
       link_to_entity: false
     third_party_settings: {  }
     type: string
+  field_gs_delivery_comments:
+    weight: 18
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: basic_string
   field_gs_delivery_date:
     weight: 14
     label: above
@@ -82,6 +71,20 @@ content:
       timezone_override: ''
     third_party_settings: {  }
     type: datetime_default
+  field_gs_delivery_department:
+    weight: 20
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+  field_gs_delivery_zip_code:
+    weight: 19
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
   field_gs_department:
     weight: 1
     label: above
@@ -102,17 +105,6 @@ content:
     settings: {  }
     third_party_settings: {  }
     type: basic_string
-  field_gs_file_links:
-    weight: 13
-    label: above
-    settings:
-      trim_length: 80
-      url_only: false
-      url_plain: false
-      rel: ''
-      target: ''
-    third_party_settings: {  }
-    type: link
   field_gs_files:
     weight: 12
     label: above
@@ -150,12 +142,6 @@ content:
       prefix_suffix: true
     third_party_settings: {  }
     type: number_integer
-  field_gs_type:
-    weight: 0
-    label: above
-    settings: {  }
-    third_party_settings: {  }
-    type: list_default
   links:
     weight: 17
     settings: {  }
