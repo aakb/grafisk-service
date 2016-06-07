@@ -4,22 +4,30 @@
 
 (function($) {
   function checkFileUpload() {
-    $('.js-form-file').change(function() {
-      if ($(this).val()) {
-        $('.js-form-file').addClass('has-file');
-
-        // Add content attribute for stylesheet.
-        $(this).attr('data-content', $(this)[0].files[0].name);
-      }
-      else {
-        $('.js-form-file').removeClass('has-file');
-      }
+    $('.js-custom-form-submit').click(function() {
+      $('.js-custom-toggle').toggle();
+      
+      // if ($(this).val()) {
+      //   $('.js-form-file').addClass('has-file');
+      //
+      //   // Add content attribute for stylesheet.
+      //   $(this).attr('data-content', $(this)[0].files[0].name);
+      // }
+      // else {
+      //   $('.js-form-file').removeClass('has-file');
+      // }
     });
   }
 
   // Start the show.
   $(document).ready(function () {
     checkFileUpload();
+
+		// $('.js-select-files').click(function() {
+		// 	var target = $($(this).data('target'));
+		// 	;;; console.debug([ $(this).data('target') ]);
+		// 	target.click();
+		// });
   });
 
 })(jQuery);

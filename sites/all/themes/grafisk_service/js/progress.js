@@ -14,30 +14,35 @@
 
     var steps = 4;  // The number of steps in form.
 
-		var form = $('#node-gs-order-form, #node-gs-order-edit-form').first();
+    var form = $('#node-gs-order-form, #node-gs-order-edit-form').first();
+    var validationMessage = $('#validation-message');
 
-		var validator = form.validate({
-			errorClass: 'form--error',
-			errorElement: 'span',
-			_showErrors: function(validator, errorMap, errorList) {
-				;;; console.debug(errorList);
-				// alert(validator);
-			}
-			// debug: true,
-		});
+    validationMessage.hide();
 
-		$('.js-form-submit').click(function(event) {
-			validator.form();
-			if (!validator.valid()) {
-				// event.preventDefault();
-			}
-		});
+    var validator = form.validate({
+      errorClass: 'form--error',
+      errorElement: 'span',
+      showErrors: function(errorMap, errorList) {
+        if (!this.valid()) {
+          validationMessage.show();
+        }
+      }
+    });
+
+    $('.js-form-submit').click(function(event) {
+      validator.form();
+      if (!validator.valid()) {
+        event.preventDefault();
+      }
+    });
 
     $('.js-forward').click(function() {
-			validator.form();
-			if (!validator.valid()) {
-				// return;
-			}
+      validator.form();
+      if (!validator.valid()) {
+        return;
+      }
+
+      $('#validation-message').hide();
 
       // Don't act if we are on last page.
       if (currentStep < steps) {
