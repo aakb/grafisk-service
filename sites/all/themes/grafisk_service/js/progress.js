@@ -12,9 +12,9 @@
     var page = $('.js-progress-page');  // The page wrapper
     var currentStep = 1;
 
-    var steps = 4;  // The number of steps in form.
-
     var form = $('#node-gs-order-form, #node-gs-order-edit-form').first();
+    var steps = $('.form--page', form).length;  // The number of steps in form.
+
     var validationMessage = $('#validation-message');
 
     validationMessage.hide();
