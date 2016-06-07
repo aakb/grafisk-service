@@ -33,7 +33,7 @@
 
 <form{{ attributes.addClass('form') }}>
   <div class="itk-message" id="validation-message">
-    <div class="itk-message--inner is-error" style="display: none">
+    <div class="itk-message--inner is-error">
       Du skal udfylde alle påkrævede felter (markeret med *) for at fortsætte
     </div>
   </div>
@@ -135,11 +135,10 @@
 
     <div class="buttons--container">
       <a href="#" class="button buttons--back js-back is-hidden is-grayscale">Tilbage</a>
-      <button type="submit" name="op" value="Gem og udgiv" class="button js-form-submit form-submit">Bestil</button>
+      <button type="submit" name="op" value="{{ 'Save' | trans }}" class="button js-form-submit form-submit">Bestil</button>
     </div>
   </div>
 
   {{ form.form_build_id }}
-  {{ form.form_token }}
   {{ form.form_id }}
 </form>
