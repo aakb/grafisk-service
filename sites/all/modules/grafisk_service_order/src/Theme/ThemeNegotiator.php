@@ -19,19 +19,24 @@ class ThemeNegotiator implements ThemeNegotiatorInterface {
           return $route->getParameter('node_type')->id() == 'gs_order';
         }
         break;
+
+      case 'entity.node.canonical':
+        if (\Drupal::currentUser()->isAnonymous()) {
+          $node = $route->getParameter('node');
+          if ($node && $node->getType() == 'gs_order') {
+            return true;
+          }
+        }
+        break;
     }
 
     return false;
-
-    $account = \Drupal::currentUser();
-
-    return $account->id() === 0;
   }
 
   /**
    * {@inheritdoc}
    */
-  public function determineActiveTheme(RouteMatchInterface $route_match) {
+  public function determineActiveTheme(RouteMatchInterface $route) {
     return 'grafisk_service';
  }
 }
