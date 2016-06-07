@@ -32,15 +32,30 @@
 </div>
 
 <form{{ attributes.addClass('form') }}>
+  <div class="itk-message" id="validation-message">
+    <div class="itk-message--inner is-error">
+      Du skal udfylde alle påkrævede felter (markeret med *) for at fortsætte
+    </div>
+  </div>
+
   <div class="form--page form--page-1 js-progress-page">
     <div class="form--page-description">
       <div class="form--label">Hvem bestiller opgaven?</div>
     </div>
+
     <div class="origin--field-container form--flex-wrapper js-origin-aakb-container is-hidden">
-      {{ form.group_step_1.field_gs_department }}
-      {{ form.group_step_1.field_gs_phone }}
-      {{ form.group_step_1.field_gs_contact_person }}
-      {{ form.group_step_1.field_gs_email }}
+      <div class="form--item">
+        {{ form.group_step_1.field_gs_department }}
+      </div>
+      <div class="form--item is-half-width">
+        {{ form.group_step_1.field_gs_phone }}
+      </div>
+      <div class="form--item is-half-width">
+        {{ form.group_step_1.field_gs_contact_person }}
+      </div>
+      <div class="form--item">
+        {{ form.group_step_1.field_gs_email }}
+      </div>
     </div>
 
     <div class="buttons--container">
@@ -54,11 +69,21 @@
       <div class="form--label">Beskrivelse af opgaven</div>
     </div>
 
-    {{ form.group_step_2.title }}
-    {{ form.group_step_2.field_gs_product_type }}
-    {{ form.group_step_2.field_gs_quantity }}
-    {{ form.group_step_2.field_gs_comments }}
-    {{ form.group_step_2.field_gs_files }}
+    <div class="form--item">
+      {{ form.group_step_2.title }}
+    </div>
+    <div class="form--item">
+      {{ form.group_step_2.field_gs_product_type }}
+    </div>
+    <div class="form--item is-half-width">
+      {{ form.group_step_2.field_gs_quantity }}
+    </div>
+    <div class="form--item">
+      {{ form.group_step_2.field_gs_comments }}
+    </div>
+    <div class="form--item">
+      {{ form.group_step_2.field_gs_files }}
+    </div>
 
     <div class="buttons--container">
       <a href="#" class="button buttons--back js-back is-hidden is-grayscale">Tilbage</a>
@@ -71,8 +96,12 @@
       <div class="form--label">Hvem skal betale?</div>
     </div>
 
-    {{ form.group_step_3.field_gs_ean }}
-    {{ form.group_step_3.field_gs_marketing_account }}
+    <div class="form--item is-half-width">
+      {{ form.group_step_3.field_gs_ean }}
+    </div>
+    <div class="form--item is-half-width">
+      {{ form.group_step_3.field_gs_marketing_account }}
+    </div>
 
     <div class="buttons--container">
       <a href="#" class="button buttons--back js-back is-hidden is-grayscale">Tilbage</a>
@@ -85,12 +114,24 @@
       <div class="form--label">Hvor skal ordren leveres?</div>
     </div>
 
-    {{ form.group_step_4.field_gs_delivery_date }}
-    {{ form.group_step_4.field_gs_delivery_comments }}
-    {{ form.group_step_4.field_gs_delivery_department }}
-    {{ form.group_step_4.field_gs_delivery_address }}
-    {{ form.group_step_4.field_gs_delivery_zip_code }}
-    {{ form.group_step_4.field_gs_delivery_city }}
+    <div class="form--item is-half-width">
+      {{ form.group_step_4.field_gs_delivery_date }}
+    </div>
+    <div class="form--item">
+      {{ form.group_step_4.field_gs_delivery_comments }}
+    </div>
+    <div class="form--item is-half-width">
+      {{ form.group_step_4.field_gs_delivery_department }}
+    </div>
+    <div class="form--item">
+      {{ form.group_step_4.field_gs_delivery_address }}
+    </div>
+    <div class="form--item is-half-width">
+      {{ form.group_step_4.field_gs_delivery_zip_code }}
+    </div>
+    <div class="form--item is-half-width">
+      {{ form.group_step_4.field_gs_delivery_city }}
+    </div>
 
     <div class="buttons--container">
       <a href="#" class="button buttons--back js-back is-hidden is-grayscale">Tilbage</a>

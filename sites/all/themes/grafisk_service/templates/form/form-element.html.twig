@@ -47,35 +47,9 @@
  */
 #}
 
-{% set classes = [
-'form--item',
-(name matches '{^field_gs_(phone|contact_person|ean|marketing_account|delivery_date|delivery_zip_code|delivery_city)}') ? 'is-half-width',
-] %}
-
-{% if type == 'managed_file' %}
-
-  <div {{ attributes.addClass(classes, 'upload') }}>
-    {{ label }}
-    <div class="upload-inner">
-      {{ children }}
-      {% if errors %}
-        <div class="form-item--error-message">
-          {{ errors }}
-        </div>
-      {% endif %}
-    </div>
-  </div>
-
-{% elseif type != 'vertical_tabs' %}
-
-  <div {{ attributes.addClass(classes) }}>
-    {{ label }}
-    {{ children }}
-    {% if errors %}
-      <div class="form-item--error-message">
-        {{ errors }}
-      </div>
-    {% endif %}
-  </div>
-
+{# Why can't we/I move the label using some field configuration #}
+{% if label_display == 'after' %}
+  {% set label_display = 'before' %}
 {% endif %}
+
+{% include '@stable/form/form-element.html.twig' %}
