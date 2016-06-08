@@ -1,0 +1,16 @@
+/* Please move these hacks somewhere else */
+
+/* Hide unwanted elements in managed file control */
+.upload--file .form--label,
+/* The file input element */
+.upload--file .form-file,
+/* The upload button */
+.upload--file .form-submit,
+/* Files table stuff */
+.tabledrag-toggle-weight-wrapper,
+.tableresponsive-toggle-columns,
+.tabledrag-handle,
+/* Hide our custom "Select files" button in files table */
+table .js-select-files {
+	display: none;
+}

@@ -4,6 +4,7 @@ grafisk-service:
     theme:
       css/styles.css: {}
       css/jquery-ui.css: {}
+      css/hacks.css: {}
   js:
     js/progress.js: {}
     js/filefield.js: {}
