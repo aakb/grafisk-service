@@ -11,7 +11,7 @@ id: node.gs_order.field_gs_files
 field_name: field_gs_files
 entity_type: node
 bundle: gs_order
-label: Filer
+label: 'Upload filer'
 description: ''
 required: false
 translatable: true
