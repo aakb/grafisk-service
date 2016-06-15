@@ -1,0 +1,7 @@
+grafisk_service_order.order_messages:
+  path: '/admin/grafisk_service_order/messsages'
+  defaults:
+    _form: '\Drupal\grafisk_service_order\Form\OrderMessagesForm'
+    _title: 'Order Messages'
+  requirements:
+    _permission: 'administer site configuration'

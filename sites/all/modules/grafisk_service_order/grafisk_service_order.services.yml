@@ -11,3 +11,11 @@ services:
     class: Drupal\grafisk_service_order\Theme\ThemeNegotiator
     tags:
       - { name: theme_negotiator, priority: 10 }
+
+  grafisk_service_order.mailer:
+    class: Drupal\grafisk_service_order\Service\Mailer
+    arguments: ['@plugin.manager.mail']
+
+  grafisk_service_order.order_messages:
+    class: Drupal\grafisk_service_order\State\OrderMessages
+    arguments: ['@serialization.json', '@database']
