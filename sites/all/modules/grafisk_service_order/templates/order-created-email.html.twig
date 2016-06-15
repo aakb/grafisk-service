@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>{{ 'Order created' | trans }}: {{ order.title }}</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous"/>
+  </head>
+  <body>
+    <div class="container">
+      <h1>{{ message }}</h1>
+
+			<dl class="dl-horizontal">
+				<dt>{{ 'Department' | trans }}</dt>
+				<dd>{{ order.department }}</dd>
+
+				<dt>{{ 'Phone' | trans }}</dt>
+				<dd>{{ order.phone }}</dd>
+
+				<dt>{{ 'Contact person' | trans }}</dt>
+				<dd>{{ order.contact_person }}</dd>
+
+				<dt>{{ 'Email' | trans }}</dt>
+				<dd>{{ order.email }}</dd>
+
+
+				<dt>{{ 'Title' | trans }}</dt>
+				<dd>{{ order.title }}</dd>
+
+				<dt>{{ 'Product type' | trans }}</dt>
+				<dd>{{ order.product_type }}</dd>
+
+				<dt>{{ 'Quantity' | trans }}</dt>
+				<dd>{{ order.quantity }}</dd>
+
+				<dt>{{ 'Comments' | trans }}</dt>
+				<dd>{{ order.comments }}</dd>
+
+				{#
+				<dt>{{ 'Files' | trans }}</dt>
+				<dd>{% for file in order.files %} {{ file }} {% endfor %}</dd>
+				#}
+
+				<dt>{{ 'Ean' | trans }}</dt>
+				<dd>{{ order.ean }}</dd>
+
+				<dt>{{ 'Marketing account' | trans }}</dt>
+				<dd>{{ (order.marketing_account ? 'Yes' : 'No') | trans }}</dd>
+
+
+				<dt>{{ 'Delivery date' | trans }}</dt>
+				<dd>{{ order.delivery_date | date }}</dd>
+
+				<dt>{{ 'Delivery comments' | trans }}</dt>
+				<dd>{{ order.delivery_comments }}</dd>
+
+				<dt>{{ 'Delivery address' | trans }}</dt>
+				<dd>{{ order.delivery_address }}</dd>
+
+				<dt>{{ 'Delivery department' | trans }}</dt>
+				<dd>{{ order.delivery_department }}</dd>
+
+				<dt>{{ 'Delivery zip code' | trans }}</dt>
+				<dd>{{ order.delivery_zip_code }}</dd>
+
+				<dt>{{ 'Delivery city' | trans }}</dt>
+				<dd>{{ order.delivery_city }}</dd>
+
+			</dl>
+
+			<p><a href="{{ order.url }}">{{ 'See your order' | trans }}</a></p>
+    </div>
+
+    <script src="https://code.jquery.com/jquery.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+  </body>
+</html>
