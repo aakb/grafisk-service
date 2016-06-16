@@ -270,9 +270,9 @@ class Mailer {
    * @param $body
    *   The HTML body content to send.
    * @param string $name
-   *   The name of the sender. Defaults to 'Dokk1'.
+   *   The name of the sender. Defaults to 'Grafisk Service'.
    */
-  protected function mailer($to, $subject, $body, $name = 'Dokk1') {
+  protected function mailer($to, $subject, $body, $name = 'Grafisk Service') {
     // Try to get from address from the site configuration.
     $site_config = \Drupal::config('system.site');
     $from = $site_config->get('mail');
