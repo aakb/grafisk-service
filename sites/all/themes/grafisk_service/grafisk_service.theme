@@ -74,7 +74,9 @@ function grafisk_service_theme_suggestions_alter(array &$suggestions, array $var
   }
 
   if ($field_type) {
-    $suggestions[] = $hook . '__' . $field_type;
+    if (!in_array($hook . '__' . $field_type, $suggestions)) {
+      $suggestions[] = $hook . '__' . $field_type;
+    }
     $suggestions[] = $hook . '__' . $field_type . '__' . $action;
     if ($field_name) {
       $suggestions[] = $hook . '__' . $field_type . '__' . $field_name;
