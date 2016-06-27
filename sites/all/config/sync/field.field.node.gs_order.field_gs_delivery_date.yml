@@ -11,7 +11,7 @@ id: node.gs_order.field_gs_delivery_date
 field_name: field_gs_delivery_date
 entity_type: node
 bundle: gs_order
-label: Leveringstidspunkt
+label: 'Ønsket leveringsdato'
 description: ''
 required: true
 translatable: true
