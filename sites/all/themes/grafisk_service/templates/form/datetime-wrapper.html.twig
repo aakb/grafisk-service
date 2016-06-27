@@ -13,6 +13,15 @@
  * @see template_preprocess_datetime_wrapper()
  */
 #}
+{%
+  set title_classes = [
+    'form--label',
+  ]
+%}
+{% if title %}
+  <div{{ title_attributes.addClass(title_classes) }}>{{ title }}</div>
+{% endif %}
+
 {{ content }}
 {% if errors %}
   <div>
