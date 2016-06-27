@@ -88,12 +88,12 @@ third_party_settings:
         classes: 'form--page form--page-3 is-hidden js-progress-page'
     group_step_4:
       children:
-        - field_gs_delivery_date
-        - field_gs_delivery_comments
         - field_gs_delivery_department
         - field_gs_delivery_address
         - field_gs_delivery_zip_code
         - field_gs_delivery_city
+        - field_gs_delivery_date
+        - field_gs_delivery_comments
       parent_name: ''
       weight: 3
       label: Levering
@@ -128,40 +128,40 @@ content:
     third_party_settings: {  }
     type: string_textfield
   field_gs_delivery_address:
-    weight: 11
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-    type: string_textfield
-  field_gs_delivery_city:
-    weight: 13
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-    type: string_textfield
-  field_gs_delivery_comments:
-    weight: 9
-    settings:
-      rows: 5
-      placeholder: 'Har du kommentarer til leveringen? F.eks. flere leveringsadresser.'
-    third_party_settings: {  }
-    type: string_textarea
-  field_gs_delivery_date:
-    weight: 8
-    settings: {  }
-    third_party_settings: {  }
-    type: datetime_default
-  field_gs_delivery_department:
     weight: 10
     settings:
       size: 60
       placeholder: ''
     third_party_settings: {  }
     type: string_textfield
-  field_gs_delivery_zip_code:
+  field_gs_delivery_city:
     weight: 12
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+  field_gs_delivery_comments:
+    weight: 14
+    settings:
+      rows: 5
+      placeholder: 'Har du kommentarer til leveringen? F.eks. flere leveringsadresser.'
+    third_party_settings: {  }
+    type: string_textarea
+  field_gs_delivery_date:
+    weight: 13
+    settings: {  }
+    third_party_settings: {  }
+    type: datetime_default
+  field_gs_delivery_department:
+    weight: 9
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+  field_gs_delivery_zip_code:
+    weight: 11
     settings:
       size: 60
       placeholder: ''
