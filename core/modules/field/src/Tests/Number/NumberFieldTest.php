@@ -3,8 +3,6 @@
 namespace Drupal\field\Tests\Number;
 
 use Drupal\Component\Utility\Unicode;
-use Drupal\Core\Entity\Entity\EntityFormDisplay;
-use Drupal\Core\Field\FieldStorageDefinitionInterface;
 use Drupal\field\Entity\FieldConfig;
 use Drupal\node\Entity\Node;
 use Drupal\simpletest\WebTestBase;
@@ -492,43 +490,6 @@ class NumberFieldTest extends WebTestBase {
   }
 
   /**
-   * Tests required number field in combination with AJAX requests.
-   */
-  function testRequiredNumberFieldAndAjax() {
-
-    // Create a required number field.
-    $field_name = 'required_number';
-    $storage = FieldStorageConfig::create(array(
-      'field_name' => $field_name,
-      'entity_type' => 'entity_test',
-      'type' => 'integer',
-    ));
-    $storage->save();
-
-    FieldConfig::create(array(
-      'field_name' => $field_name,
-      'entity_type' => 'entity_test',
-      'bundle' => 'entity_test',
-      'required' => TRUE,
-    ))->save();
-
-    EntityFormDisplay::load('entity_test.entity_test.default')
-      ->setComponent($field_name, array(
-        'type' => 'number',
-      ))
-      ->save();
-
-    // Set test text field cardinality to unlimited.
-    FieldStorageConfig::load('entity_test.field_test_text')
-      ->setCardinality(FieldStorageDefinitionInterface::CARDINALITY_UNLIMITED)
-      ->save();
-
-    $this->drupalGet('entity_test/add');
-    $this->drupalPostAjaxForm(NULL, array(), 'field_test_text_add_more');
-    $this->assertResponse(200);
-  }
-
-  /**
    * Tests setting the minimum value of a float field through the interface.
    */
   function testCreateNumberFloatField() {
@@ -590,11 +551,12 @@ class NumberFieldTest extends WebTestBase {
     );
     $this->drupalPostForm($field_configuration_url, $edit, t('Save settings'));
     // Check if an error message is shown.
-    $this->assertNoRaw(t('%name is not a valid number.', array('%name' => t('Minimum'))), 'Saved ' . gettype($minimum_value) .'  value as minimal value on a ' . $field->getType() . ' field');
+    $this->assertNoRaw(t('%name is not a valid number.', array('%name' => t('Minimum'))), 'Saved ' . gettype($minimum_value) . '  value as minimal value on a ' . $field->getType() . ' field');
     // Check if a success message is shown.
     $this->assertRaw(t('Saved %label configuration.', array('%label' => $field->getLabel())));
     // Check if the minimum value was actually set.
     $this->drupalGet($field_configuration_url);
-    $this->assertFieldById('edit-settings-min', $minimum_value, 'Minimal ' . gettype($minimum_value) .'  value was set on a ' . $field->getType() . ' field.');
+    $this->assertFieldById('edit-settings-min', $minimum_value, 'Minimal ' . gettype($minimum_value) . '  value was set on a ' . $field->getType() . ' field.');
   }
+
 }
