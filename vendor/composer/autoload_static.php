@@ -326,6 +326,13 @@ class ComposerStaticInitDrupal8
                 0 => __DIR__ . '/..' . '/phpspec/prophecy/src',
             ),
         ),
+        'H' => 
+        array (
+            'Harvest' => 
+            array (
+                0 => __DIR__ . '/..' . '/gridonic/hapi/src',
+            ),
+        ),
         'E' => 
         array (
             'Egulias\\' => 

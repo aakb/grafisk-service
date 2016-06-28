@@ -23,11 +23,12 @@
         ],
         "merge-plugin": {
             "include": [
-                "core/composer.json"
+                "core/composer.json",
+							  "sites/all/modules/grafisk_service_order/composer.json"
             ],
             "recurse": false,
             "replace": false,
-            "merge-extra": false
+            "merge-extra": true
         }
     },
     "autoload": {
