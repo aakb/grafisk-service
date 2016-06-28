@@ -111,8 +111,19 @@
     });
   }
 
+  function updateUI() {
+    var requireEAN = !$('#edit-field-gs-marketing-account-value').prop('checked');
+    $('#edit-field-gs-ean-0-value').prop({
+			disabled: !requireEAN,
+			required: requireEAN
+		});
+  }
+
   // Start the show.
   $(document).ready(function () {
+    $('#edit-field-gs-marketing-account-value').on('change', updateUI)
+    updateUI();
+
     progress();
   });
 
