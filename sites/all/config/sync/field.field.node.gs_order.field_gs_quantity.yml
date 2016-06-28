@@ -1,4 +1,4 @@
-uuid: d7a4152c-9504-4201-8ae3-73719e1c65c2
+uuid: bd64a139-80a1-4e83-9e6a-a475408c0232
 langcode: da
 status: true
 dependencies:
@@ -12,12 +12,8 @@ bundle: gs_order
 label: Antal
 description: ''
 required: true
-translatable: true
+translatable: false
 default_value: {  }
 default_value_callback: ''
-settings:
-  min: 1
-  max: null
-  prefix: ''
-  suffix: ''
-field_type: integer
+settings: {  }
+field_type: string
