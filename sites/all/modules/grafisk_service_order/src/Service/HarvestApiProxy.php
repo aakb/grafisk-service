@@ -58,14 +58,25 @@ class HarvestApiProxy {
   public function createProject(EntityInterface $order) {
     $clientId = $this->getClientId($order);
 
-    $nodeUrl = Url::fromRoute('entity.node.canonical', ['node' => $order->id()], ['absolute' => TRUE])->toString();
+    $startsOn = new \DateTime();
+    $endsOn = new \DateTime($order->field_gs_delivery_date->value);
+
+    if (!$endsOn || $endsOn < $startsOn) {
+      $startsOn = null;
+    }
 
     $project = new Project();
-    // Project names must be unique in Harvest.
-    $project->set('name', $order->getTitle() . ' (#' . $order->id() . ')');
+    $project->set('name', $order->getTitle());
     $project->set('client_id', $clientId);
-    $project->set('active', TRUE);
-    $project->set('notes', '[' . $nodeUrl . ']' . PHP_EOL . PHP_EOL . '*** Do not edit below this line! ***' . PHP_EOL . '---' . PHP_EOL . json_encode($this->getOrderData($order)));
+    $project->set('active', true);
+    $project->set('code', 'Ny');
+    if ($startsOn) {
+      $project->set('starts_on', $startsOn->format(\DateTime::ATOM));
+    }
+    if ($endsOn) {
+      $project->set('ends_on', $endsOn->format(\DateTime::ATOM));
+    }
+    $project->set('notes', $this->getProjectData($order));
 
     $result = $this->getApi()->createProject($project);
 
@@ -117,27 +128,37 @@ class HarvestApiProxy {
     }
 
     if (isset($this->clients[$clientName])) {
-      return $this->clients[$clientName]->id;
+      $client = $this->clients[$clientName];
+    } else {
+      $client = new Client();
     }
 
-    $client = new Client();
     $client->set('name', $clientName);
-    $client->set('details', $order->field_gs_address->value . PHP_EOL . $order->field_gs_city->value);
+    $client->set('details', $this->getClientData($order));
 
-    $result = $api->createClient($client);
+    if ($client->id) {
+      $result = $api->updateClient($client);
+      if (!$result->isSuccess()) {
+        $this->logger->error($result->data);
+        throw new \Exception('Cannot update client');
+      }
 
-    if (!$result->isSuccess()) {
-      $this->logger->error($result->data);
-      throw new \Exception('Cannot create client');
+      return $client->id;
+    } else {
+      $result = $api->createClient($client);
+      if (!$result->isSuccess()) {
+        $this->logger->error($result->data);
+        throw new \Exception('Cannot create client');
+      }
+
+      return $result->data;
     }
-
-    return $result->data;
   }
 
   private $clients;
 
   /**
-   * Get order data to store in Harvest.
+   * Get client data to store in Harvest.
    *
    * @param \Drupal\Core\Entity\EntityInterface $order
    *   The order.
@@ -145,9 +166,41 @@ class HarvestApiProxy {
    * @return array
    *   The data.
    */
-  private function getOrderData(EntityInterface $order) {
-    // @TODO: What do we send to Harvest?
-    return [];
+  private function getClientData(EntityInterface $order) {
+    $debtorNumber = $order->field_gs_marketing_account->value ? '4302 – Markedsføringskonto' : $order->field_gs_ean->value;
+    return implode(PHP_EOL, [
+        'Tel.: '    . $order->field_gs_phone->value,
+        'E-mail: '  . $order->field_gs_email->value,
+        'Debitor: ' . $debtorNumber,
+      ]);
+  }
+
+  /**
+   * Get project data to store in Harvest.
+   *
+   * @param \Drupal\Core\Entity\EntityInterface $order
+   *   The order.
+   *
+   * @return array
+   *   The data.
+   */
+  private function getProjectData(EntityInterface $order) {
+    $nodeUrl = Url::fromRoute('entity.node.canonical', ['node' => $order->id()], ['absolute' => TRUE])->toString();
+    $fileUrls = [];
+    if ($order->field_gs_files) {
+      foreach ($order->field_gs_files as $file) {
+        $fileUrls[] = $file->entity->url();
+      }
+    }
+
+    return implode(PHP_EOL, [
+        'Produkttype: ' . $order->field_gs_product_type->value,
+        'Antal: ' . $order->field_gs_quantity->value,
+        'Kommentar: ' . $order->field_gs_comments->value,
+        $fileUrls ? 'Filer: ' . PHP_EOL . implode(PHP_EOL, $fileUrls) : '',
+        PHP_EOL,
+        $nodeUrl,
+      ]);
   }
 
   /**
