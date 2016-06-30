@@ -117,7 +117,7 @@ content:
     weight: 10
     settings:
       rows: 5
-      placeholder: ''
+      placeholder: 'Angiv produktspecifikationer. F.eks. størrelse, materiale, typer, osv.'
     third_party_settings: {  }
     type: string_textarea
   field_gs_contact_person:
@@ -178,7 +178,7 @@ content:
     weight: 6
     settings:
       size: 60
-      placeholder: ''
+      placeholder: 'F.eks. 1234567891234'
     third_party_settings: {  }
     type: string_textfield
   field_gs_email:
@@ -211,7 +211,7 @@ content:
     weight: 8
     settings:
       size: 60
-      placeholder: ''
+      placeholder: 'Skriv f.eks. folder, plakat, visitkort …'
     third_party_settings: {  }
     type: string_textfield
   field_gs_quantity:
@@ -226,7 +226,7 @@ content:
     weight: 7
     settings:
       size: 60
-      placeholder: ''
+      placeholder: 'Skriv en sigende titel for opgaven'
     third_party_settings: {  }
 hidden:
   created: true
