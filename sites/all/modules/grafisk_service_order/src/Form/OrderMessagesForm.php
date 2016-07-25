@@ -87,7 +87,13 @@ class OrderMessagesForm extends FormBase {
       '#required' => TRUE,
       '#title' => $this->t('Email sender'),
       '#default_value' => $settings->get('order_created_email_from'),
-      '#description' => 'Email address or Name &lt;email&gt;',
+    );
+
+    $form['user_email_settings']['order_created_email']['order_created_email_from_name'] = array(
+      '#type' => 'textfield',
+      '#required' => TRUE,
+      '#title' => $this->t('Email sender name'),
+      '#default_value' => $settings->get('order_created_email_from_name'),
     );
 
     $form['user_email_settings']['order_created_email']['order_created_email_submit'] = array(
@@ -158,7 +164,6 @@ class OrderMessagesForm extends FormBase {
       '#required' => TRUE,
       '#title' => $this->t('Email recipient'),
       '#default_value' => $settings->get('admin_order_created_email_to'),
-      '#description' => 'Email address or Name &lt;email&gt;',
     );
 
     $form['admin_email_settings']['admin_order_created_email']['admin_order_created_email_submit'] = array(
@@ -209,6 +214,7 @@ class OrderMessagesForm extends FormBase {
       'order_created_email_subject' => $form_state->getValue('order_created_email_subject'),
       'order_created_email_body' => $form_state->getValue('order_created_email_body')['value'],
       'order_created_email_from' => $form_state->getValue('order_created_email_from'),
+      'order_created_email_from_name' => $form_state->getValue('order_created_email_from_name'),
     ));
   }
 

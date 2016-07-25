@@ -39,13 +39,14 @@ class Mailer {
     // Get to mail address.
     $config = \Drupal::getContainer()->get('grafisk_service_order.order_messages');
     $from = $config->get('order_created_email_from');
+    $fromName = $config->get('order_created_email_from_name');
     $to = $order->field_gs_email->value;
 
     // Generate content.
     $content = (object) $this->generateUserMailContent($type, $order);
 
     // Send the mail.
-    $this->mailer($to, $content->subject, $content->body, $from);
+    $this->mailer($to, $content->subject, $content->body, $from, $fromName);
 
     // Send notification to administrator.
     if ($notifyAdmin) {
@@ -55,7 +56,7 @@ class Mailer {
       $content = (object) $this->generateAdminNotificationMailContent($type, $order);
 
       // Send the mail.
-      $this->mailer($to, $content->subject, $content->body, $from);
+      $this->mailer($to, $content->subject, $content->body, $from, $fromName);
     }
   }
 
@@ -269,7 +270,7 @@ class Mailer {
    * @param string $from
    *   The email adresses (and possibly also name) of the sender.
    */
-  protected function mailer($to, $subject, $body, $from = NULL) {
+  protected function mailer($to, $subject, $body, $from = NULL, $fromName = NULL) {
     // Try to get from address from the site configuration.
     $site_config = \Drupal::config('system.site');
     if ($from === NULL) {
@@ -293,7 +294,7 @@ class Mailer {
         'Return-Path' => $from,
         'Reply-to' => $from,
         'Sender' => $from,
-        'From' => $from,
+        'From' => $fromName . ' <' . $from . '>',
       ),
       'to' => $to,
       'body' => $body,
