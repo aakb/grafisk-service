@@ -61,7 +61,7 @@ class OrderMessagesForm extends FormBase {
       '#description' => t('Messages sent to the users email address.'),
     );
 
-    // Pending email settings.
+    // Email settings.
     $form['user_email_settings']['order_created_email'] = array(
       '#title' => $this->t('Order created (User)'),
       '#type' => 'details',
@@ -80,6 +80,20 @@ class OrderMessagesForm extends FormBase {
       '#title' => $this->t('Email body'),
       '#default_value' => $settings->get('order_created_email_body'),
       '#description' => $tokens_description,
+    );
+
+    $form['user_email_settings']['order_created_email']['order_created_email_from'] = array(
+      '#type' => 'textfield',
+      '#required' => TRUE,
+      '#title' => $this->t('Email sender'),
+      '#default_value' => $settings->get('order_created_email_from'),
+    );
+
+    $form['user_email_settings']['order_created_email']['order_created_email_from_name'] = array(
+      '#type' => 'textfield',
+      '#required' => TRUE,
+      '#title' => $this->t('Email sender name'),
+      '#default_value' => $settings->get('order_created_email_from_name'),
     );
 
     $form['user_email_settings']['order_created_email']['order_created_email_submit'] = array(
@@ -124,7 +138,7 @@ class OrderMessagesForm extends FormBase {
       '#description' => t('Messages sent to a shared administration email account.'),
     );
 
-    // Pending email settings.
+    // Email settings.
     $form['admin_email_settings']['admin_order_created_email'] = array(
       '#title' => $this->t('Order created (Admin)'),
       '#type' => 'details',
@@ -145,9 +159,16 @@ class OrderMessagesForm extends FormBase {
       '#description' => $tokens_description,
     );
 
+    $form['admin_email_settings']['admin_order_created_email']['admin_order_created_email_to'] = array(
+      '#type' => 'textfield',
+      '#required' => TRUE,
+      '#title' => $this->t('Email recipient'),
+      '#default_value' => $settings->get('admin_order_created_email_to'),
+    );
+
     $form['admin_email_settings']['admin_order_created_email']['admin_order_created_email_submit'] = array(
       '#type' => 'submit',
-      '#value' => t('Save admin pending email settings'),
+      '#value' => t('Save admin email settings'),
       '#weight' => 1,
       '#submit' => array('::admin_order_created_email_submit'),
     );
@@ -180,7 +201,7 @@ class OrderMessagesForm extends FormBase {
   }
 
   /**
-   * Form submission handler for pending email config.
+   * Form submission handler for email config.
    *
    * @param $form
    *   An associative array containing the structure of the form.
@@ -188,10 +209,12 @@ class OrderMessagesForm extends FormBase {
    *   The current state of the form.
    */
   public function order_created_email_submit(array $form, FormStateInterface $form_state) {
-    drupal_set_message('Pending email settings saved');
+    drupal_set_message('Email settings saved');
     $this->getSettings()->setMultiple(array(
       'order_created_email_subject' => $form_state->getValue('order_created_email_subject'),
       'order_created_email_body' => $form_state->getValue('order_created_email_body')['value'],
+      'order_created_email_from' => $form_state->getValue('order_created_email_from'),
+      'order_created_email_from_name' => $form_state->getValue('order_created_email_from_name'),
     ));
   }
 
@@ -211,7 +234,7 @@ class OrderMessagesForm extends FormBase {
   }
 
   /**
-   * Form submission handler for pending email config.
+   * Form submission handler for email config.
    *
    * @param $form
    *   An associative array containing the structure of the form.
@@ -220,11 +243,12 @@ class OrderMessagesForm extends FormBase {
    */
 
   public function admin_order_created_email_submit(array $form, FormStateInterface $form_state) {
-    drupal_set_message('Pending email settings saved');
+    drupal_set_message('Admin email settings saved');
     $this->getSettings()->setMultiple(array(
       'admin_order_created_email_subject' => $form_state->getValue('admin_order_created_email_subject'),
       'admin_order_created_email_body' => $form_state->getValue('admin_order_created_email_body')['value'],
-    ));
+      'admin_order_created_email_to' => $form_state->getValue('admin_order_created_email_to'),
+      ));
   }
 
   /**
