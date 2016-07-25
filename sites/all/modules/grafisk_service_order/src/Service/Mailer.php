@@ -37,28 +37,25 @@ class Mailer {
    */
   public function send($type, EntityInterface $order, $notifyAdmin = TRUE) {
     // Get to mail address.
+    $config = \Drupal::getContainer()->get('grafisk_service_order.order_messages');
+    $from = $config->get('order_created_email_from');
     $to = $order->field_gs_email->value;
 
     // Generate content.
     $content = (object) $this->generateUserMailContent($type, $order);
 
     // Send the mail.
-    $this->mailer($to, $content->subject, $content->body);
+    $this->mailer($to, $content->subject, $content->body, $from);
 
     // Send notification to administrator.
     if ($notifyAdmin) {
+      $to = $config->get('admin_order_created_email_to');
+
       // Generate content.
       $content = (object) $this->generateAdminNotificationMailContent($type, $order);
 
-      // Try to get to address from the site configuration.
-      $site_config = \Drupal::config('system.site');
-      $to = $site_config->get('mail');
-      if (empty($to)) {
-        $to = ini_get('sendmail_from');
-      }
-
       // Send the mail.
-      $this->mailer($to, $content->subject, $content->body);
+      $this->mailer($to, $content->subject, $content->body, $from);
     }
   }
 
@@ -269,15 +266,17 @@ class Mailer {
    *   The mails subject.
    * @param $body
    *   The HTML body content to send.
-   * @param string $name
-   *   The name of the sender. Defaults to 'Grafisk Service'.
+   * @param string $from
+   *   The email adresses (and possibly also name) of the sender.
    */
-  protected function mailer($to, $subject, $body, $name = 'Grafisk Service') {
+  protected function mailer($to, $subject, $body, $from = NULL) {
     // Try to get from address from the site configuration.
     $site_config = \Drupal::config('system.site');
-    $from = $site_config->get('mail');
-    if (empty($from)) {
-      $from = ini_get('sendmail_from');
+    if ($from === NULL) {
+      $from = $site_config->get('mail');
+      if (empty($from)) {
+        $from = ini_get('sendmail_from');
+      }
     }
 
     // Get hold of the RAW mailer client.
@@ -294,7 +293,7 @@ class Mailer {
         'Return-Path' => $from,
         'Reply-to' => $from,
         'Sender' => $from,
-        'From' => $name . ' <' . $from . '>',
+        'From' => $from,
       ),
       'to' => $to,
       'body' => $body,
