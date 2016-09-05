@@ -4,7 +4,7 @@ sites/*/services*.yml
 
 # Ignore paths that contain user-generated content.
 sites/*/files
-sites/*/private
+sites/*/private-files
 
 # Ignore SimpleTest multi-site environment.
 sites/simpletest
@@ -33,3 +33,6 @@ sites/all/tests/failures
 sites/all/.sass-cache
 
 settings.php.orig
+
+# PhpStorm
+.idea

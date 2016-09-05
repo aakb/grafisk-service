@@ -1,0 +1,20 @@
+uuid: dccee0c8-c405-465a-b2a4-2e6b71b610f7
+langcode: da
+status: true
+dependencies:
+  theme:
+    - grafisk_service
+_core:
+  default_config_hash: 8yptDf6WrXxeyevUz4nP5vfr7BtxQqCBMninhV2IJ1g
+id: grafisk_service_page_title
+theme: grafisk_service
+region: content
+weight: -3
+provider: null
+plugin: page_title_block
+settings:
+  id: page_title_block
+  label: Sidetitel
+  provider: core
+  label_display: '0'
+visibility: {  }

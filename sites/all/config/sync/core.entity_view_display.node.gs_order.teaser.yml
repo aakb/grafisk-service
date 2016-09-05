@@ -1,0 +1,52 @@
+uuid: 8d68a4df-bdea-4fef-b4ca-192b384048ba
+langcode: da
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.gs_order.field_gs_comments
+    - field.field.node.gs_order.field_gs_contact_person
+    - field.field.node.gs_order.field_gs_delivery_address
+    - field.field.node.gs_order.field_gs_delivery_city
+    - field.field.node.gs_order.field_gs_delivery_comments
+    - field.field.node.gs_order.field_gs_delivery_date
+    - field.field.node.gs_order.field_gs_delivery_department
+    - field.field.node.gs_order.field_gs_delivery_zip_code
+    - field.field.node.gs_order.field_gs_department
+    - field.field.node.gs_order.field_gs_ean
+    - field.field.node.gs_order.field_gs_email
+    - field.field.node.gs_order.field_gs_files
+    - field.field.node.gs_order.field_gs_harvest_data
+    - field.field.node.gs_order.field_gs_marketing_account
+    - field.field.node.gs_order.field_gs_phone
+    - field.field.node.gs_order.field_gs_product_type
+    - field.field.node.gs_order.field_gs_quantity
+    - node.type.gs_order
+  module:
+    - user
+id: node.gs_order.teaser
+targetEntityType: node
+bundle: gs_order
+mode: teaser
+content:
+  links:
+    weight: 100
+hidden:
+  field_gs_comments: true
+  field_gs_contact_person: true
+  field_gs_delivery_address: true
+  field_gs_delivery_city: true
+  field_gs_delivery_comments: true
+  field_gs_delivery_date: true
+  field_gs_delivery_department: true
+  field_gs_delivery_zip_code: true
+  field_gs_department: true
+  field_gs_ean: true
+  field_gs_email: true
+  field_gs_files: true
+  field_gs_harvest_data: true
+  field_gs_marketing_account: true
+  field_gs_phone: true
+  field_gs_product_type: true
+  field_gs_quantity: true
+  langcode: true

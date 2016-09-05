@@ -1,0 +1,20 @@
+uuid: a77f0aad-d478-415b-8641-bda10b5f9083
+langcode: da
+status: true
+dependencies:
+  module:
+    - datetime
+    - node
+id: node.field_gs_delivery_date
+field_name: field_gs_delivery_date
+entity_type: node
+type: datetime
+settings:
+  datetime_type: date
+module: datetime
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

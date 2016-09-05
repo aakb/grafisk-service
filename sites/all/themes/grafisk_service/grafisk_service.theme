@@ -1,0 +1,94 @@
+<?php
+/**
+ * Implemnets hook_form_FORM_ID_alter()
+ *
+ * @param $form
+ * @param \Drupal\Core\Form\FormStateInterface $form_state
+ * @param $form_id
+ */
+function grafisk_service_form_node_order_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
+  $form['#theme'] = array('grafisk_service_custom_add_order');
+}
+
+/**
+ * Implements hook_theme().
+ */
+function grafisk_service_theme($existing, $type, $theme, $path) {
+  return array(
+    'grafisk_service_custom_add_order' => array(
+      'render element' => 'form',
+    ),
+  );
+}
+
+/**
+ * Implements hook_theme_suggestions_alter().
+ */
+function grafisk_service_theme_suggestions_alter(array &$suggestions, array $variables, $hook) {
+  if (!isset($variables['element'])) {
+    return;
+  }
+
+  $element = $variables['element'];
+  $field_name = isset($element['#field_name']) ? $element['#field_name'] : null;
+  $field_type = isset($element['#type']) ? $element['#type'] : null;
+  $node_type = null;
+  $action = null;
+
+  $route = \Drupal::routeMatch();
+
+  switch ($route->getRouteName()) {
+    case 'node.add':
+      $action = 'add';
+      if ($route->getParameter('node_type')) {
+        $node_type = $route->getParameter('node_type')->id();
+      }
+      break;
+    case 'entity.node.edit_form':
+      $action = 'edit';
+      if ($route->getParameter('node')) {
+        $node_type = $route->getParameter('node')->getType();
+      }
+      break;
+  }
+
+  switch ($hook) {
+    case 'container':
+    case 'input':
+      $field_name = isset($element['#parents'][0]) ? $element['#parents'][0] : null;
+      break;
+    case 'form_element_label':
+      $id = $element['#id'];
+      $field_name = str_replace('-', '_', preg_replace('/^edit-(.+)-[0-9]+-value(.*)$/', '\1\2', $id));
+      break;
+  }
+
+  if ($field_name) {
+    $suggestions[] = $hook . '__' . $field_name;
+    $suggestions[] = $hook . '__' . $field_name . '__' . $action;
+  }
+
+  if ($node_type) {
+    $suggestions[] = $hook . '__' . $node_type;
+    $suggestions[] = $hook . '__' . $node_type . '__' . $action;
+    if ($field_name) {
+      $suggestions[] = $hook . '__' . $node_type . '__' . $field_name;
+      $suggestions[] = $hook . '__' . $node_type . '__' . $action . '__' . $field_name;
+    }
+  }
+
+  if ($field_type) {
+    if (!in_array($hook . '__' . $field_type, $suggestions)) {
+      $suggestions[] = $hook . '__' . $field_type;
+    }
+    $suggestions[] = $hook . '__' . $field_type . '__' . $action;
+    if ($field_name) {
+      $suggestions[] = $hook . '__' . $field_type . '__' . $field_name;
+      $suggestions[] = $hook . '__' . $field_type . '__' . $action . '__' . $field_name;
+    }
+    if ($node_type) {
+      $suggestions[] = $hook . '__' . $node_type . '__' . $field_type;
+      $suggestions[] = $hook . '__' . $node_type . '__' . $action . '__' . $field_type;
+    }
+  }
+}

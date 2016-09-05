@@ -1,0 +1,19 @@
+uuid: 2378d638-c113-45e5-a5ca-3243d9f3c839
+langcode: da
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_gs_comments
+    - node.type.gs_order
+id: node.gs_order.field_gs_comments
+field_name: field_gs_comments
+entity_type: node
+bundle: gs_order
+label: Kommentar
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string_long

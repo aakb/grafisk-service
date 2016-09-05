@@ -1,0 +1,23 @@
+uuid: cd2e6771-9ad7-4041-92f3-91ff98fc48bc
+langcode: da
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_gs_marketing_account
+    - node.type.gs_order
+id: node.gs_order.field_gs_marketing_account
+field_name: field_gs_marketing_account
+entity_type: node
+bundle: gs_order
+label: Betaling
+description: ''
+required: false
+translatable: true
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'Borgerservice og bibliotekers markedsføringskonto?'
+  off_label: '0'
+field_type: boolean

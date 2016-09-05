@@ -1,0 +1,8 @@
+name: Grafisk service base
+type: module
+description: Grafisk setup for grafisk service site
+package: Grafisk service
+core: '8.x'
+
+dependencies:
+  - grafisk_service_order

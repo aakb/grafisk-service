@@ -1,0 +1,22 @@
+uuid: a5d69753-b47d-47ca-b833-61bae7fe5f36
+langcode: da
+status: false
+dependencies:
+  module:
+    - user
+  theme:
+    - grafisk_service
+_core:
+  default_config_hash: 4QlSnWBcxxKMIFRM8sbu_MjSkcp3NjGgnVrc-lynQHI
+id: grafisk_service_login
+theme: grafisk_service
+region: '-1'
+weight: -1
+provider: null
+plugin: user_login_block
+settings:
+  id: user_login_block
+  label: 'Log ind'
+  provider: user
+  label_display: visible
+visibility: {  }

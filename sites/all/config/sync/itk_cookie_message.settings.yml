@@ -1,0 +1,7 @@
+cookie_name: accept_cookies
+cookie_lifetime: '31536000'
+da:
+  text: 'Siden bruger cookies til at holde styr på din bestilling'
+  read_more_url: ''
+  read_more_text: ''
+  accept_button_text: 'Ok, det er i orden'

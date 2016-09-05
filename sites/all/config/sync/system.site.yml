@@ -1,0 +1,14 @@
+uuid: ee14506a-746f-46f3-8160-390d529a6c45
+name: 'Grafisk service bestilling'
+mail: drupaladmin@etek.dk
+slogan: ''
+page:
+  403: ''
+  404: ''
+  front: /node/add/gs_order
+admin_compact_mode: false
+weight_select_max: 100
+langcode: da
+default_langcode: da
+_core:
+  default_config_hash: yXadRE77Va-G6dxhd2kPYapAvbnSvTF6hO4oXiOEynI

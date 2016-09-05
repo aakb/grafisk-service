@@ -1,0 +1,25 @@
+uuid: 381b8cfb-6882-433c-b964-bc2e9d986095
+langcode: da
+status: false
+dependencies:
+  module:
+    - system
+  theme:
+    - grafisk_service
+_core:
+  default_config_hash: fRKXNB91UxDvEMkzCR8ZBsawfC6Fqbme2gtobei3gu4
+id: grafisk_service_branding
+theme: grafisk_service
+region: '-1'
+weight: 0
+provider: null
+plugin: system_branding_block
+settings:
+  id: system_branding_block
+  label: 'Site branding'
+  provider: system
+  label_display: '0'
+  use_site_logo: true
+  use_site_name: true
+  use_site_slogan: true
+visibility: {  }

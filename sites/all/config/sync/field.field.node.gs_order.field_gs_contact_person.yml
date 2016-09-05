@@ -1,0 +1,19 @@
+uuid: 3189452f-7885-4c98-908d-ae25c8c7281c
+langcode: da
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_gs_contact_person
+    - node.type.gs_order
+id: node.gs_order.field_gs_contact_person
+field_name: field_gs_contact_person
+entity_type: node
+bundle: gs_order
+label: Kontaktperson
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

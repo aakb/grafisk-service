@@ -1,0 +1,27 @@
+uuid: faabf108-4be2-45a1-a960-cde0fb614e72
+langcode: da
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_gs_files
+    - node.type.gs_order
+  module:
+    - file
+id: node.gs_order.field_gs_files
+field_name: field_gs_files
+entity_type: node
+bundle: gs_order
+label: 'Upload filer'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  file_directory: ''
+  file_extensions: 'doc docx xls xlsx ppt pptx pdf txt rtf eps bmp jpeg jpg gif tiff png psd ai zip'
+  max_filesize: '25 MB'
+  description_field: false
+  handler: 'default:file'
+  handler_settings: {  }
+field_type: file

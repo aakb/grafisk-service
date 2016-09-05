@@ -1,0 +1,61 @@
+# Danish translation of Grafisk service bestilling
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"POT-Creation-Date: 2016-06-15 11:23+0200\n"
+"PO-Revision-Date: 2016-06-15 11:23+0200\n"
+"Last-Translator: NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+msgid "See your order"
+msgstr ""
+
+msgid "Order created"
+msgstr "Order oprettet"
+
+msgid "Department"
+msgstr "Afdeling"
+
+msgid "Phone"
+msgstr "Telefon"
+
+msgid "Contact person"
+msgstr "Kontaktperson"
+
+msgid "Contact person"
+msgstr "Kontaktperson"
+
+msgid "Product type"
+msgstr "Produkttype"
+
+msgid "Quantity"
+msgstr "Antal"
+
+msgid "Ean"
+msgstr "Internt debitor nr./EAN-nummer"
+
+msgid "Marketing account"
+msgstr "Borgerservice og bibliotekers markedsføringskonto?"
+
+msgid "Delivery date"
+msgstr "Leveringsdato"
+
+msgid "Delivery comments"
+msgstr "Kommentarer"
+
+msgid "Delivery address"
+msgstr "Adresse"
+
+msgid "Delivery department"
+msgstr "Afdeling"
+
+msgid "Delivery zip code"
+msgstr "Postnummer"
+
+msgid "Delivery city"
+msgstr "By"

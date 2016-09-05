@@ -1,0 +1,19 @@
+uuid: 7351d699-3947-43aa-bc03-c3fc53554ac5
+langcode: da
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_gs_phone
+    - node.type.gs_order
+id: node.gs_order.field_gs_phone
+field_name: field_gs_phone
+entity_type: node
+bundle: gs_order
+label: Telefon
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

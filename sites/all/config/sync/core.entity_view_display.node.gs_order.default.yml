@@ -1,0 +1,150 @@
+uuid: 5f4d6a9c-da8c-4801-90ef-421b38482d75
+langcode: da
+status: true
+dependencies:
+  config:
+    - field.field.node.gs_order.field_gs_comments
+    - field.field.node.gs_order.field_gs_contact_person
+    - field.field.node.gs_order.field_gs_delivery_address
+    - field.field.node.gs_order.field_gs_delivery_city
+    - field.field.node.gs_order.field_gs_delivery_comments
+    - field.field.node.gs_order.field_gs_delivery_date
+    - field.field.node.gs_order.field_gs_delivery_department
+    - field.field.node.gs_order.field_gs_delivery_zip_code
+    - field.field.node.gs_order.field_gs_department
+    - field.field.node.gs_order.field_gs_ean
+    - field.field.node.gs_order.field_gs_email
+    - field.field.node.gs_order.field_gs_files
+    - field.field.node.gs_order.field_gs_harvest_data
+    - field.field.node.gs_order.field_gs_marketing_account
+    - field.field.node.gs_order.field_gs_phone
+    - field.field.node.gs_order.field_gs_product_type
+    - field.field.node.gs_order.field_gs_quantity
+    - node.type.gs_order
+  module:
+    - datetime
+    - file
+    - user
+id: node.gs_order.default
+targetEntityType: node
+bundle: gs_order
+mode: default
+content:
+  field_gs_comments:
+    weight: 8
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: basic_string
+  field_gs_contact_person:
+    weight: 1
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+  field_gs_delivery_address:
+    weight: 11
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+  field_gs_delivery_city:
+    weight: 12
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+  field_gs_delivery_comments:
+    weight: 14
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: basic_string
+  field_gs_delivery_date:
+    weight: 10
+    label: above
+    settings:
+      format_type: medium
+      timezone_override: ''
+    third_party_settings: {  }
+    type: datetime_default
+  field_gs_delivery_department:
+    weight: 16
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+  field_gs_delivery_zip_code:
+    weight: 15
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+  field_gs_department:
+    weight: 0
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+  field_gs_ean:
+    weight: 4
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+  field_gs_email:
+    weight: 2
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: basic_string
+  field_gs_files:
+    weight: 9
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: file_default
+  field_gs_marketing_account:
+    weight: 5
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    type: boolean
+  field_gs_phone:
+    weight: 3
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+  field_gs_product_type:
+    weight: 6
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+  field_gs_quantity:
+    weight: 7
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+  links:
+    weight: 13
+    settings: {  }
+    third_party_settings: {  }
+hidden:
+  field_gs_harvest_data: true
+  langcode: true

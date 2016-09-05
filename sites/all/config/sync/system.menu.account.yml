@@ -1,0 +1,10 @@
+uuid: e857af43-165c-402a-be54-1875b2b576fc
+langcode: da
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: M_Bh81osDyUQ4wV0GgU_NdBNqkzM87sLxjaCdFj9mnw
+id: account
+label: Brugerkontomenu
+description: 'Links relateret til den aktive brugerkonto'
+locked: true

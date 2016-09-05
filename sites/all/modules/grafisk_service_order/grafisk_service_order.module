@@ -1,0 +1,89 @@
+<?php
+use Drupal\Core\Entity\Entity;
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\node\Entity\Node;
+
+define('GS_ORDER_NODE_TYPE', 'gs_order');
+
+/**
+ * Implements hook_node_presave().
+ */
+function grafisk_service_order_node_presave(EntityInterface $node) {
+  // Set empty Harvest data when creating order.
+  if ($node->getType() == GS_ORDER_NODE_TYPE && !$node->id()) {
+    $node->field_gs_harvest_data = '{}';
+  }
+}
+
+/**
+ * Implements hook_cron_insert().
+ */
+function grafisk_service_order_cron() {
+  $query = \Drupal::entityQuery('node')
+         ->condition('type', GS_ORDER_NODE_TYPE)
+         ->condition('field_gs_harvest_data', '{}', '=')
+         ->condition('status', NODE_PUBLISHED);
+  $ids = $query->execute();
+
+  if ($ids) {
+    $orders = Node::loadMultiple(array_values($ids));
+    if ($orders) {
+      $api = \Drupal::service('grafisk_service_order.harvest_api');
+      foreach ($orders as $order) {
+        $projectId = $api->createProject($order);
+        $order->field_gs_harvest_data = json_encode([ 'projectId' => $projectId ]);
+        $order->save();
+      }
+    }
+  }
+}
+
+/**
+ * Implements hook_node_insert().
+ */
+function grafisk_service_order_node_insert(EntityInterface $node) {
+  if ($node->getType() == GS_ORDER_NODE_TYPE && $node->id()) {
+    $mailer = \Drupal::service('grafisk_service_order.mailer');
+    $mailer->send('create', $node);
+  }
+}
+
+/**
+ * Implements hook_theme().
+ */
+function grafisk_service_order_theme($existing, $type, $theme, $path) {
+  return [
+    'order_created_email' => [
+      'template' => 'order-created-email',
+      'variables' => [
+        'logo_url' => '',
+        'message' => 'Order created',
+        'order' => [
+          'id' => '',
+          'url' => '',
+
+          'department' => '',
+          'phone' => '',
+          'contact_person' => '',
+          'email' => '',
+
+          'title' => '',
+          'product_type' => '',
+          'quantity' => '',
+          'comments' => '',
+          'files' => '',
+
+          'ean' => '',
+          'marketing_account' => '',
+
+          'delivery_date' => '',
+          'delivery_comments' => '',
+          'delivery_address' => '',
+          'delivery_city' => '',
+          'delivery_zip_code' => '',
+          'delivery_department' => '',
+        ],
+      ],
+    ],
+  ];
+}

@@ -1,0 +1,149 @@
+{#
+/**
+* @file
+* Default theme implementation for a 'form' element.
+*
+* Available variables
+* - attributes: A list of HTML attributes for the wrapper element.
+* - children: The child elements of the form.
+*
+* @see template_preprocess_form()
+*
+* @ingroup themeable
+*/
+#}
+
+{% set form = element %}
+{% set groups = form['#fieldgroups'] %}
+{% set group_keys = groups | keys %}
+
+<div class="progress is-step-1 js-progress">
+  <div class="progress--bar">
+    <div class="progress--bar-transition js-progress-bar is-step-1"></div>
+  </div>
+  <div class="progress--container form--flex-wrapper">
+    {% for index, key in group_keys %}
+      <div class="progress--item is-done js-progress-circle">
+        <span class="progress--circle">{{ index + 1 }}</span>
+        <span class="progress--label">{{ groups[key].label }}</span>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+
+<form{{ attributes.addClass('form') }}>
+  <div class="itk-message" id="validation-message" style="display: none">
+    <div class="itk-message--inner is-error">
+      Du skal udfylde alle påkrævede felter (markeret med *) for at fortsætte
+    </div>
+  </div>
+
+  <div class="form--page form--page-1 js-progress-page">
+    <div class="form--page-description">
+      <div class="form--label">Hvem bestiller opgaven?</div>
+    </div>
+
+    <div class="origin--field-container form--flex-wrapper js-origin-aakb-container is-hidden">
+      <div class="form--item">
+        {{ form.group_step_1.field_gs_department }}
+      </div>
+      <div class="form--item is-half-width">
+        {{ form.group_step_1.field_gs_phone }}
+      </div>
+      <div class="form--item is-half-width">
+        {{ form.group_step_1.field_gs_contact_person }}
+      </div>
+      <div class="form--item">
+        {{ form.group_step_1.field_gs_email }}
+      </div>
+    </div>
+
+    <div class="buttons--container">
+      <a href="#" class="button buttons--back js-back is-hidden is-grayscale">Tilbage</a>
+      <a href="#" class="button buttons--forward js-forward">Fortsæt</a>
+    </div>
+  </div>
+
+  <div class="form--page form--page-2 form--flex-wrapper js-progress-page is-hidden">
+    <div class="form--page-description">
+      <div class="form--label">Beskrivelse af opgaven</div>
+    </div>
+
+    <div class="form--item">
+      {{ form.group_step_2.title }}
+    </div>
+    <div class="form--item">
+      {{ form.group_step_2.field_gs_product_type }}
+    </div>
+    <div class="form--item is-half-width">
+      {{ form.group_step_2.field_gs_quantity }}
+    </div>
+    <div class="form--item">
+      {{ form.group_step_2.field_gs_comments }}
+    </div>
+    <div class="form--item">
+      {{ form.group_step_2.field_gs_files }}
+    </div>
+
+    <div class="buttons--container">
+      <a href="#" class="button buttons--back js-back is-hidden is-grayscale">Tilbage</a>
+      <a href="#" class="button buttons--forward js-forward">Fortsæt</a>
+    </div>
+  </div>
+
+  <div class="form--page form--page-3 form--flex-wrapper js-progress-page is-hidden">
+    <div class="form--page-description">
+      <div class="form--label">Hvem skal betale?</div>
+    </div>
+
+    <div class="form--item is-half-width">
+      {{ form.group_step_3.field_gs_ean }}
+    </div>
+    <div class="form--item is-half-width">
+      {{ form.group_step_3.field_gs_marketing_account }}
+    </div>
+
+    <div class="buttons--container">
+      <a href="#" class="button buttons--back js-back is-hidden is-grayscale">Tilbage</a>
+      <a href="#" class="button buttons--forward js-forward">Fortsæt</a>
+    </div>
+  </div>
+
+  <div class="form--page form--page-4 form--flex-wrapper js-progress-page is-hidden">
+    <div class="form--page-description">
+      <div class="form--label">Hvor skal ordren leveres?</div>
+    </div>
+
+    <div class="form--item is-half-width">
+      {{ form.group_step_4.field_gs_delivery_department }}
+    </div>
+    <div class="form--item">
+      {{ form.group_step_4.field_gs_delivery_address }}
+    </div>
+    <div class="form--item is-half-width">
+      {{ form.group_step_4.field_gs_delivery_zip_code }}
+    </div>
+    <div class="form--item is-half-width">
+      {{ form.group_step_4.field_gs_delivery_city }}
+    </div>
+    <div class="form--item is-half-width">
+      {{ form.group_step_4.field_gs_delivery_date }}
+    </div>
+    <div class="form--item">
+      {{ form.group_step_4.field_gs_delivery_comments }}
+    </div>
+
+    <div class="buttons--container">
+      <a href="#" class="button buttons--back js-back is-hidden is-grayscale">Tilbage</a>
+      {% if logged_in %}
+        <button type="submit" name="op" value="{{ 'Save and publish' | trans }}" class="button js-form-submit form-submit">Bestil</button>
+      {% else %}
+        <button type="submit" name="op" value="{{ 'Save' | trans }}" class="button js-form-submit form-submit">Bestil</button>
+      {% endif %}
+    </div>
+  </div>
+
+  {{ form.form_build_id }}
+  {{ form.form_token }}
+  {{ form.form_id }}
+</form>

@@ -1,0 +1,11 @@
+uuid: 849326ad-f506-4f57-9a78-32efd50a640b
+langcode: da
+status: true
+dependencies:
+  config:
+    - node.type.gs_order
+id: node.gs_order
+target_entity_type_id: node
+target_bundle: gs_order
+default_langcode: site_default
+language_alterable: false
