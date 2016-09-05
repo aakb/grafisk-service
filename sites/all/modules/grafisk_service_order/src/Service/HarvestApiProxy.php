@@ -185,7 +185,8 @@ class HarvestApiProxy {
    *   The data.
    */
   private function getProjectData(EntityInterface $order) {
-    $nodeUrl = Url::fromRoute('entity.node.canonical', ['node' => $order->id()], ['absolute' => TRUE])->toString();
+    $nodeUrl = Url::fromRoute('entity.node.canonical', ['node' => $order->id()])->toString();
+    $nodeUrl = Url::fromRoute('user.login', ['destination' => $nodeUrl], ['absolute' => TRUE])->toString();
     $fileUrls = [];
     if ($order->field_gs_files) {
       foreach ($order->field_gs_files as $file) {
