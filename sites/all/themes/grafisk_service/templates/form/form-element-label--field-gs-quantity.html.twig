@@ -1,0 +1,29 @@
+{#
+/**
+ * @file
+ * Default theme implementation for a form element label.
+ *
+ * Available variables:
+ * - title: The label's text.
+ * - title_display: Elements title_display setting.
+ * - required: An indicator for whether the associated form element is required.
+ * - attributes: A list of HTML attributes for the label.
+ *
+ * @see template_preprocess_form_element_label()
+ *
+ * @ingroup themeable
+ */
+#}
+
+{# {% include '@stable/form/form-element-label.html.twig' %} #}
+
+{%
+set classes = [
+'form--label',
+required ? 'is-required'
+]
+%}
+{% if (render_var(title) | json_encode) matches '/ 1\\)/' %}
+	<div {{ attributes.addClass(classes) }}>Antal</div>
+{% else %}
+{% endif %}
