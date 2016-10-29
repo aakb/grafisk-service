@@ -18,3 +18,7 @@ table .js-select-files {
 .form-item-field-gs-marketing-account-value .form--label {
 	visibility: hidden;
 }
+
+.form--item.hide-label .form--label {
+	display: none;
+}

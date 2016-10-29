@@ -85,5 +85,13 @@ function grafisk_service_order_theme($existing, $type, $theme, $path) {
         ],
       ],
     ],
+
+    'grafisk_service_order_order_line_formatter' => [
+      'variables' => [
+        'quantity' => NULL,
+        'product_type' => NULL,
+      ],
+      'template' => 'grafisk-service-order-order-line-formatter',
+    ],
   ];
 }
