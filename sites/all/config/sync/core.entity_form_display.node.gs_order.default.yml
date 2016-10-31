@@ -51,8 +51,6 @@ third_party_settings:
       children:
         - title
         - field_gs_order_lines
-        - field_gs_product_type
-        - field_gs_quantity
         - field_gs_comments
         - field_gs_files
       parent_name: ''
@@ -203,7 +201,13 @@ content:
     type: boolean_checkbox
   field_gs_order_lines:
     weight: 8
-    settings: {  }
+    settings:
+      quantity:
+        size: '10'
+        placeholder: 'Skriv antal'
+      product_type:
+        size: '80'
+        placeholder: 'Skriv f.eks. folder, plakat, visitkort …'
     third_party_settings: {  }
     type: grafisk_service_order_order_line
   field_gs_phone:
