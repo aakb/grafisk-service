@@ -68,7 +68,7 @@ class HarvestApiProxy {
     }
 
     $project = new Project();
-    $project->set('name', $order->getTitle());
+    $project->set('name', $order->getTitle() . ' (#'. $order->id() . ')');
     $project->set('client_id', $clientId);
     $project->set('active', true);
     $project->set('code', 'Ny');
