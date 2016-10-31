@@ -25,6 +25,14 @@ class Mailer {
     $this->mailManager = $mailManager;
   }
 
+  public function notifyUser($type, EntityInterface $order) {
+    $this->send($type, $order, false);
+  }
+
+  public function notifyAdmin($type, EntityInterface $order) {
+    $this->send($type, $order, true);
+  }
+
   /**
    * Helper function to send mail based on an order.
    *
@@ -32,32 +40,21 @@ class Mailer {
    *   The type of the mail (request, accepted, etc.)
    * @param EntityInterface $order
    *   Order that this mail is about.
-   * @param bool $notifyAdmin
-   *   Send notification mail to administrator. Defaults to TRUE.
+   * @param bool $sendToAdmin
+   *   Send notification mail to administrator.
    */
-  public function send($type, EntityInterface $order, $notifyAdmin = TRUE) {
+  private function send($type, EntityInterface $order, $sendToAdmin) {
     // Get to mail address.
     $config = \Drupal::getContainer()->get('grafisk_service_order.order_messages');
     $from = $config->get('order_created_email_from');
     $fromName = $config->get('order_created_email_from_name');
-    $to = $order->field_gs_email->value;
+    $to = $sendToAdmin ? $config->get('admin_order_created_email_to') : $order->field_gs_email->value;
 
     // Generate content.
-    $content = (object) $this->generateUserMailContent($type, $order);
+    $content = (object)($sendToAdmin ? $this->generateAdminMailContent($type, $order) : $this->generateUserMailContent($type, $order));
 
     // Send the mail.
     $this->mailer($to, $content->subject, $content->body, $from, $fromName);
-
-    // Send notification to administrator.
-    if ($notifyAdmin) {
-      $to = $config->get('admin_order_created_email_to');
-
-      // Generate content.
-      $content = (object) $this->generateAdminNotificationMailContent($type, $order);
-
-      // Send the mail.
-      $this->mailer($to, $content->subject, $content->body, $from, $fromName);
-    }
   }
 
   /**
@@ -107,6 +104,7 @@ class Mailer {
 
     $subject = $this->replaceTokens($subject, $order);
     $content['#message'] = $this->replaceTokens($content['#message'], $order);
+    $content['#is_admin'] = false;
 
     // Render the body content for the mail.
     return [
@@ -125,7 +123,7 @@ class Mailer {
    * @return array
    *   Array indexed with "body" and "subject" as keys.
    */
-  protected function generateAdminNotificationMailContent($type, EntityInterface $order) {
+  protected function generateAdminMailContent($type, EntityInterface $order) {
     // Build render array for the mail body.
     $messages = \Drupal::getContainer()->get('grafisk_service_order.order_messages');
     switch ($type) {
@@ -156,10 +154,16 @@ class Mailer {
     // Extend content with order information.
     if (!is_null($order)) {
       $content += $this->generateOrderData($order);
+      $content += $this->generateHarvestData($order);
     }
 
     $subject = $this->replaceTokens($subject, $order);
     $content['#message'] = $this->replaceTokens($content['#message'], $order);
+
+    $nodeUrl = Url::fromRoute('entity.node.canonical', ['node' => $order->id(), 'uuid' => $order->uuid()])->toString();
+    $nodeUrl = Url::fromRoute('user.login', ['destination' => $nodeUrl], ['absolute' => TRUE])->toString();
+    $content['#is_admin'] = true;
+    $content['#order']['drupal_url'] = $nodeUrl;
 
     // Render the body content for the mail.
     return [
@@ -234,8 +238,7 @@ class Mailer {
       'email' => $order->field_gs_email->value,
 
       'title' => $order->title->value,
-      'product_type' => $order->field_gs_product_type->value,
-      'quantity' => $order->field_gs_quantity->value,
+      'order_lines' => $order->field_gs_order_lines,
       'comments' => $order->field_gs_comments->value,
       'files' => $order->field_gs_files,
 
@@ -249,7 +252,18 @@ class Mailer {
       'delivery_zip_code' => $order->field_gs_delivery_zip_code->value,
       'delivery_city' => $order->field_gs_delivery_city->value,
     ];
+
     return [ '#order' => $data ];
+  }
+
+  protected function generateHarvestData(EntityInterface $order) {
+    $harvestData = @json_decode($order->field_gs_harvest_data->value);
+    $data = [
+      'project_id' => isset($harvestData->projectId) ? $harvestData->projectId : null,
+      'project_url' => isset($harvestData->projectUrl) ? $harvestData->projectUrl : null,
+    ];
+
+    return [ '#harvest' => $data ];
   }
 
   /**

@@ -30,9 +30,12 @@ function grafisk_service_order_cron() {
     if ($orders) {
       $api = \Drupal::service('grafisk_service_order.harvest_api');
       foreach ($orders as $order) {
-        $projectId = $api->createProject($order);
-        $order->field_gs_harvest_data = json_encode([ 'projectId' => $projectId ]);
+        $data = $api->createProject($order);
+        $order->field_gs_harvest_data = json_encode($data);
         $order->save();
+        // Send notification to admin.
+        $mailer = \Drupal::service('grafisk_service_order.mailer');
+        $mailer->notifyAdmin('create', $order);
       }
     }
   }
@@ -43,8 +46,9 @@ function grafisk_service_order_cron() {
  */
 function grafisk_service_order_node_insert(EntityInterface $node) {
   if ($node->getType() == GS_ORDER_NODE_TYPE && $node->id()) {
+    // Send reciept to user.
     $mailer = \Drupal::service('grafisk_service_order.mailer');
-    $mailer->send('create', $node);
+    $mailer->notifyUser('create', $node);
   }
 }
 
@@ -58,6 +62,7 @@ function grafisk_service_order_theme($existing, $type, $theme, $path) {
       'variables' => [
         'logo_url' => '',
         'message' => 'Order created',
+        'is_admin' => FALSE,
         'order' => [
           'id' => '',
           'url' => '',
@@ -68,8 +73,7 @@ function grafisk_service_order_theme($existing, $type, $theme, $path) {
           'email' => '',
 
           'title' => '',
-          'product_type' => '',
-          'quantity' => '',
+          'order_lines' => '',
           'comments' => '',
           'files' => '',
 
@@ -83,7 +87,16 @@ function grafisk_service_order_theme($existing, $type, $theme, $path) {
           'delivery_zip_code' => '',
           'delivery_department' => '',
         ],
+        'harvest' => [],
       ],
+    ],
+
+    'grafisk_service_order_order_line_formatter' => [
+      'variables' => [
+        'quantity' => NULL,
+        'product_type' => NULL,
+      ],
+      'template' => 'grafisk-service-order-order-line-formatter',
     ],
   ];
 }

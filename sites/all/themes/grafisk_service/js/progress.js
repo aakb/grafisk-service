@@ -39,7 +39,7 @@
     $('.js-forward').click(function() {
       validator.form();
       if (!validator.valid()) {
-        // return;
+        return;
       }
 
       $('#validation-message').hide();
@@ -128,53 +128,16 @@
   });
 
   // Hacks!
-  // Clear placeholder for non-first inputs
-  $('input[name^="field_gs_quantity"]').each(function(index, el) {
-		if (index > 0) {
+  // Clear placeholder for all but first input row in order lines.
+  // Make first input row required.
+  var inputNames = {};
+  $('input[name^="field_gs_order_lines"]').each(function(index, el) {
+    var name = el.name.replace(/\[[0-9]+\]/, '');
+    if (typeof inputNames[name] === 'undefined') {
+      inputNames[name] = el;
+      $(el).attr('required', 'required');
+    } else {
 			$(el).attr('placeholder', '');
 		}
 	});
-  $('input[name^="field_gs_product_type"]').each(function(index, el) {
-		if (index > 0) {
-			$(el).attr('placeholder', '');
-		}
-	});
-
-  // Set tabindex.
-	$('#node-gs-order-form input, #node-gs-order-form textarea').each(function(index, el) {
-		$(el).attr('tabindex', index+1);
-	});
-  $('input[name^="field_gs_quantity"]').each(function(index, el) {
-    var tabindex = parseInt($(el).attr('tabindex'));
-    $(el).attr('tabindex', index + tabindex);
-	});
-  $('input[name^="field_gs_product_type"]').each(function(index, el) {
-    var offset = $('input[name^="field_gs_quantity"]').length;
-    var tabindex = parseInt($(el).attr('tabindex'));
-    $(el).attr('tabindex', tabindex - 4 + index + 1);
-	});
-
-  // var showRows = function(numberOfRows) {
-  //   $('#field-gs-quantity-values tr').each(function(index, el) {
-  //     $(el).toggle(index < numberOfRows);
-  //   });
-  //   $('#field-gs-product-type-values tr').each(function(index, el) {
-  //     $(el).toggle(index < numberOfRows);
-  //   });
-  // };
-  // showRows(1);
-
-  // $addRow = $('<pre>Add row</pre>');
-  // var el = $('#field-gs-quantity-values').after($addRow);
-  // $addRow
-  //   .prop('count', 1)
-  //   .on('click', function(event) {
-  //     var numberOfRows = $(this).prop('count')+1;
-  //     $(this).prop('count', numberOfRows);
-  //     showRows(numberOfRows);
-  //     if (numberOfRows >= 8) {
-  //       $(this).hide();
-  //     }
-  //   });
-
 })(jQuery);
