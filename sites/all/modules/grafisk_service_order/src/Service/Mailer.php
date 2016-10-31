@@ -128,12 +128,12 @@ class Mailer {
     $messages = \Drupal::getContainer()->get('grafisk_service_order.order_messages');
     switch ($type) {
       case 'create':
-        $subject = $messages->get('order_created_email_subject');
+        $subject = $messages->get('admin_order_created_email_subject');
 
         // Build render array.
         $content = [
           '#theme' => 'order_created_email',
-          '#message' => $messages->get('order_created_email_body'),
+          '#message' => $messages->get('admin_order_created_email_body'),
         ];
         break;
 
