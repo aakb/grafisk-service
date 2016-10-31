@@ -34,7 +34,8 @@ function grafisk_service_order_cron() {
         $order->field_gs_harvest_data = json_encode($data);
         $order->save();
         // Send notification to admin.
-        $mailer->notifyAdmin('create', $node);
+        $mailer = \Drupal::service('grafisk_service_order.mailer');
+        $mailer->notifyAdmin('create', $order);
       }
     }
   }
@@ -45,8 +46,8 @@ function grafisk_service_order_cron() {
  */
 function grafisk_service_order_node_insert(EntityInterface $node) {
   if ($node->getType() == GS_ORDER_NODE_TYPE && $node->id()) {
-    $mailer = \Drupal::service('grafisk_service_order.mailer');
     // Send reciept to user.
+    $mailer = \Drupal::service('grafisk_service_order.mailer');
     $mailer->notifyUser('create', $node);
   }
 }
