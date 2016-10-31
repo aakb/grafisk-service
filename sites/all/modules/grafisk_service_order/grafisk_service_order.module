@@ -30,9 +30,11 @@ function grafisk_service_order_cron() {
     if ($orders) {
       $api = \Drupal::service('grafisk_service_order.harvest_api');
       foreach ($orders as $order) {
-        $projectId = $api->createProject($order);
-        $order->field_gs_harvest_data = json_encode([ 'projectId' => $projectId ]);
+        $data = $api->createProject($order);
+        $order->field_gs_harvest_data = json_encode($data);
         $order->save();
+        // Send notification to admin.
+        $mailer->notifyAdmin('create', $node);
       }
     }
   }
@@ -44,7 +46,8 @@ function grafisk_service_order_cron() {
 function grafisk_service_order_node_insert(EntityInterface $node) {
   if ($node->getType() == GS_ORDER_NODE_TYPE && $node->id()) {
     $mailer = \Drupal::service('grafisk_service_order.mailer');
-    $mailer->send('create', $node);
+    // Send reciept to user.
+    $mailer->notifyUser('create', $node);
   }
 }
 
@@ -58,6 +61,7 @@ function grafisk_service_order_theme($existing, $type, $theme, $path) {
       'variables' => [
         'logo_url' => '',
         'message' => 'Order created',
+        'is_admin' => FALSE,
         'order' => [
           'id' => '',
           'url' => '',
@@ -68,8 +72,7 @@ function grafisk_service_order_theme($existing, $type, $theme, $path) {
           'email' => '',
 
           'title' => '',
-          'product_type' => '',
-          'quantity' => '',
+          'order_lines' => '',
           'comments' => '',
           'files' => '',
 
@@ -83,6 +86,7 @@ function grafisk_service_order_theme($existing, $type, $theme, $path) {
           'delivery_zip_code' => '',
           'delivery_department' => '',
         ],
+        'harvest' => [],
       ],
     ],
 

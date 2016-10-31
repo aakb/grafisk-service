@@ -1,0 +1,30 @@
+{# This template should render only plain text #}
+{{ 'Department' | t }}: {{ order.field_gs_department.value }}
+{{ 'Phone' | t }}: {{ order.field_gs_phone.value }}
+{{ 'Contact person' | t }}: {{ order.field_gs_contact_person.value }}
+{{ 'Email' | t }}: {{ order.field_gs_email.value }}
+{{ 'Title' | t }}: {{ order.title.value }}
+
+{{ 'Order lines' | t }}:
+{% for line in order.field_gs_order_lines %}
+{{ line.quantity }} {{ line.product_type }}
+{% endfor %}
+
+{{ 'Comments' | t }}:
+{{ order.field_gs_comments.value }}
+{{'Files' | t }}:
+{% for url in file_urls %}
+{{ url }}
+{% endfor %}
+
+{{ 'Debtor number' | t }}: {{ debtor_number }}
+{{ 'Delivery date' | t }}: {{ order.field_gs_delivery_date.value | date('d/m/Y') }}
+{{ 'Delivery comments' | t }}:
+{{ order.field_gs_delivery_comments.value }}
+
+{{ 'Delivery address' | t }}: {{ order.field_gs_delivery_address.value }}
+{{ 'Delivery department' | t }}: {{ order.field_gs_delivery_department.value }}
+{{ 'Delivery zip code' | t }}: {{ order.field_gs_delivery_zip_code.value }}
+{{ 'Delivery city' | t }}: {{ order.field_gs_delivery_city.value }}
+
+{{ url }}

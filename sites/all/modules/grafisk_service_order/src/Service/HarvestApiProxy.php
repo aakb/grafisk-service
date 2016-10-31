@@ -15,6 +15,7 @@ use Psr\Log\LoggerInterface;
  */
 class HarvestApiProxy {
   protected $configuration;
+  protected $twig;
   protected $logger;
 
   /**
@@ -22,8 +23,9 @@ class HarvestApiProxy {
    *
    * Load koba configuration.
    */
-  public function __construct(ConfigFactoryInterface $configFactory, LoggerInterface $logger) {
+  public function __construct(ConfigFactoryInterface $configFactory, \Twig_Environment $twig, LoggerInterface $logger) {
     $this->configuration = $configFactory->get('grafisk_service_order.settings')->get('harvest')['api'];
+    $this->twig = $twig;
     $this->logger = $logger;
   }
 
@@ -86,10 +88,14 @@ class HarvestApiProxy {
     }
 
     $projectId = $result->data;
+    $projectUrl = $this->getProjectUrl($projectId);
 
     $this->logger->info('HarvestApiProxy.createProject: !clientId !projectId', ['!clientId' => $clientId, '!projectId' => $projectId]);
 
-    return $projectId;
+    return [
+      'projectId' => $projectId,
+      'projectUrl' => $projectUrl,
+    ];
   }
 
   /**
@@ -108,9 +114,9 @@ class HarvestApiProxy {
    */
   private function getClientId(EntityInterface $order) {
     $department = $order->field_gs_department->value;
-    $contactPerson = $order->field_gs_contact_person->value;
+    $debtorNumber = $this->getDebtorNumber($order);
 
-    $clientName = $department ? $department . ' (Att.: ' . $contactPerson . ')' : $contactPerson;
+    $clientName = $department . ' ' . $debtorNumber;
 
     $api = $this->getApi();
 
@@ -167,12 +173,25 @@ class HarvestApiProxy {
    *   The data.
    */
   private function getClientData(EntityInterface $order) {
-    $debtorNumber = $order->field_gs_marketing_account->value ? '4302 – Markedsføringskonto' : $order->field_gs_ean->value;
-    return implode(PHP_EOL, [
-        'Tel.: '    . $order->field_gs_phone->value,
-        'E-mail: '  . $order->field_gs_email->value,
-        'Debitor: ' . $debtorNumber,
-      ]);
+    $data = [
+      'debtor_number' => $this->getDebtorNumber($order),
+      'order' => $order,
+    ];
+
+    return $this->render('harvest-client-data.txt.twig', $data);
+  }
+
+  /**
+   * Get debotr number for an order.
+   *
+   * @param \Drupal\Core\Entity\EntityInterface $order
+   *   The order.
+   *
+   * @return string
+   *   The debtor number.
+   */
+  private function getDebtorNumber(EntityInterface $order) {
+    return $order->field_gs_marketing_account->value ? '4302 – Markedsføringskonto' : $order->field_gs_ean->value;
   }
 
   /**
@@ -185,7 +204,7 @@ class HarvestApiProxy {
    *   The data.
    */
   private function getProjectData(EntityInterface $order) {
-    $nodeUrl = Url::fromRoute('entity.node.canonical', ['node' => $order->id()])->toString();
+    $nodeUrl = Url::fromRoute('entity.node.canonical', ['node' => $order->id(), 'uuid' => $order->uuid()])->toString();
     $nodeUrl = Url::fromRoute('user.login', ['destination' => $nodeUrl], ['absolute' => TRUE])->toString();
     $fileUrls = [];
     if ($order->field_gs_files) {
@@ -194,14 +213,14 @@ class HarvestApiProxy {
       }
     }
 
-    return implode(PHP_EOL, [
-        'Produkttype: ' . $order->field_gs_product_type->value,
-        'Antal: ' . $order->field_gs_quantity->value,
-        'Kommentar: ' . $order->field_gs_comments->value,
-        $fileUrls ? 'Filer: ' . PHP_EOL . implode(PHP_EOL, $fileUrls) : '',
-        PHP_EOL,
-        $nodeUrl,
-      ]);
+    $data = [
+      'url' => $nodeUrl,
+      'debtor_number' => $this->getDebtorNumber($order),
+      'order' => $order,
+      'file_urls' => $fileUrls,
+    ];
+
+    return $this->render('harvest-project-data.txt.twig', $data);
   }
 
   /**
@@ -229,6 +248,14 @@ class HarvestApiProxy {
    */
   public function getProjectUrl($projectId) {
     return 'https://' . $this->configuration['account'] . '.harvestapp.com/projects/' . $projectId;
+  }
+
+  private function render($templateName, $data) {
+    $templatePath = DRUPAL_ROOT . '/' . drupal_get_path('module', 'grafisk_service_order') . '/templates/harvest/' . $templateName;
+    $template = file_get_contents($templatePath);
+    $content = $this->twig->createTemplate($template)->render($data);
+
+    return $content;
   }
 
 }
