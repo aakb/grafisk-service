@@ -109,7 +109,7 @@ class Mailer {
     // Render the body content for the mail.
     return [
       'subject' => $subject,
-      'body' => render($content),
+      'body' => \Drupal::service('renderer')->renderRoot($content),
     ];
   }
 
@@ -168,7 +168,7 @@ class Mailer {
     // Render the body content for the mail.
     return [
       'subject' => $subject,
-      'body' => render($content),
+      'body' => \Drupal::service('renderer')->renderRoot($content),
     ];
   }
 
