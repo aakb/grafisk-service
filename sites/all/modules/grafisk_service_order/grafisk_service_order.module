@@ -1,4 +1,5 @@
 <?php
+use Drupal\Core\Entity\Display\EntityViewDisplayInterface;
 use Drupal\Core\Entity\Entity;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\node\Entity\Node;
@@ -91,6 +92,21 @@ function grafisk_service_order_theme($existing, $type, $theme, $path) {
       ],
     ],
 
+    'order_address_label_button' => [
+      'template' => 'order/address-label-button',
+      'variables' => [
+        'order' => []
+      ],
+    ],
+
+    'order_address_label' => [
+      'template' => 'order/address-label',
+      'variables' => [
+        'order' => [],
+        'template_path' => [],
+      ],
+    ],
+
     'grafisk_service_order_order_line_formatter' => [
       'variables' => [
         'quantity' => NULL,
@@ -99,4 +115,19 @@ function grafisk_service_order_theme($existing, $type, $theme, $path) {
       'template' => 'grafisk-service-order-order-line-formatter',
     ],
   ];
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_view().
+ */
+function grafisk_service_order_node_view(array &$build, EntityInterface $entity, EntityViewDisplayInterface $display, $view_mode) {
+  if (!\Drupal::currentUser()->isAnonymous()) {
+    if ($entity->getType() === GS_ORDER_NODE_TYPE) {
+      $build['grafisk_service_order'] = [
+        '#theme' => 'order_address_label_button',
+        '#order' => $entity,
+        '#weight' => 1000,
+      ];
+    }
+  }
 }
