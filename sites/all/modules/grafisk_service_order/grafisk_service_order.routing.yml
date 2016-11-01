@@ -5,3 +5,11 @@ grafisk_service_order.order_messages:
     _title: 'Order Messages'
   requirements:
     _permission: 'administer site configuration'
+
+grafisk_service_order.order_address_label:
+  path: '/grafisk_service_order/address_label/{id}'
+  defaults:
+    _controller: '\Drupal\grafisk_service_order\Controller\OrderController::addressLabelAction'
+    _title: 'Address label'
+  requirements:
+    _permission: 'access content'

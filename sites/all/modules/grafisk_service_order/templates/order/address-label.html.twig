@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>{{ 'Address label' | t }} – {{ order.title.value }}</title>
+		<style>
+		 body {
+			 margin: 0;
+			 padding: 0;
+			 background-color: #FAFAFA;
+			 font: 6mm "Tahoma";
+		 }
+		 * {
+			 box-sizing: border-box;
+			 -moz-box-sizing: border-box;
+		 }
+		 .page {
+			 width: 210mm;
+			 min-height: 297mm;
+			 padding: 10mm;
+			 margin: 10mm auto;
+			 border: 1px #D3D3D3 solid;
+			 border-radius: 5px;
+			 background: white;
+			 box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+		 }
+
+     table {
+       border-collapse: collapse;
+     }
+
+     td {
+       padding: 0 1em 0 0;
+     }
+
+     h1 {
+       margin: 0;
+     }
+
+     header {
+       position: absolute;
+       top: 20mm;
+     }
+
+     .content {
+       position: absolute;
+       top: 160mm; /* ~ 297/2+10 */
+     }
+
+     footer {
+       font-size: 12pt;
+       position: absolute;
+       bottom: 10mm;
+     }
+
+		 @page {
+			 size: A4;
+			 margin: 0;
+		 }
+		 @media print {
+			 .page {
+         margin: 0;
+         border: initial;
+         border-radius: initial;
+         width: initial;
+         min-height: initial;
+         box-shadow: initial;
+         background: initial;
+         page-break-after: always;
+			 }
+		 }
+		</style>
+  </head>
+  <body onload="window.print()">
+		<section class="page">
+      <header>
+        <h1>Følgeseddel</h1>
+
+			  <div class="address-label">
+          <p>Leveringsadresse:</p>
+          {{ order.field_gs_delivery_department.value }}<br/>
+				  {{ order.field_gs_delivery_address.value }}<br/>
+          {{ order.field_gs_delivery_zip_code.value }} {{ order.field_gs_delivery_city.value }}<br/>
+          Att.: {{ order.field_gs_contact_person.value }}
+        </div>
+      </header>
+
+      <div class="content">
+        <table>
+          <tr>
+            <td>Emne:</td>
+            <td>{{ order.title.value }}</td>
+          </tr>
+          {% for index, line in order.field_gs_order_lines %}
+            <tr>
+              <td>{% if index == 0 %}Oplag:{% endif %}</td>
+              <td>
+                {{ line.quantity }}
+                {{ line.product_type }}
+              </td>
+            </tr>
+          {% endfor %}
+        </table>
+      </div>
+
+      <footer>
+        <strong>Grafisk service</strong><br/>
+        <img style="width: 4cm" src="{{ template_path ~ '/order/assets/aarhus_kommune_logo.png' }}"/><br/>
+        ITK Design<br/>
+        Kultur og Borgerservice<br/>
+        Hack Kampmanns Plads 2<br/>
+        8000 Aarhus C
+      </footer>
+    </section>
+  </body>
+</html>
