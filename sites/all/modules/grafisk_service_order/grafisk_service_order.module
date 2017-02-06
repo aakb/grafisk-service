@@ -103,6 +103,7 @@ function grafisk_service_order_theme($existing, $type, $theme, $path) {
       'template' => 'order/address-label',
       'variables' => [
         'order' => [],
+        'harvest_data' => [],
         'template_path' => [],
       ],
     ],

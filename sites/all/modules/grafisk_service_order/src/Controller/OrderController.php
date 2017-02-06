@@ -25,10 +25,12 @@ class OrderController extends ControllerBase {
    */
   public function addressLabelAction($id) {
     $order = \Drupal\node\Entity\Node::load($id);
+    $harvestData = $order->field_gs_harvest_data->value ? json_decode($order->field_gs_harvest_data->value) : null;
 
     $build = [
       '#theme' => 'order_address_label',
       '#order' => $order,
+      '#harvest_data' => $harvestData,
       '#template_path' => '/' . drupal_get_path('module', 'grafisk_service_order') . '/templates',
     ];
 
