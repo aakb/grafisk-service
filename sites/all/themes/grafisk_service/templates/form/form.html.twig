@@ -72,12 +72,16 @@
     <div class="form--item">
       {{ form.group_step_2.title }}
     </div>
-    <div class="form--item">
-      {{ form.group_step_2.field_gs_product_type }}
-    </div>
-    <div class="form--item is-half-width">
-      {{ form.group_step_2.field_gs_quantity }}
-    </div>
+    {% for key, widget in form.group_step_2.field_gs_order_lines.widget %}
+      {% if widget.quantity and widget.product_type %}
+        <div class="form--item is-half-width {{ key > 0 ? 'hide-label' : '' }}">
+          {{ widget.quantity }}
+        </div>
+        <div class="form--item is-half-width {{ key > 0 ? 'hide-label' : '' }}">
+          {{ widget.product_type }}
+        </div>
+      {% endif %}
+    {% endfor %}
     <div class="form--item">
       {{ form.group_step_2.field_gs_comments }}
     </div>

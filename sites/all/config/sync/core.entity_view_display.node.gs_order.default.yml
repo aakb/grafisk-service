@@ -17,13 +17,13 @@ dependencies:
     - field.field.node.gs_order.field_gs_files
     - field.field.node.gs_order.field_gs_harvest_data
     - field.field.node.gs_order.field_gs_marketing_account
+    - field.field.node.gs_order.field_gs_order_lines
     - field.field.node.gs_order.field_gs_phone
-    - field.field.node.gs_order.field_gs_product_type
-    - field.field.node.gs_order.field_gs_quantity
     - node.type.gs_order
   module:
     - datetime
     - file
+    - grafisk_service_order
     - user
 id: node.gs_order.default
 targetEntityType: node
@@ -31,7 +31,7 @@ bundle: gs_order
 mode: default
 content:
   field_gs_comments:
-    weight: 8
+    weight: 9
     label: above
     settings: {  }
     third_party_settings: {  }
@@ -44,27 +44,27 @@ content:
     third_party_settings: {  }
     type: string
   field_gs_delivery_address:
-    weight: 11
-    label: above
-    settings:
-      link_to_entity: false
-    third_party_settings: {  }
-    type: string
-  field_gs_delivery_city:
     weight: 12
     label: above
     settings:
       link_to_entity: false
     third_party_settings: {  }
     type: string
+  field_gs_delivery_city:
+    weight: 13
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
   field_gs_delivery_comments:
-    weight: 14
+    weight: 15
     label: above
     settings: {  }
     third_party_settings: {  }
     type: basic_string
   field_gs_delivery_date:
-    weight: 10
+    weight: 11
     label: above
     settings:
       format_type: medium
@@ -72,14 +72,14 @@ content:
     third_party_settings: {  }
     type: datetime_default
   field_gs_delivery_department:
-    weight: 16
+    weight: 17
     label: above
     settings:
       link_to_entity: false
     third_party_settings: {  }
     type: string
   field_gs_delivery_zip_code:
-    weight: 15
+    weight: 16
     label: above
     settings:
       link_to_entity: false
@@ -106,7 +106,7 @@ content:
     third_party_settings: {  }
     type: basic_string
   field_gs_files:
-    weight: 9
+    weight: 10
     label: above
     settings: {  }
     third_party_settings: {  }
@@ -120,6 +120,12 @@ content:
       format_custom_true: ''
     third_party_settings: {  }
     type: boolean
+  field_gs_order_lines:
+    weight: 6
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: grafisk_service_order_order_line
   field_gs_phone:
     weight: 3
     label: above
@@ -127,22 +133,8 @@ content:
       link_to_entity: false
     third_party_settings: {  }
     type: string
-  field_gs_product_type:
-    weight: 6
-    label: above
-    settings:
-      link_to_entity: false
-    third_party_settings: {  }
-    type: string
-  field_gs_quantity:
-    weight: 7
-    label: above
-    settings:
-      link_to_entity: false
-    third_party_settings: {  }
-    type: string
   links:
-    weight: 13
+    weight: 14
     settings: {  }
     third_party_settings: {  }
 hidden:

@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>{{ 'Address label' | t }} – {{ order.title.value }}</title>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet"/>
+		<style>
+     html, body {
+       width: 210mm;
+       height: 297mm;
+     }
+
+     body {
+       margin: 0;
+       padding: 0;
+       background-color: #FAFAFA;
+       font-family: 'Open Sans', sans-serif;
+       font-size: 12pt;
+       line-height: 1.5;
+     }
+     * {
+       box-sizing: border-box;
+       -moz-box-sizing: border-box;
+       margin: 0;
+       padding: 0;
+     }
+
+     .page {
+       width: 210mm;
+       height: 297mm;
+       padding-left: 12.5mm;
+     }
+
+     @media screen {
+       .page {
+         border: 1px #D3D3D3 solid;
+         border-radius: 5px;
+         background: white;
+         box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+       }
+
+       #pagefold {
+         position: absolute;
+         top: 0;
+         left: 0;
+         width: 105mm;
+         height: 148.75mm;
+         border: solid 1px #eee;
+       }
+     }
+
+     .address-label {
+       margin: 12pt 0;
+       padding: 12pt 0;
+       /* border-top: solid 0.5pt #000; */
+       /* border-bottom: solid 0.5pt #000; */
+     }
+
+     .address-label .label {
+       font-size: 8pt;
+       line-height: 1;
+     }
+
+     table {
+       border-collapse: collapse;
+     }
+
+     td {
+       padding: 0 1em 0 0;
+     }
+
+     h1, h2 {
+       font-weight: normal;
+       text-transform: uppercase;
+       font-size: 100%;
+     }
+
+     header {
+       position: absolute;
+       top: 48mm;
+       width: 79.6mm
+     }
+
+     .content {
+       position: absolute;
+       top: 160mm; /* ~ 297/2+10 */
+       width: 79.6mm;
+     }
+
+     table {
+       width: 100%;
+     }
+
+     table td {
+       vertical-align: top;
+     }
+
+     table td+td {
+       text-align: right;
+     }
+
+     footer {
+       margin: 12pt 0;
+       padding: 12pt 0;
+       /*        border-top: solid 0.5pt #000; */
+       /*        border-bottom: solid 0.5pt #000; */
+
+       font-size: 8pt;
+       line-height: 1.5;
+
+       position: absolute;
+       width: 79.6mm;
+       bottom: 10mm;
+     }
+
+     hr {
+       height: 0.5pt;
+       border-top: none;
+       border-left: none;
+       border-right: none;
+       border-bottom: 0.5pt solid black;
+       transform: scaleY(0.16);
+       margin: 2mm 0;
+     }
+
+     @page {
+       size: A4;
+       margin: 0;
+     }
+     @media print {
+       .page {
+         margin: 0;
+         border: initial;
+         border-radius: initial;
+         width: initial;
+         min-height: initial;
+         box-shadow: initial;
+         background: initial;
+         page-break-after: always;
+       }
+     }
+
+
+		</style>
+  </head>
+  <body onload="window.print()">
+		<section class="page">
+      <header>
+        <h1>Følgeseddel</h1>
+
+        <div class="address-label">
+          <hr/>
+          <p class="label">Leveringsadresse:</p>
+          {{ order.field_gs_delivery_department.value }}<br/>
+          {{ order.field_gs_delivery_address.value }}<br/>
+          {{ order.field_gs_delivery_zip_code.value }} {{ order.field_gs_delivery_city.value }}<br/>
+          Att.: {{ order.field_gs_contact_person.value }}
+          <hr/>
+        </div>
+      </header>
+
+      <div class="content">
+        <h2>Emne:</h2>
+        <p>{{ order.title.value }}</p>
+        {% if harvest_data.projectId is defined %}
+          <p>Ordrenr.: {{ harvest_data.projectId }}</p>
+        {% endif %}
+
+        <h2 style="margin-top: 12.7mm">Indhold:</h2>
+        <table>
+          {% for index, line in order.field_gs_order_lines %}
+            <tr>
+              <td>
+                {{ line.product_type }}:
+              </td>
+              <td>
+                {{ line.quantity }}&#160;stk
+              </td>
+            </tr>
+          {% endfor %}
+        </table>
+      </div>
+
+      <footer>
+        <hr/>
+        GRAFISK SERVICE<br/>
+        ITK Design / Dokk1<br/>
+        Hack Kampmanns Plads 2, 8000 Aarhus C<br/>
+        Tlf.: +45 2920 8597 / www.dokk1.dk/itk
+        <hr/>
+      </footer>
+    </section>
+
+    <div id="pagefold"></div>
+  </body>
+</html>

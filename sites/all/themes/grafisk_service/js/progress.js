@@ -127,4 +127,17 @@
     progress();
   });
 
+  // Hacks!
+  // Clear placeholder for all but first input row in order lines.
+  // Make first input row required.
+  var inputNames = {};
+  $('input[name^="field_gs_order_lines"]').each(function(index, el) {
+    var name = el.name.replace(/\[[0-9]+\]/, '');
+    if (typeof inputNames[name] === 'undefined') {
+      inputNames[name] = el;
+      $(el).attr('required', 'required');
+    } else {
+			$(el).attr('placeholder', '');
+		}
+	});
 })(jQuery);

@@ -18,9 +18,8 @@ dependencies:
     - field.field.node.gs_order.field_gs_files
     - field.field.node.gs_order.field_gs_harvest_data
     - field.field.node.gs_order.field_gs_marketing_account
+    - field.field.node.gs_order.field_gs_order_lines
     - field.field.node.gs_order.field_gs_phone
-    - field.field.node.gs_order.field_gs_product_type
-    - field.field.node.gs_order.field_gs_quantity
     - node.type.gs_order
   module:
     - user
@@ -46,7 +45,6 @@ hidden:
   field_gs_files: true
   field_gs_harvest_data: true
   field_gs_marketing_account: true
+  field_gs_order_lines: true
   field_gs_phone: true
-  field_gs_product_type: true
-  field_gs_quantity: true
   langcode: true

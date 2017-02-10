@@ -1,0 +1,21 @@
+uuid: 77f999fe-ed24-4f48-9f58-3fb66ece4602
+langcode: da
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_gs_order_lines
+    - node.type.gs_order
+  module:
+    - grafisk_service_order
+id: node.gs_order.field_gs_order_lines
+field_name: field_gs_order_lines
+entity_type: node
+bundle: gs_order
+label: Ordrelinjer
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: grafisk_service_order_order_line
