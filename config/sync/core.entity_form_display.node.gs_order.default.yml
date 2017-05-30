@@ -119,6 +119,7 @@ content:
       placeholder: 'Angiv produktspecifikationer. F.eks. størrelse, materiale, typer, osv.'
     third_party_settings: {  }
     type: string_textarea
+    region: content
   field_gs_contact_person:
     weight: 15
     settings:
@@ -126,6 +127,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: string_textfield
+    region: content
   field_gs_delivery_address:
     weight: 11
     settings:
@@ -133,6 +135,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: string_textfield
+    region: content
   field_gs_delivery_city:
     weight: 13
     settings:
@@ -140,6 +143,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: string_textfield
+    region: content
   field_gs_delivery_comments:
     weight: 15
     settings:
@@ -147,11 +151,13 @@ content:
       placeholder: 'Har du kommentarer til leveringen? F.eks. flere leveringsadresser.'
     third_party_settings: {  }
     type: string_textarea
+    region: content
   field_gs_delivery_date:
     weight: 14
     settings: {  }
     third_party_settings: {  }
     type: datetime_default
+    region: content
   field_gs_delivery_department:
     weight: 10
     settings:
@@ -159,6 +165,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: string_textfield
+    region: content
   field_gs_delivery_zip_code:
     weight: 12
     settings:
@@ -166,6 +173,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: string_textfield
+    region: content
   field_gs_department:
     weight: 13
     settings:
@@ -173,6 +181,7 @@ content:
       placeholder: 'Vælg hvilken afdeling, der er tilknyttet opgaven'
     third_party_settings: {  }
     type: string_textfield
+    region: content
   field_gs_ean:
     weight: 6
     settings:
@@ -180,6 +189,7 @@ content:
       placeholder: 'F.eks. 1234567891234'
     third_party_settings: {  }
     type: string_textfield
+    region: content
   field_gs_email:
     weight: 16
     settings:
@@ -187,18 +197,21 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: email_default
+    region: content
   field_gs_files:
     weight: 12
     settings:
       progress_indicator: throbber
     third_party_settings: {  }
     type: file_generic
+    region: content
   field_gs_marketing_account:
     weight: 7
     settings:
       display_label: true
     third_party_settings: {  }
     type: boolean_checkbox
+    region: content
   field_gs_order_lines:
     weight: 8
     settings:
@@ -210,6 +223,7 @@ content:
         placeholder: 'Skriv f.eks. folder, plakat, visitkort …'
     third_party_settings: {  }
     type: grafisk_service_order_order_line
+    region: content
   field_gs_phone:
     weight: 14
     settings:
@@ -217,6 +231,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: string_textfield
+    region: content
   title:
     type: string_textfield
     weight: 7
@@ -224,6 +239,7 @@ content:
       size: 60
       placeholder: 'Skriv en sigende titel for opgaven'
     third_party_settings: {  }
+    region: content
 hidden:
   created: true
   field_gs_harvest_data: true

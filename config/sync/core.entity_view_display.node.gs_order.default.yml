@@ -36,6 +36,7 @@ content:
     settings: {  }
     third_party_settings: {  }
     type: basic_string
+    region: content
   field_gs_contact_person:
     weight: 1
     label: above
@@ -43,6 +44,7 @@ content:
       link_to_entity: false
     third_party_settings: {  }
     type: string
+    region: content
   field_gs_delivery_address:
     weight: 12
     label: above
@@ -50,6 +52,7 @@ content:
       link_to_entity: false
     third_party_settings: {  }
     type: string
+    region: content
   field_gs_delivery_city:
     weight: 13
     label: above
@@ -57,12 +60,14 @@ content:
       link_to_entity: false
     third_party_settings: {  }
     type: string
+    region: content
   field_gs_delivery_comments:
     weight: 15
     label: above
     settings: {  }
     third_party_settings: {  }
     type: basic_string
+    region: content
   field_gs_delivery_date:
     weight: 11
     label: above
@@ -71,6 +76,7 @@ content:
       timezone_override: ''
     third_party_settings: {  }
     type: datetime_default
+    region: content
   field_gs_delivery_department:
     weight: 17
     label: above
@@ -78,6 +84,7 @@ content:
       link_to_entity: false
     third_party_settings: {  }
     type: string
+    region: content
   field_gs_delivery_zip_code:
     weight: 16
     label: above
@@ -85,6 +92,7 @@ content:
       link_to_entity: false
     third_party_settings: {  }
     type: string
+    region: content
   field_gs_department:
     weight: 0
     label: above
@@ -92,6 +100,7 @@ content:
       link_to_entity: false
     third_party_settings: {  }
     type: string
+    region: content
   field_gs_ean:
     weight: 4
     label: above
@@ -99,18 +108,21 @@ content:
       link_to_entity: false
     third_party_settings: {  }
     type: string
+    region: content
   field_gs_email:
     weight: 2
     label: above
     settings: {  }
     third_party_settings: {  }
     type: basic_string
+    region: content
   field_gs_files:
     weight: 10
     label: above
     settings: {  }
     third_party_settings: {  }
     type: file_default
+    region: content
   field_gs_marketing_account:
     weight: 5
     label: above
@@ -120,12 +132,14 @@ content:
       format_custom_true: ''
     third_party_settings: {  }
     type: boolean
+    region: content
   field_gs_order_lines:
     weight: 6
     label: above
     settings: {  }
     third_party_settings: {  }
     type: grafisk_service_order_order_line
+    region: content
   field_gs_phone:
     weight: 3
     label: above
@@ -133,10 +147,12 @@ content:
       link_to_entity: false
     third_party_settings: {  }
     type: string
+    region: content
   links:
     weight: 14
     settings: {  }
     third_party_settings: {  }
+    region: content
 hidden:
   field_gs_harvest_data: true
   langcode: true

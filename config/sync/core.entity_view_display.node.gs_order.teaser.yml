@@ -30,6 +30,7 @@ mode: teaser
 content:
   links:
     weight: 100
+    region: content
 hidden:
   field_gs_comments: true
   field_gs_contact_person: true
