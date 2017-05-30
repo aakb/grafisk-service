@@ -1,9 +1,10 @@
-# Composer template for Drupal ITKore projects
+# Grafisk service bestilling Readme
 
-See https://github.com/drupal-composer/drupal-project for details on what's going on.
+## APIs
+Uses harvest API. See /vagrant/grafisk_service_bestilling/htdocs/web/modules/custom/grafisk_service_order/README.md
 
-## Usage
-
+## Data Syncing
+Synchronize DB and files with site sync script.
 ```
-composer create-project itk-composer/drupal-itkore:develop-dev some-dir --stability dev --no-interaction --repository-url=https://packagist.etek.dk
+/vagrant/scripts/site_sync.sh
 ```
