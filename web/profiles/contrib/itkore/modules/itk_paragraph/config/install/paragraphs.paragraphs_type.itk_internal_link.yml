@@ -1,0 +1,6 @@
+status: true
+dependencies:
+  module:
+    - itk_paragraph
+id: itk_internal_link
+label: 'Liste element/link'

@@ -1,0 +1,8 @@
+name: ITK hamburger menu
+description: Provide a hamburger menu block
+interface translation project: itk_hamburger_menu
+interface translation server pattern: profiles/itkore/modules/itk_hamburger_menu/translations/itk_hamburger_menu.%language.po
+package: ITK
+type: module
+version: 1.0
+core: 8.x

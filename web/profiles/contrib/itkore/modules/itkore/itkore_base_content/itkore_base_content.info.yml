@@ -1,0 +1,8 @@
+name: ITKore base content
+description: 'Creates base content. For cookie message and 404 page.'
+type: module
+core: 8.x
+package: ITKore
+dependencies:
+  - itk_cookie_message
+  - itkore_content_types

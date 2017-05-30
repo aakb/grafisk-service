@@ -1,0 +1,9 @@
+status: true
+dependencies:
+  module:
+    - node
+    - itkore_content_types
+id: node.related_pages
+label: 'Related Pages'
+targetEntityType: node
+cache: true

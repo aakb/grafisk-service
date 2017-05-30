@@ -1,0 +1,52 @@
+name: ITKore
+type: profile
+description: 'Install with commonly used features pre-configured.'
+interface translation project: itkore
+interface translation server pattern: profiles/itkore/translations/itkore.%language.po
+version: VERSION
+core: 8.x
+dependencies:
+#Core modules
+  - block
+  - ckeditor
+  - config
+  - config_translation
+  - datetime
+  - dblog
+  - editor
+  - entity_reference
+  - field
+  - field_ui
+  - file
+  - filter
+  - help
+  - image
+  - link
+  - locale
+  - menu_link_content
+  - menu_ui
+  - node
+  - path
+  - system
+  - text
+  - toolbar
+  - views
+  - views_ui
+  - update
+  - user
+  - page_cache
+  - dynamic_page_cache
+
+#Contrib modules
+  - ctools
+  - entity_reference_revisions
+  - field_group
+  - imce
+  - metatag
+  - paragraphs
+  - pathauto
+  - redirect
+  - role_delegation
+  - token
+  - toolbar_visibility
+  - youtube

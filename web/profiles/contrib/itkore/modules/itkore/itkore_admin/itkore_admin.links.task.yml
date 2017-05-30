@@ -1,0 +1,4 @@
+itkore_admin.admin:
+  title: 'Settings'
+  route_name: itkore_admin.settings
+  base_route: itkore_admin.settings

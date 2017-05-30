@@ -1,0 +1,155 @@
+<?php
+
+/**
+ * Implements hook_install_tasks().
+ *
+ * @return array
+ */
+function itkore_install_tasks() {
+  // Prepare to add extra install task steps for custom configuration.
+  $tasks = array();
+
+  // Add custom configuration form to the install tasks.
+  $tasks['install_itkore_settings_form'] = array(
+    'display_name' => t('Custom configuration for ITKore'),
+    'type' => 'form',
+    'display' => TRUE,
+    'function' => 'Drupal\itkore\Form\CustomInstallForm',
+  );
+
+  // Add batch process to install tasks.
+  $tasks['itkore_install_batch'] = array(
+    'display_name' => t('Finish custom ITKore settings'),
+    'type' => 'batch',
+  );
+
+
+  // Add batch process to install tasks.
+  $tasks['itkore_install_config'] = array(
+    'display_name' => t('Setup configuration variables'),
+    'type' => 'normal',
+  );
+
+  return $tasks;
+}
+
+
+/**
+ * Batch install modules.
+ *
+ * @param $install_state
+ * @return array
+ */
+function itkore_install_batch(&$install_state) {
+  // Fetch all module data.
+  $modules_available = system_rebuild_module_data();
+
+  // Setup operations to run during batch.
+  $operations = array();
+  foreach ($install_state['custom_modules'] as $module) {
+    $operations[] = array('_itkore_install_custom_modules_batch', array($module, $modules_available[$module]->info['name']));
+  }
+
+  // Create batch.
+  $batch = array(
+    'operations' => $operations,
+    'title' => t('Installing ITKore modules'),
+    'error_message' => t('The installation has encountered an error.'),
+  );
+  return $batch;
+}
+
+
+/**
+ * Custom batch process for enabling custom modules.
+ *
+ * @param $module
+ * @param $module_name
+ * @param $context
+ */
+function _itkore_install_custom_modules_batch($module, $module_name, &$context) {
+  // Install custom modules.
+  \Drupal::service('module_installer')
+    ->install([$module]);
+  $context['results'][] = $module;
+  $context['message'] = t('Installed %module module.', array('%module' => $module_name));
+}
+ 
+
+/**
+ * Setup configuration variables
+ */
+function itkore_install_config() {
+
+  \Drupal::service('theme_installer')
+    ->install(['adminimal_theme']);
+
+
+  // ----- Set config variables. ---- //
+
+  // Set admin theme
+  \Drupal::service('config.factory')
+    ->getEditable('system.theme')
+    ->set('admin', 'adminimal_theme')
+    ->save();
+
+  // Set admin theme on node editing
+  \Drupal::configFactory()
+    ->getEditable('node.settings')
+    ->set('use_admin_theme', TRUE)
+    ->save(TRUE);
+
+  // Disable the user pictures on nodes.
+  \Drupal::configFactory()
+    ->getEditable('system.theme.global')
+    ->set('features.node_user_picture', FALSE)
+    ->save(TRUE);
+
+  // Allow visitor account creation, but with administrative approval.
+  \Drupal::configFactory()
+    ->getEditable('user.settings')
+    ->set('register', USER_REGISTER_VISITORS_ADMINISTRATIVE_APPROVAL)
+    ->save(TRUE);
+
+  // Set front page.
+  \Drupal::configFactory()
+    ->getEditable('system.site')
+    ->set('page.front', '/user')
+    ->save(TRUE);
+
+  // Set imce settings.
+  \Drupal::configFactory()
+    ->getEditable('imce.settings')
+    ->set('roles_profiles.editor.public', 'custom_profile')
+    ->save(TRUE);
+
+  // Set meta-tag settings
+  \Drupal::configFactory()
+    ->getEditable('metatag.metatag_defaults.global')
+    ->set('tags.title', '[current-page:title]')
+    ->save(TRUE);
+  \Drupal::configFactory()
+    ->getEditable('metatag.metatag_defaults.node')
+    ->set('tags.title', '[node:title]')
+    ->save(TRUE);
+  \Drupal::configFactory()
+    ->getEditable('metatag.metatag_defaults.front')
+    ->set('tags.title', '[site:name]')
+    ->save(TRUE);
+
+  // Set date formats.
+  \Drupal::configFactory()
+    ->getEditable('core.date_format.short')
+    ->set('pattern', 'd.m.Y')
+    ->save(TRUE);
+
+  \Drupal::configFactory()
+    ->getEditable('core.date_format.medium')
+    ->set('pattern', 'j. F Y')
+    ->save(TRUE);
+
+  \Drupal::configFactory()
+    ->getEditable('core.date_format.long')
+    ->set('pattern', 'l \d.  j. F Y')
+    ->save(TRUE);
+}

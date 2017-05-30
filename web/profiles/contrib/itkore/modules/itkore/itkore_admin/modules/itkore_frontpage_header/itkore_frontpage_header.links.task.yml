@@ -1,0 +1,4 @@
+itkore_frontpage_header.admin:
+  title: 'Frontpage header settings'
+  route_name: itkore_frontpage_header.settings
+  base_route: itkore_admin.settings

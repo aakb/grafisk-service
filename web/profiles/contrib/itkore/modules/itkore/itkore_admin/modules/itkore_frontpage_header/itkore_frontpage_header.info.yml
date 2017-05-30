@@ -1,0 +1,9 @@
+name: ITkore frontpage header
+type: module
+interface translation project: itkore_frontpage_header
+interface translation server pattern: profiles/itkore/modules/itkore/itkore_admin/modules/itkore_frontpage_header/translations/itkore_frontpage_header.%language.po
+description: 'Provides custom administration settings for frontpage header'
+package: ITKore
+core: 8.x
+dependencies:
+  - itkore_admin

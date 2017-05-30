@@ -1,0 +1,14 @@
+name: Toolbar Visibility
+type: module
+description: Choose theme to show the toobar
+# core: 8.x
+package: Other
+dependencies:
+  - toolbar
+
+
+# Information added by Drupal.org packaging script on 2015-08-26
+version: '8.x-1.2'
+core: '8.x'
+project: 'toolbar_visibility'
+datestamp: 1440573035

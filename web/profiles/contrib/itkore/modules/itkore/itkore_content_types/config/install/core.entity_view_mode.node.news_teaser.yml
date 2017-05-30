@@ -1,0 +1,9 @@
+status: true
+dependencies:
+  module:
+    - node
+    - itkore_content_types
+id: node.news_teaser
+label: 'News teaser'
+targetEntityType: node
+cache: true

@@ -1,0 +1,8 @@
+# --- Administration pages routing --- #
+itkore_frontpage_header.settings:
+  path: '/admin/site-setup/frontpage-header'
+  defaults:
+    _form: '\Drupal\itkore_frontpage_header\Form\ItkoreFrontpageHeaderSettingsForm'
+    _title: 'Frontpage header'
+  requirements:
+    _permission: 'access itkore settings'

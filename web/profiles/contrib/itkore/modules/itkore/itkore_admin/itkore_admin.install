@@ -1,0 +1,18 @@
+<?php
+/**
+ * @file
+ * Sets default language to danish.
+ */
+
+/**
+ * Implements hook_install().
+ *
+ * @see system_install()
+ */
+function itkore_admin_install() {
+  \Drupal::configFactory()
+    ->getEditable('system.site')
+    ->set('langcode', 'da')
+    ->set('default_langcode', 'da')
+    ->save(TRUE);
+}
