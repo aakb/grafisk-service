@@ -1,4 +1,0 @@
-itkore_footer.admin:
-  title: 'Footer settings'
-  route_name: itkore_footer.settings
-  base_route: itkore_admin.settings

@@ -1,8 +1,0 @@
-# --- Administration pages routing --- #
-itkore_footer.settings:
-  path: '/admin/site-setup/footer'
-  defaults:
-    _form: '\Drupal\itkore_footer\Form\ItkoreFooterSettingsForm'
-    _title: 'Footer'
-  requirements:
-    _permission: 'access itkore settings'

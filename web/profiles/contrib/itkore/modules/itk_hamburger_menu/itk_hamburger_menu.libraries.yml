@@ -1,9 +1,0 @@
-itk_hamburger_menu:
-  css:
-    theme:
-      css/itk-hamburger-menu.css: {}
-  js:
-    js/itk-hamburger-menu.js: {}
-  dependencies:
-      - core/jquery
-      - core/drupalSettings
