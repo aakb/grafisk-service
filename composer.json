@@ -27,8 +27,9 @@
         "drush/drush": "~8.0",
         "drupal/console": "~1.0",
         "drupal/itkore": "~1.0",
-        "drupal/field_group": "^1.0@RC"
-		},
+        "drupal/field_group": "^1.0@RC",
+        "wikimedia/composer-merge-plugin": "^1.4"
+    },
     "require-dev": {
         "behat/mink": "~1.7",
         "behat/mink-goutte-driver": "~1.2",
@@ -71,6 +72,18 @@
             "web/profiles/contrib/{$name}": ["type:drupal-profile"],
             "web/themes/contrib/{$name}": ["type:drupal-theme"],
             "drush/contrib/{$name}": ["type:drupal-drush"]
+        },
+        "merge-plugin": {
+            "include": [
+                "web/modules/custom/*/composer.json"
+            ],
+            "recurse": true,
+            "replace": false,
+            "ignore-duplicates": false,
+            "merge-dev": true,
+            "merge-extra": false,
+            "merge-extra-deep": false,
+            "merge-scripts": false
         }
     }
 }
