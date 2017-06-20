@@ -111,18 +111,35 @@
     });
   }
 
-  function updateUI() {
-    var requireEAN = !$('#edit-field-gs-marketing-account-value').prop('checked');
-    $('#edit-field-gs-ean-0-value').prop({
-			disabled: !requireEAN,
-			required: requireEAN
-		});
+  /**
+   * Disable and require some fields depending on something.
+   */
+  function updateUI(event) {
+    var fieldIds = [
+      'edit-field-gs-marketing-account-value',
+      'edit-field-gs-ean-0-value',
+      'edit-field-gs-debtor-0-value'
+    ],
+    target = event.target,
+    required = target.id === 'edit-field-gs-marketing-account-value' ? !$(target).prop('checked') : !$(target).val();
+
+    fieldIds.forEach(function (id) {
+      if (id !== target.id) {
+        $('#' + id).prop({
+          disabled: !required,
+          required: required
+        });
+      }
+    });
   }
 
   // Start the show.
   $(document).ready(function () {
     $('#edit-field-gs-marketing-account-value').on('change', updateUI)
-    updateUI();
+    $('#edit-field-gs-ean-0-value, #edit-field-gs-debtor-0-value').on('keyup', updateUI);
+    updateUI({
+      target: document.getElementById('edit-field-gs-marketing-account-value')
+    });
 
     progress();
   });
@@ -140,4 +157,44 @@
 			$(el).attr('placeholder', '');
 		}
 	});
+
+  // Fill in some test data.
+  $(document).ready(function() {
+    var data = {
+      'field_gs_department': 'ITK',
+      'field_gs_phone': '12345678',
+      'field_gs_contact_person': 'Mikkel Ricky',
+      'field_gs_email': 'rimi@aarhus.dk',
+      'title': 'Test ' + (new Date()),
+      'field_gs_order_lines': [ {
+        'quantity': 87,
+        'product_type': 'hat'
+      }, {
+        'quantity': 42,
+        'product-type': 'briller',
+      }],
+      'field_gs_comments': 'Non nobis, Domine, non nobis, sed nomini tuo da gloriam.',
+      // 'field_gs_ean': '12345678',
+      'field_gs_delivery_department': 'ITK',
+      'field_gs_delivery_address': 'Dokk1',
+      'field_gs_delivery_zip_code': '8000',
+      'field_gs_delivery_city': 'Aarhus C',
+      'field_gs_delivery_date': new Date(2100, 01, 01),
+      'field_gs_delivery_comments': 'Skynd jer!'
+    };
+    for (var name in data) {
+      var value = data[name];
+      var fieldId = 'edit-' + name.replace(/_/g, '-') + '-0-value';
+      if (value instanceof Date) {
+        fieldId += '-date';
+        value = value.getFullYear() + '-' + (value.getMonth() < 10 ? '0' : '') + value.getMonth() + '-' + (value.getDate() < 10 ? '0' : '') + value.getDate();
+      }
+      $('#' + fieldId).val(value);
+    }
+    $('#edit-field-gs-order-lines-0-quantity').val(87);
+    $('#edit-field-gs-order-lines-0-product-type').val('hat');
+    $('#edit-field-gs-order-lines-1-quantity').val(42);
+    $('#edit-field-gs-order-lines-1-product-type').val('briller');
+  });
+
 })(jQuery);

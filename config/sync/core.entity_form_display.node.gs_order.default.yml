@@ -5,6 +5,7 @@ dependencies:
   config:
     - field.field.node.gs_order.field_gs_comments
     - field.field.node.gs_order.field_gs_contact_person
+    - field.field.node.gs_order.field_gs_debtor
     - field.field.node.gs_order.field_gs_delivery_address
     - field.field.node.gs_order.field_gs_delivery_city
     - field.field.node.gs_order.field_gs_delivery_comments
@@ -69,6 +70,7 @@ third_party_settings:
         classes: 'form--page form--page-2 is-hidden js-progress-page'
     group_step_3:
       children:
+        - field_gs_debtor
         - field_gs_ean
         - field_gs_marketing_account
       parent_name: ''
@@ -128,6 +130,14 @@ content:
     third_party_settings: {  }
     type: string_textfield
     region: content
+  field_gs_debtor:
+    weight: 27
+    settings:
+      size: 60
+      placeholder: 'F.eks. 1234'
+    third_party_settings: {  }
+    type: string_textfield
+    region: content
   field_gs_delivery_address:
     weight: 11
     settings:
@@ -183,7 +193,7 @@ content:
     type: string_textfield
     region: content
   field_gs_ean:
-    weight: 6
+    weight: 28
     settings:
       size: 60
       placeholder: 'F.eks. 1234567891234'
@@ -206,7 +216,7 @@ content:
     type: file_generic
     region: content
   field_gs_marketing_account:
-    weight: 7
+    weight: 30
     settings:
       display_label: true
     third_party_settings: {  }
