@@ -136,7 +136,7 @@
   // Start the show.
   $(document).ready(function () {
     $('#edit-field-gs-marketing-account-value').on('change', updateUI)
-    $('#edit-field-gs-ean-0-value, #edit-field-gs-debtor-0-value').on('keyup', updateUI);
+    $('#edit-field-gs-ean-0-value, #edit-field-gs-debtor-0-value').on('change keyup', updateUI);
     updateUI({
       target: document.getElementById('edit-field-gs-marketing-account-value')
     });
