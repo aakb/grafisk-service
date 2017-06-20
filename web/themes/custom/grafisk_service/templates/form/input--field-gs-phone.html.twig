@@ -1,4 +1,4 @@
 <div class="form--phone-field-wrapper form--flex-wrapper">
-  <input{{ attributes.setAttribute('type', 'tel').setAttribute('size', 10).addClass('form--phone-field-input') }} />
+  <input{{ attributes.setAttribute('type', 'tel').setAttribute('size', 8).setAttribute('pattern', '[0-9]{8}').setAttribute('title', 'Indtast 8 cifre').addClass('form--phone-field-input') }} />
   <div class="form--phone-field-prefix">+45</div>
 </div>
