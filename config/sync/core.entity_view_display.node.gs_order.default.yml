@@ -5,6 +5,7 @@ dependencies:
   config:
     - field.field.node.gs_order.field_gs_comments
     - field.field.node.gs_order.field_gs_contact_person
+    - field.field.node.gs_order.field_gs_debtor
     - field.field.node.gs_order.field_gs_delivery_address
     - field.field.node.gs_order.field_gs_delivery_city
     - field.field.node.gs_order.field_gs_delivery_comments
@@ -39,6 +40,14 @@ content:
     region: content
   field_gs_contact_person:
     weight: 1
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_gs_debtor:
+    weight: 19
     label: above
     settings:
       link_to_entity: false
