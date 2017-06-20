@@ -36,8 +36,11 @@ msgstr "Produkttype"
 msgid "Quantity"
 msgstr "Antal"
 
+msgid "Debtor"
+msgstr "Debitornummer"
+
 msgid "Ean"
-msgstr "Internt debitor nr./EAN-nummer"
+msgstr "EAN-nummer"
 
 msgid "Marketing account"
 msgstr "Borgerservice og bibliotekers markedsføringskonto?"
@@ -59,3 +62,21 @@ msgstr "Postnummer"
 
 msgid "Delivery city"
 msgstr "By"
+
+msgid "Order number"
+msgstr "Ordrenummer"
+
+msgid "Title"
+msgstr "Titel"
+
+msgid "Order lines"
+msgstr "Ordrelinjer"
+
+msgid "Comments"
+msgstr "Kommentarer"
+
+msgid "Yes"
+msgstr "Ja"
+
+msgid "No"
+msgstr "Nej"

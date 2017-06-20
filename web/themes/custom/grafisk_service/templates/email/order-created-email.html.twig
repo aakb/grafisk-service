@@ -458,6 +458,9 @@
                           <tr style="padding: 0;vertical-align: top;text-align: left;">
                             <td class="panel" style="word-break: break-word;-webkit-hyphens: auto;-moz-hyphens: auto;hyphens: auto;padding: 0;vertical-align: top;text-align: left;color: #222222;font-family: Helvetica, Arial, sans-serif;font-weight: normal;margin: 0;line-height: 19px;font-size: 14px;background: #eeeeee;border: 1px solid #cccccc;border-bottom: 0;border-collapse: collapse !important;">
 
+                              {% if harvest.project_id|default(false) %}
+                                {{ order_row('Order number', harvest.project_id) }}
+                              {% endif %}
                               {{ order_row('Department', order.department) }}
                               {{ order_row('Phone', order.phone) }}
                               {{ order_row('Contact person', order.contact_person) }}
@@ -475,8 +478,13 @@
                               {{ order_row('Files', order.files }}
                               #}
 
-                              {{ order_row('Ean', order.ean) }}
-                              {{ order_row('Marketing account', (order.marketing_account ? 'Yes' : 'No') | trans) }}
+                              {% if order.marketing_account %}
+                                {{ order_row('Marketing account', (order.marketing_account ? 'Yes' : 'No') | trans) }}
+                              {% elseif order.debtor|default(false) %}
+                                {{ order_row('Debtor', order.debtor) }}
+                              {% elseif order.ean|default(false) %}
+                                {{ order_row('Ean', order.ean) }}
+                              {% endif %}
 
                               {{ order_row('Delivery date', order.delivery_date | date('d/m/Y')) }}
                               {{ order_row('Delivery comments', order.delivery_comments | nl2br) }}
