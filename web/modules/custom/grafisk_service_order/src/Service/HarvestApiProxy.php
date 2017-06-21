@@ -87,13 +87,32 @@ class HarvestApiProxy {
       throw new \Exception('Cannot create project');
     }
 
-    $projectId = $result->data;
-    $projectUrl = $this->getProjectUrl($projectId);
+    $project->set('id', $result->data);
+    $projectUrl = $this->getProjectUrl($project);
 
-    $this->logger->info('HarvestApiProxy.createProject: !clientId !projectId', ['!clientId' => $clientId, '!projectId' => $projectId]);
+    $this->logger->info('HarvestApiProxy.createProject: !clientId !projectId', ['!clientId' => $clientId, '!projectId' => $project->id]);
+
+    // Rename uploaded files to include Harvest project id in file name.
+    if ($order->field_gs_files) {
+      foreach ($order->field_gs_files as $file) {
+        $filename = $file->entity->getFileUri();
+        $newFilename = preg_replace('@/([^/]+)@', '/'. $project->id . '-' . '\1', $filename);
+        $result = file_move($file->entity, $newFilename);
+        if ($result) {
+          $file->entity = $result;
+          $this->logger->info('Uploaded file moved: !filename -> !newFilename (!xxx)', ['!filename' => $filename, '!newFilename' => $file->entity->getFilename(), '!xxx' => $newFilename]);
+        } else {
+          $this->logger->warning('Cannot move uploaded file: !filename', ['!filename' => $filename]);
+        }
+      }
+    }
+
+    // Update Harvest project to show updated filenames.
+    $project->set('notes', $this->getProjectData($order));
+    $result = $this->getApi()->updateProject($project);
 
     return [
-      'projectId' => $projectId,
+      'projectId' => $project->id,
       'projectUrl' => $projectUrl,
     ];
   }
@@ -240,14 +259,14 @@ class HarvestApiProxy {
   /**
    * Get Harvest project url.
    *
-   * @param int $projectId
-   *   The Harvest project id.
+   * @param Project $project
+   *   The Harvest project.
    *
    * @return string
    *   The project url.
    */
-  public function getProjectUrl($projectId) {
-    return 'https://' . $this->configuration['account'] . '.harvestapp.com/projects/' . $projectId;
+  public function getProjectUrl(Project $project) {
+    return 'https://' . $this->configuration['account'] . '.harvestapp.com/projects/' . $project->id;
   }
 
   private function render($templateName, $data) {

@@ -1,18 +1,18 @@
-uuid: 6d008106-3ea3-48cf-8276-c3601bcbea43
+uuid: d8ec4eed-1597-4c27-987d-f21e3b26c233
 langcode: da
 status: true
 dependencies:
   config:
-    - field.storage.node.field_gs_ean
+    - field.storage.node.field_gs_debtor
     - node.type.gs_order
-id: node.gs_order.field_gs_ean
-field_name: field_gs_ean
+id: node.gs_order.field_gs_debtor
+field_name: field_gs_debtor
 entity_type: node
 bundle: gs_order
-label: EAN-nummer
+label: Debitornummer
 description: ''
 required: false
-translatable: true
+translatable: false
 default_value: {  }
 default_value_callback: ''
 settings: {  }

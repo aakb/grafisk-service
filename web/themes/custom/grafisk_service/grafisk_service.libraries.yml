@@ -12,6 +12,7 @@ grafisk-service:
     js/jquery-ui.js: {}
     js/datepicker-config.js: {}
     node_modules/jquery-validation/dist/jquery.validate.js: {}
+    node_modules/jquery-validation/dist/additional-methods.js: {}
     node_modules/jquery-validation/dist/localization/messages_da.js: {}
   dependencies:
     - core/jquery

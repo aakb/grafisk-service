@@ -111,18 +111,35 @@
     });
   }
 
-  function updateUI() {
-    var requireEAN = !$('#edit-field-gs-marketing-account-value').prop('checked');
-    $('#edit-field-gs-ean-0-value').prop({
-			disabled: !requireEAN,
-			required: requireEAN
-		});
+  /**
+   * Disable and require some fields depending on something.
+   */
+  function updateUI(event) {
+    var fieldIds = [
+      'edit-field-gs-marketing-account-value',
+      'edit-field-gs-ean-0-value',
+      'edit-field-gs-debtor-0-value'
+    ],
+    target = event.target,
+    required = target.id === 'edit-field-gs-marketing-account-value' ? !$(target).prop('checked') : !$(target).val();
+
+    fieldIds.forEach(function (id) {
+      if (id !== target.id) {
+        $('#' + id).prop({
+          disabled: !required,
+          required: required
+        });
+      }
+    });
   }
 
   // Start the show.
   $(document).ready(function () {
     $('#edit-field-gs-marketing-account-value').on('change', updateUI)
-    updateUI();
+    $('#edit-field-gs-ean-0-value, #edit-field-gs-debtor-0-value').on('change keyup', updateUI);
+    updateUI({
+      target: document.getElementById('edit-field-gs-marketing-account-value')
+    });
 
     progress();
   });

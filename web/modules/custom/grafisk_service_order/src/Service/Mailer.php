@@ -100,6 +100,7 @@ class Mailer {
     // Extend content with order information.
     if (!is_null($order)) {
       $content += $this->generateOrderData($order);
+      $content += $this->generateHarvestData($order);
     }
 
     $subject = $this->replaceTokens($subject, $order);
@@ -243,6 +244,7 @@ class Mailer {
       'files' => $order->field_gs_files,
 
       'ean' => $order->field_gs_ean->value,
+      'debtor' => $order->field_gs_debtor->value,
       'marketing_account' => $order->field_gs_marketing_account->value,
 
       'delivery_date' => new \DateTime($order->field_gs_delivery_date->value),
