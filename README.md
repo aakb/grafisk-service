@@ -3,9 +3,11 @@
 ## Installation
 
 ```
-composer install
-cd web
-drush config-import
+composer install --no-dev
+cd web/sites/default
+drush --yes config-import
+drush locale-update
+drush cache-rebuild
 ```
 
 Add these line to `settings.php`:
@@ -16,6 +18,14 @@ $config_directories[CONFIG_SYNC_DIRECTORY] = '../config/sync';
 ```
 
 Go to `/admin/grafisk_service_order/messsages` and configure email settings.
+
+Set up a cron job:
+
+```
+*/1 * * * * /usr/local/bin/drush --root="/home/www/grafisk_service_bestilling/htdocs/web" --uri="http://grafisk_service_bestilling.dev" cron > /dev/null 2>&1
+```
+
+Change paths to match your actual setup.
 
 
 ## APIs
