@@ -4,5 +4,8 @@ description: Grafisk service order
 package: Grafisk service
 core: '8.x'
 
+interface translation project: grafisk_service_order
+interface translation server pattern: modules/custom/grafisk_service_order/translations/grafisk_service_order.%language.po
+
 dependencies:
   - views
