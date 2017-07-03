@@ -133,9 +133,12 @@ class HarvestApiProxy {
    */
   private function getClientId(EntityInterface $order) {
     $department = $order->field_gs_department->value;
-    $debtorNumber = $this->getDebtorNumber($order);
+    $number = $this->getEan($order);
+    if (!$number) {
+      $number = $this->getDebtor($order);
+    }
 
-    $clientName = $department . ' ' . $debtorNumber;
+    $clientName = $department . ' ' . $number;
 
     $api = $this->getApi();
 
@@ -193,7 +196,8 @@ class HarvestApiProxy {
    */
   private function getClientData(EntityInterface $order) {
     $data = [
-      'debtor_number' => $this->getDebtorNumber($order),
+      'ean' => $this->getEan($order),
+      'debtor' => $this->getDebtor($order),
       'order' => $order,
     ];
 
@@ -201,16 +205,29 @@ class HarvestApiProxy {
   }
 
   /**
-   * Get debotr number for an order.
+   * Get debtor for an order.
    *
    * @param \Drupal\Core\Entity\EntityInterface $order
    *   The order.
    *
    * @return string
-   *   The debtor number.
+   *   The debtor.
    */
-  private function getDebtorNumber(EntityInterface $order) {
-    return $order->field_gs_marketing_account->value ? '4302 – Markedsføringskonto' : $order->field_gs_ean->value;
+  private function getDebtor(EntityInterface $order) {
+    return $order->field_gs_marketing_account->value ? '4302 – Markedsføringskonto' : $order->field_gs_debtor->value;
+  }
+
+  /**
+   * Get ean for an order.
+   *
+   * @param \Drupal\Core\Entity\EntityInterface $order
+   *   The order.
+   *
+   * @return string
+   *   The ean.
+   */
+  private function getEan(EntityInterface $order) {
+    return $order->field_gs_marketing_account->value ? null : $order->field_gs_ean->value;
   }
 
   /**
@@ -234,7 +251,8 @@ class HarvestApiProxy {
 
     $data = [
       'url' => $nodeUrl,
-      'debtor_number' => $this->getDebtorNumber($order),
+      'ean' => $this->getEan($order),
+      'debtor' => $this->getDebtor($order),
       'order' => $order,
       'file_urls' => $fileUrls,
     ];

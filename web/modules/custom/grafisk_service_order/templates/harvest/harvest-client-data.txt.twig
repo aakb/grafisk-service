@@ -1,3 +1,7 @@
 {{ 'Phone' | t }}: {{ order.field_gs_phone.value }}
 {{ 'Email' | t }}: {{ order.field_gs_email.value }}
-{{ 'Debtor number' | t }}: {{ debtor_number }}
+{% if ean %}
+{{ 'Ean' | t }}: {{ ean }}
+{% else %}
+{{ 'Debtor' | t }}: {{ debtor }}
+{% endif %}
