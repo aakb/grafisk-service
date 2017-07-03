@@ -17,7 +17,11 @@
 {{ url }}
 {% endfor %}
 
-{{ 'Debtor number' | t }}: {{ debtor_number }}
+{% if ean %}
+{{ 'Ean' | t }}: {{ ean }}
+{% else %}
+{{ 'Debtor' | t }}: {{ debtor }}
+{% endif %}
 {{ 'Delivery date' | t }}: {{ order.field_gs_delivery_date.value | date('d/m/Y') }}
 {{ 'Delivery comments' | t }}:
 {{ order.field_gs_delivery_comments.value }}
