@@ -20,7 +20,7 @@ default_value_callback: ''
 settings:
   file_directory: ''
   file_extensions: 'doc docx xls xlsx ppt pptx pdf txt rtf eps bmp jpeg jpg gif tiff png psd ai zip'
-  max_filesize: '25 MB'
+  max_filesize: '100 MB'
   description_field: false
   handler: 'default:file'
   handler_settings: {  }
