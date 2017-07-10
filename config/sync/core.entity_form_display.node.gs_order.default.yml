@@ -17,6 +17,7 @@ dependencies:
     - field.field.node.gs_order.field_gs_email
     - field.field.node.gs_order.field_gs_files
     - field.field.node.gs_order.field_gs_harvest_data
+    - field.field.node.gs_order.field_gs_harvest_project_id
     - field.field.node.gs_order.field_gs_marketing_account
     - field.field.node.gs_order.field_gs_order_lines
     - field.field.node.gs_order.field_gs_phone
@@ -214,6 +215,14 @@ content:
       progress_indicator: throbber
     third_party_settings: {  }
     type: file_generic
+    region: content
+  field_gs_harvest_project_id:
+    weight: 31
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
     region: content
   field_gs_marketing_account:
     weight: 30
