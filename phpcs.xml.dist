@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<ruleset name="PHP_CodeSniffer">
+ <description>The coding standard.</description>
+
+ <file>web/modules/custom/</file>
+
+ <arg value="np"/>
+ <arg value="s"/>
+
+ <!-- Check only php files -->
+ <arg name="extensions" value="php"/>
+
+ <rule ref="Drupal"/>
+</ruleset>

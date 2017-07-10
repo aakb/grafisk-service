@@ -10,5 +10,4 @@ weight: 1
 is_admin: false
 permissions:
   - 'access content'
-  - 'access content overview'
   - 'access toolbar'

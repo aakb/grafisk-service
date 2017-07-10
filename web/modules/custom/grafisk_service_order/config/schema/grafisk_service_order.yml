@@ -1,0 +1,10 @@
+field.formatter.settings.grafisk_service_order_harvest_data:
+  type: mapping
+  label: 'Harvest data formatter settings'
+  mapping:
+    field:
+      type: string
+      label: 'Field'
+    link_to_project:
+      type: boolean
+      label: 'Add link to Harvest project'
