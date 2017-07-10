@@ -10,3 +10,11 @@ $config['grafisk_service_order.settings']['harvest']['api']['account'] = 'exampl
 ```
 
 A cron jobs takes care of creating orders in Harvest.
+
+## Syncronizing data from Harvest to Drupal
+
+crontask:
+
+```
+0 * * * * drush php-eval "grafisk_service_order_update_projects('-2 hours')"
+```
