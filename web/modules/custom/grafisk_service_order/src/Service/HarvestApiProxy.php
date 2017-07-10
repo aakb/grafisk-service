@@ -7,6 +7,7 @@ use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Url;
 use Harvest\HarvestAPI;
 use Harvest\Model\Client;
+use Harvest\Model\Invoice\Filter;
 use Harvest\Model\Project;
 use Psr\Log\LoggerInterface;
 
@@ -34,7 +35,7 @@ class HarvestApiProxy {
   /**
    * Get an instance of the HarvestAPI.
    *
-   * @return HarvestAPI
+   * @return \Harvest\HarvestAPI
    *   The API instance.
    */
   private function getApi() {
@@ -51,7 +52,7 @@ class HarvestApiProxy {
   /**
    * Create a project in Harvest.
    *
-   * @param EntityInterface $order
+   * @param \Drupal\Core\Entity\EntityInterface $order
    *   The order.
    *
    * @return int
@@ -64,13 +65,13 @@ class HarvestApiProxy {
     $endsOn = new \DateTime($order->field_gs_delivery_date->value);
 
     if (!$endsOn || $endsOn < $startsOn) {
-      $startsOn = null;
+      $startsOn = NULL;
     }
 
     $project = new Project();
-    $project->set('name', $order->getTitle() . ' (#'. $order->id() . ')');
+    $project->set('name', $order->getTitle() . ' (#' . $order->id() . ')');
     $project->set('client_id', $clientId);
-    $project->set('active', true);
+    $project->set('active', TRUE);
     $project->set('code', 'Ny');
     if ($startsOn) {
       $project->set('starts_on', $startsOn->format(\DateTime::ATOM));
@@ -96,12 +97,13 @@ class HarvestApiProxy {
     if ($order->field_gs_files) {
       foreach ($order->field_gs_files as $file) {
         $filename = $file->entity->getFileUri();
-        $newFilename = preg_replace('@/([^/]+)@', '/'. $project->id . '-' . '\1', $filename);
+        $newFilename = preg_replace('@/([^/]+)@', '/' . $project->id . '-' . '\1', $filename);
         $result = file_move($file->entity, $newFilename);
         if ($result) {
           $file->entity = $result;
           $this->logger->info('Uploaded file moved: !filename -> !newFilename (!xxx)', ['!filename' => $filename, '!newFilename' => $file->entity->getFilename(), '!xxx' => $newFilename]);
-        } else {
+        }
+        else {
           $this->logger->warning('Cannot move uploaded file: !filename', ['!filename' => $filename]);
         }
       }
@@ -157,7 +159,8 @@ class HarvestApiProxy {
 
     if (isset($this->clients[$clientName])) {
       $client = $this->clients[$clientName];
-    } else {
+    }
+    else {
       $client = new Client();
     }
 
@@ -172,7 +175,8 @@ class HarvestApiProxy {
       }
 
       return $client->id;
-    } else {
+    }
+    else {
       $result = $api->createClient($client);
       if (!$result->isSuccess()) {
         $this->logger->error($result->data);
@@ -227,7 +231,7 @@ class HarvestApiProxy {
    *   The ean.
    */
   private function getEan(EntityInterface $order) {
-    return $order->field_gs_marketing_account->value ? null : $order->field_gs_ean->value;
+    return $order->field_gs_marketing_account->value ? NULL : $order->field_gs_ean->value;
   }
 
   /**
@@ -277,7 +281,7 @@ class HarvestApiProxy {
   /**
    * Get Harvest project url.
    *
-   * @param Project $project
+   * @param \Harvest\Model\Project $project
    *   The Harvest project.
    *
    * @return string
@@ -287,12 +291,49 @@ class HarvestApiProxy {
     return 'https://' . $this->configuration['account'] . '.harvestapp.com/projects/' . $project->id;
   }
 
+  /**
+   *
+   */
   private function render($templateName, $data) {
     $templatePath = DRUPAL_ROOT . '/' . drupal_get_path('module', 'grafisk_service_order') . '/templates/harvest/' . $templateName;
     $template = file_get_contents($templatePath);
     $content = $this->twig->createTemplate($template)->render($data);
 
     return $content;
+  }
+
+  /**
+   * Get all projects updated since a given time.
+   *
+   * @param \DateTime $updatedSince
+   *
+   * @return \Harvest\Model\Result
+   */
+  public function getProjects(\DateTime $updatedSince) {
+    $api = $this->getApi();
+    $d = clone $updatedSince;
+    $d->setTimezone(new \DateTimeZone('UTC'));
+    $result = $api->getProjects($d->format(\DateTime::ISO8601));
+
+    return $result->isSuccess() ? $result->data : NULL;
+  }
+
+  /**
+   * Get all invoices updated since a given time.
+   *
+   * @param \DateTime $updatedSince
+   *
+   * @return \Harvest\Model\Result
+   */
+  public function getInvoices(\DateTime $updatedSince) {
+    $api = $this->getApi();
+    $d = clone $updatedSince;
+    $d->setTimezone(new \DateTimeZone('UTC'));
+    $filter = new Filter();
+    $filter->set('updated_since', $d->format(\DateTime::ISO8601));
+    $result = $api->getInvoices($filter);
+
+    return $result->isSuccess() ? $result->data : NULL;
   }
 
 }

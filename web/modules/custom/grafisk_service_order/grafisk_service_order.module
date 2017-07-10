@@ -135,3 +135,41 @@ function grafisk_service_order_node_view(array &$build, EntityInterface $entity,
     }
   }
 }
+
+/**
+ * Update Harvest data on projects.
+ */
+function grafisk_service_order_update_projects($updatedSince = '-1 day') {
+  /** @var \Drupal\grafisk_service_order\Service\HarvestApiProxy $api */
+  $api = \Drupal::service('grafisk_service_order.harvest_api');
+
+  $updatedSince = new \DateTime($updatedSince);
+  $projects = $api->getProjects($updatedSince);
+
+  if ($projects) {
+    $projectIds = array_map(function (Project $project) {
+      return $project->id;
+    }, $projects);
+    $query = \Drupal::entityQuery('node')
+      ->condition('type', GS_ORDER_NODE_TYPE)
+      ->condition('field_gs_harvest_project_id', $projectIds, 'IN');
+    $ids = $query->execute();
+    $nodes = Node::loadMultiple(array_values($ids));
+    $orders = [];
+    foreach ($nodes as $node) {
+      $orders[$node->field_gs_harvest_project_id->value] = $node;
+    }
+
+    foreach ($projects as $project) {
+      if (isset($orders[$project->id])) {
+        $order = $orders[$project->id];
+        $data = json_decode($order->field_gs_harvest_data->value, TRUE);
+        $data['active'] = $project->get('active');
+        $data['updated-at'] = $project->get('updated-at');
+        $data['status'] = $project->get('code') ? $project->get('code') : '';
+        $order->field_gs_harvest_data->value = json_encode($data);
+        $order->save();
+      }
+    }
+  }
+}
