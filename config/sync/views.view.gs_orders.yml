@@ -601,7 +601,7 @@ display:
           exposed: true
           expose:
             operator_id: title_op
-            label: Title
+            label: Titel
             description: ''
             use_operator: false
             operator: title_op
