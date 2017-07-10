@@ -1,29 +1,39 @@
 <?php
+
+/**
+ * @file
+ */
+
 use Drupal\Core\Entity\Display\EntityViewDisplayInterface;
-use Drupal\Core\Entity\Entity;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\node\Entity\Node;
+use Harvest\Model\Project;
 
 define('GS_ORDER_NODE_TYPE', 'gs_order');
 
 /**
- * Implements hook_node_presave().
+ * Implements hook_entity_presave().
  */
-function grafisk_service_order_node_presave(EntityInterface $node) {
+function grafisk_service_order_entity_presave(EntityInterface $entity) {
+  if ($entity->getEntityTypeId() !== 'node') {
+    return;
+  }
+
   // Set empty Harvest data when creating order.
-  if ($node->getType() == GS_ORDER_NODE_TYPE && !$node->id()) {
-    $node->field_gs_harvest_data = '{}';
+  if ($entity->getType() === GS_ORDER_NODE_TYPE && !$entity->id()) {
+    $entity->field_gs_harvest_project_id = '0';
+    $entity->field_gs_harvest_data = '{}';
   }
 }
 
 /**
- * Implements hook_cron_insert().
+ * Implements hook_cron().
  */
 function grafisk_service_order_cron() {
   $query = \Drupal::entityQuery('node')
-         ->condition('type', GS_ORDER_NODE_TYPE)
-         ->condition('field_gs_harvest_data', '{}', '=')
-         ->condition('status', NODE_PUBLISHED);
+    ->condition('type', GS_ORDER_NODE_TYPE)
+    ->condition('field_gs_harvest_data', '{}', '=')
+    ->condition('status', Node::PUBLISHED);
   $ids = $query->execute();
 
   if ($ids) {
@@ -32,12 +42,13 @@ function grafisk_service_order_cron() {
       $api = \Drupal::service('grafisk_service_order.harvest_api');
       foreach ($orders as $order) {
         $data = $api->createProject($order);
+        $order->field_gs_harvest_project_id = $data['projectId'];
         $order->field_gs_harvest_data = json_encode($data);
         $order->save();
         // Send notification to admin.
         $mailer = \Drupal::service('grafisk_service_order.mailer');
         $mailer->notifyAdmin('create', $order);
-        // Send reciept to user.
+        // Send receipt to user.
         $mailer = \Drupal::service('grafisk_service_order.mailer');
         $mailer->notifyUser('create', $order);
       }

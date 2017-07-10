@@ -1,6 +1,12 @@
 <?php
 
 /**
+ * @file
+ */
+
+use Drupal\node\Entity\Node;
+
+/**
  * Implements hook_requirements().
  */
 function grafisk_service_order_requirements($phase) {
@@ -15,4 +21,25 @@ function grafisk_service_order_requirements($phase) {
   }
 
   return $requirements;
+}
+
+/**
+ * Extract Harvest project id and put into dedicated field.
+ */
+function grafisk_service_order_update_8301(&$sandbox) {
+  $query = \Drupal::entityQuery('node')
+    ->condition('type', GS_ORDER_NODE_TYPE);
+
+  $ids = $query->execute();
+
+  if ($ids) {
+    $orders = Node::loadMultiple(array_values($ids));
+    foreach ($orders as $order) {
+      $data = json_decode($order->field_gs_harvest_data->value);
+      if ($data) {
+        $order->field_gs_harvest_project_id = $data->projectId;
+        $order->save();
+      }
+    }
+  }
 }
