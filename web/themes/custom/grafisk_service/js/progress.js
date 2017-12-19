@@ -157,6 +157,20 @@
     updateAccountUI();
 
     progress();
+
+    $(document)
+      .on('ajaxStart', function() {
+        $('.js-back, .js-forward').prop({
+          disabled: true
+        });
+        $('.buttons--container').addClass('file-upload-in-progress');
+      })
+      .on('ajaxStop', function() {
+        $('.js-back, .js-forward').prop({
+          disabled: false
+        });
+        $('.buttons--container').removeClass('file-upload-in-progress');
+      });
   });
 
   // Hacks!
