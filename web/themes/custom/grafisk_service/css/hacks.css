@@ -22,3 +22,7 @@ table .js-select-files {
 .form--item.hide-label .form--label {
 	display: none;
 }
+
+.buttons--container.file-upload-in-progress {
+  opacity: 0.5;
+}
