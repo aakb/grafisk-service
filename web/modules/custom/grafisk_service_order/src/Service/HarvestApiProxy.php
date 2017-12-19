@@ -91,7 +91,7 @@ class HarvestApiProxy {
     $project->set('id', $result->data);
     $projectUrl = $this->getProjectUrl($project);
 
-    $this->logger->info('HarvestApiProxy.createProject: !clientId !projectId', ['!clientId' => $clientId, '!projectId' => $project->id]);
+    $this->logger->info('HarvestApiProxy.createProject: @clientId @projectId', ['@clientId' => $clientId, '@projectId' => $project->id]);
 
     // Rename uploaded files to include Harvest project id in file name.
     if ($order->field_gs_files) {
@@ -101,10 +101,10 @@ class HarvestApiProxy {
         $result = file_move($file->entity, $newFilename);
         if ($result) {
           $file->entity = $result;
-          $this->logger->info('Uploaded file moved: !filename -> !newFilename (!xxx)', ['!filename' => $filename, '!newFilename' => $file->entity->getFilename(), '!xxx' => $newFilename]);
+          $this->logger->info('Uploaded file moved: @filename -> @newFilename (@xxx)', ['@filename' => $filename, '@newFilename' => $file->entity->getFilename(), '@xxx' => $newFilename]);
         }
         else {
-          $this->logger->warning('Cannot move uploaded file: !filename', ['!filename' => $filename]);
+          $this->logger->warning('Cannot move uploaded file: @filename', ['@filename' => $filename]);
         }
       }
     }
