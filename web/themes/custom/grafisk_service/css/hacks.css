@@ -26,3 +26,23 @@ table .js-select-files {
 .buttons--container.file-upload-in-progress {
   opacity: 0.5;
 }
+
+html body form input.error {
+  background-color: #ffbaba !important;
+  border: 1px solid #ff3b3b !important;
+  color: ba0000 !important;
+}
+
+.buttons--container {
+  text-align: right;
+  display: block;
+}
+
+.grafisk-service-has-errors .form--label {
+  color: #ff3b3b !important;
+}
+
+.grafisk-service-has-errors input {
+  background-color: #ffbaba !important;
+  border: 1px solid #ff3b3b !important;
+}
