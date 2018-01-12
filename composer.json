@@ -84,11 +84,6 @@
             "merge-extra": false,
             "merge-extra-deep": false,
             "merge-scripts": false
-        },
-        "patches": {
-            "drupal/core": {
-                "Error in File uploading": "https://www.drupal.org/files/issues/1489692-93.patch"
-            }
         }
     }
 }
