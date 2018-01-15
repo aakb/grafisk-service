@@ -52,4 +52,10 @@
   {% set label_display = 'before' %}
 {% endif %}
 
-{% include '@stable/form/form-element.html.twig' %}
+{% if (errors) %}
+  <div class="grafisk-service-has-errors">
+    {% include '@stable/form/form-element.html.twig' %}
+  </div>
+{% else %}
+  {% include '@stable/form/form-element.html.twig' %}
+{% endif %}
