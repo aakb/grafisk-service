@@ -189,7 +189,7 @@ content:
     weight: 13
     settings:
       size: 60
-      placeholder: 'Vælg hvilken afdeling, der er tilknyttet opgaven'
+      placeholder: 'Skriv navnet på afdelingen, der er tilknyttet opgaven'
     third_party_settings: {  }
     type: string_textfield
     region: content

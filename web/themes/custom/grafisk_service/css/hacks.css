@@ -46,3 +46,8 @@ html body form input.error {
   background-color: #ffbaba !important;
   border: 1px solid #ff3b3b !important;
 }
+
+/* Hide status messages on order view page */
+.page-node-type-gs-order .itk-status-messages {
+  display: none;
+}
