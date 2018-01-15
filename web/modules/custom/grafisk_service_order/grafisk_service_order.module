@@ -41,16 +41,20 @@ function grafisk_service_order_cron() {
     if ($orders) {
       $api = \Drupal::service('grafisk_service_order.harvest_api');
       foreach ($orders as $order) {
-        $data = $api->createProject($order);
-        $order->field_gs_harvest_project_id = $data['projectId'];
-        $order->field_gs_harvest_data = json_encode($data);
-        $order->save();
-        // Send notification to admin.
-        $mailer = \Drupal::service('grafisk_service_order.mailer');
-        $mailer->notifyAdmin('create', $order);
-        // Send receipt to user.
-        $mailer = \Drupal::service('grafisk_service_order.mailer');
-        $mailer->notifyUser('create', $order);
+        try {
+          $data = $api->createProject($order);
+          $order->field_gs_harvest_project_id = $data['projectId'];
+          $order->field_gs_harvest_data = json_encode($data);
+          $order->save();
+          // Send notification to admin.
+          $mailer = \Drupal::service('grafisk_service_order.mailer');
+          $mailer->notifyAdmin('create', $order);
+          // Send receipt to user.
+          $mailer = \Drupal::service('grafisk_service_order.mailer');
+          $mailer->notifyUser('create', $order);
+        } catch (\Exception $exception) {
+          watchdog_exception('grafisk_service_order', $exception);
+        }
       }
     }
   }
