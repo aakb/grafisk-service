@@ -157,12 +157,16 @@ class HarvestApiProxy {
       }
     }
 
-    if (isset($this->clients[$clientName])) {
-      $client = $this->clients[$clientName];
+    // Client names are case-insensitive in Harvest.
+    $existingClient = null;
+    foreach ($this->clients as $name => $client) {
+      if (strcasecmp($clientName, $name) === 0) {
+        $existingClient = $client;
+        break;
+      }
     }
-    else {
-      $client = new Client();
-    }
+
+    $client = $existingClient ?: new Client();
 
     $client->set('name', $clientName);
     $client->set('details', $this->getClientData($order));
