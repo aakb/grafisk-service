@@ -5,7 +5,7 @@ slogan: ''
 page:
   403: ''
   404: ''
-  front: /node/add/gs_order
+  front: /node/add
 admin_compact_mode: false
 weight_select_max: 100
 langcode: da

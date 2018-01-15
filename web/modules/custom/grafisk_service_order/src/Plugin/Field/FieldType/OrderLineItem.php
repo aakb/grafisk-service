@@ -52,7 +52,7 @@ class OrderLineItem extends FieldItemBase {
    * {@inheritdoc}
    */
   public static function propertyDefinitions(FieldStorageDefinitionInterface $field_definition) {
-    $properties['quantity'] = DataDefinition::create('integer')
+    $properties['quantity'] = DataDefinition::create('string')
                             ->setLabel(t('Quantity'));
 
     $properties['product_type'] = DataDefinition::create('string')
