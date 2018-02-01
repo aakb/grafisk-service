@@ -1,0 +1,10 @@
+{% trans %}
+Orders not exported to Harvest:
+{% endtrans %}
+
+{% for order in orders %}
+
+#{{ order.nid.value }}: {{ order.title.value }}
+{{ 'Created on' }}: {{ order.created.value | date('d/m/Y h:i') }}
+{{ base_url ~ path('entity.node.canonical', {'node': order.nid.value}, {absolute: true}) }}
+{% endfor %}

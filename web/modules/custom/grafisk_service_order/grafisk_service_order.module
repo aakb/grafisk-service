@@ -58,6 +58,8 @@ function grafisk_service_order_cron() {
       }
     }
   }
+
+  \Drupal::service('grafisk_service_order.harvest_alerter')->cron();
 }
 
 /**
