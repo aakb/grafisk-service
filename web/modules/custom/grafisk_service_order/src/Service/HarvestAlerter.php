@@ -59,7 +59,8 @@ class HarvestAlerter {
   private function sendAlert($message) {
     $siteConfig = \Drupal::config('system.site');
     $from = $siteConfig->get('mail') ?: ini_get('sendmail_from');
-    $to = $this->configuration->get('email_recipients');
+    $recipients = array_map('trim', explode(PHP_EOL, $this->configuration->get('email_recipients')));
+    $to = implode(', ', $recipients);
     $subject = $this->configuration->get('email_subject');
     $body = $message;
 
