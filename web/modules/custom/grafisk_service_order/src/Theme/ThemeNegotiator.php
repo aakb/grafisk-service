@@ -1,16 +1,18 @@
 <?php
-/**
- * @file
- * Contains \Drupal\grafisk_service_order\Theme\ThemeNegotiator.
- */
 
 namespace Drupal\grafisk_service_order\Theme;
 
 use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\Core\Theme\ThemeNegotiatorInterface;
 
+/**
+ *
+ */
 class ThemeNegotiator implements ThemeNegotiatorInterface {
 
+  /**
+   *
+   */
   public function applies(RouteMatchInterface $route) {
     switch ($route->getRouteName()) {
       case 'node.add':
@@ -24,13 +26,13 @@ class ThemeNegotiator implements ThemeNegotiatorInterface {
         if (\Drupal::currentUser()->isAnonymous()) {
           $node = $route->getParameter('node');
           if ($node && $node->getType() == 'gs_order') {
-            return true;
+            return TRUE;
           }
         }
         break;
     }
 
-    return false;
+    return FALSE;
   }
 
   /**
@@ -38,5 +40,6 @@ class ThemeNegotiator implements ThemeNegotiatorInterface {
    */
   public function determineActiveTheme(RouteMatchInterface $route) {
     return 'grafisk_service';
- }
+  }
+
 }

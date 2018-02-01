@@ -2,20 +2,27 @@
 
 namespace Drupal\grafisk_service_order\Controller;
 
+use Drupal\node\Entity\Node;
 use Drupal\Core\Controller\ControllerBase;
-use Drupal\Core\Url;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * An example controller.
  */
 class OrderController extends ControllerBase {
+
+  /**
+   *
+   */
   public static function create(ContainerInterface $container) {
     return new static($container);
   }
 
   private $container;
 
+  /**
+   *
+   */
   public function __construct(ContainerInterface $container) {
     $this->container = $container;
   }
@@ -24,8 +31,8 @@ class OrderController extends ControllerBase {
    * {@inheritdoc}
    */
   public function addressLabelAction($id) {
-    $order = \Drupal\node\Entity\Node::load($id);
-    $harvestData = $order->field_gs_harvest_data->value ? json_decode($order->field_gs_harvest_data->value) : null;
+    $order = Node::load($id);
+    $harvestData = $order->field_gs_harvest_data->value ? json_decode($order->field_gs_harvest_data->value) : NULL;
 
     $build = [
       '#theme' => 'order_address_label',
@@ -38,4 +45,5 @@ class OrderController extends ControllerBase {
 
     echo $content; die;
   }
+
 }

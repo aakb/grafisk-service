@@ -1,17 +1,10 @@
 <?php
 
-/**
- * @file
- * Contains Drupal\grafisk_service_order\Plugin\Field\FieldType\OrderLineItem.
- */
-
 namespace Drupal\grafisk_service_order\Plugin\Field\FieldType;
 
 use Drupal\Core\Field\FieldItemBase;
-use Drupal\Core\Field\FieldDefinitionInterface;
 use Drupal\Core\Field\FieldStorageDefinitionInterface;
 use Drupal\Core\TypedData\DataDefinition;
-use Drupal\Core\TypedData\MapDataDefinition;
 
 /**
  * Plugin implementation of the 'grafisk_service_order_order_line' field type.
@@ -53,10 +46,10 @@ class OrderLineItem extends FieldItemBase {
    */
   public static function propertyDefinitions(FieldStorageDefinitionInterface $field_definition) {
     $properties['quantity'] = DataDefinition::create('string')
-                            ->setLabel(t('Quantity'));
+      ->setLabel(t('Quantity'));
 
     $properties['product_type'] = DataDefinition::create('string')
-                         ->setLabel(t('Product type'));
+      ->setLabel(t('Product type'));
 
     return $properties;
   }

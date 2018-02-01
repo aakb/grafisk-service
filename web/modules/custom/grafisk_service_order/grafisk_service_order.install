@@ -18,7 +18,8 @@ function grafisk_service_order_requirements($phase) {
         'severity' => REQUIREMENT_ERROR,
       ];
     }
-  } elseif ($phase === 'runtime') {
+  }
+  elseif ($phase === 'runtime') {
     $uploadMaxFilesize = _grafisk_service_order_get_bytes(ini_get('upload_max_filesize'));
     $postMaxSize = _grafisk_service_order_get_bytes(ini_get('post_max_size'));
 
@@ -49,14 +50,21 @@ function grafisk_service_order_requirements($phase) {
 /**
  * Convert php.ini shorthand value to bytes.
  *
- * @see http://fi2.php.net/manual/en/function.ini-get.php#96996.
+ * @see http://fi2.php.net/manual/en/function.ini-get.php#96996
  */
 function _grafisk_service_order_get_bytes($size_str) {
-  switch (substr ($size_str, -1)) {
-    case 'M': case 'm': return (int)$size_str * 1048576;
-    case 'K': case 'k': return (int)$size_str * 1024;
-    case 'G': case 'g': return (int)$size_str * 1073741824;
-    default: return $size_str;
+  switch (substr($size_str, -1)) {
+    case 'M': case 'm':
+      return (int) $size_str * 1048576;
+
+    case 'K': case 'k':
+      return (int) $size_str * 1024;
+
+    case 'G': case 'g':
+      return (int) $size_str * 1073741824;
+
+    default:
+      return $size_str;
   }
 }
 

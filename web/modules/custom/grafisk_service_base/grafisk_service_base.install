@@ -1,16 +1,21 @@
 <?php
+
 /**
-* Enable field group and field ui
-*/
+ * @file
+ */
+
+/**
+ * Enable field group and field ui.
+ */
 function grafisk_service_base_install() {
   // Enable modules.
-  $module_list = array(
+  $module_list = [
     'field_ui',
     'field_group',
     'toolbar',
     'editor',
     'update',
-    'inline_form_errors'
-  );
+    'inline_form_errors',
+  ];
   \Drupal::service('module_installer')->install($module_list);
 }

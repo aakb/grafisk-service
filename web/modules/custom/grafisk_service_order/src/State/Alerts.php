@@ -9,14 +9,14 @@ use Drupal\Core\Database\Connection;
 /**
  *
  */
-class OrderMessages extends DatabaseStorage {
+class Alerts extends DatabaseStorage {
 
   /**
    * @param \Drupal\Component\Serialization\SerializationInterface $serializer
    * @param \Drupal\Core\Database\Connection $connection
    */
   public function __construct(SerializationInterface $serializer, Connection $connection) {
-    parent::__construct('grafisk_service_order.order_messages', $serializer, $connection);
+    parent::__construct('grafisk_service_order.alerts', $serializer, $connection);
   }
 
 }
