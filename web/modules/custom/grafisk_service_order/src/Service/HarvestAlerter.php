@@ -49,10 +49,8 @@ class HarvestAlerter {
         'orders' => $orders,
       ]);
       $this->sendAlert($message);
-      var_export($message);
+      $this->logger->warning($message);
     }
-
-    $this->logger->info(__METHOD__);
   }
 
   /**
