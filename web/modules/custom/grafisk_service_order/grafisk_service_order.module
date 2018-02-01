@@ -52,7 +52,8 @@ function grafisk_service_order_cron() {
           // Send receipt to user.
           $mailer = \Drupal::service('grafisk_service_order.mailer');
           $mailer->notifyUser('create', $order);
-        } catch (\Exception $exception) {
+        }
+        catch (\Exception $exception) {
           watchdog_exception('grafisk_service_order', $exception);
         }
       }
@@ -104,7 +105,7 @@ function grafisk_service_order_theme($existing, $type, $theme, $path) {
     'order_address_label_button' => [
       'template' => 'order/address-label-button',
       'variables' => [
-        'order' => []
+        'order' => [],
       ],
     ],
 

@@ -1,25 +1,24 @@
 <?php
-/**
- * @file
- * Contains Drupal\grafisk_service_order\Form\OrderMessagesForm.
- */
 
 namespace Drupal\grafisk_service_order\Form;
 
 use Drupal\Core\Datetime\DateFormatterInterface;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\Core\Session\AccountInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Class ContentEntityExampleSettingsForm.
+ *
  * @package Drupal\grafisk_service_order\Form
  * @ingroup grafisk_service_order
  */
 class AlertsForm extends FormBase {
   protected $dateFormatter;
 
+  /**
+   *
+   */
   public function __construct(DateFormatterInterface $dateFormatter) {
     $this->dateFormatter = $dateFormatter;
   }
@@ -55,10 +54,10 @@ class AlertsForm extends FormBase {
   public function buildForm(array $form, FormStateInterface $form_state) {
     $settings = $this->getSettings();
 
-    $form['order_age_settings'] = array(
+    $form['order_age_settings'] = [
       '#title' => $this->t('Alert age settings'),
       '#type' => 'fieldset',
-    );
+    ];
 
     $periods = [
       1 * 60 * 60,
@@ -69,38 +68,38 @@ class AlertsForm extends FormBase {
     ];
     $options = array_map([$this->dateFormatter, 'formatInterval'], array_combine($periods, $periods));
 
-    $form['order_age_settings']['order_max_age'] = array(
+    $form['order_age_settings']['order_max_age'] = [
       '#type' => 'select',
       '#title' => $this->t('Order max age'),
       '#description' => $this->t('Max age of order before alert is issued.'),
-      '#required' => true,
+      '#required' => TRUE,
       '#options' => $options,
       '#default_value' => $settings->get('order_max_age', 24 * 60 * 60),
-    );
+    ];
 
-    $form['email_settings'] = array(
+    $form['email_settings'] = [
       '#title' => $this->t('Alert email settings'),
       '#type' => 'fieldset',
-    );
+    ];
 
-    $form['email_settings']['email_subject'] = array(
+    $form['email_settings']['email_subject'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Alert email subject'),
-      '#required' => true,
+      '#required' => TRUE,
       '#default_value' => $settings->get('email_subject'),
-    );
+    ];
 
-    $form['email_settings']['email_recipients'] = array(
+    $form['email_settings']['email_recipients'] = [
       '#type' => 'textarea',
       '#title' => $this->t('Alert email recipients (one per line)'),
-      '#required' => true,
+      '#required' => TRUE,
       '#default_value' => $settings->get('email_recipients'),
-    );
+    ];
 
-    $form['settings_submit'] = array(
+    $form['settings_submit'] = [
       '#type' => 'submit',
       '#value' => t('Save alert settings'),
-    );
+    ];
 
     return $form;
   }
@@ -115,11 +114,11 @@ class AlertsForm extends FormBase {
    */
   public function alertSettingsSubmit(array $form, FormStateInterface $form_state) {
     drupal_set_message($this->t('Alert settings saved'));
-    $this->getSettings()->setMultiple(array(
+    $this->getSettings()->setMultiple([
       'time' => $form_state->getValue('time'),
       'email_subject' => $form_state->getValue('email_subject'),
       'email_recipients' => $form_state->getValue('email_recipients')['value'],
-    ));
+    ]);
   }
 
   /**
@@ -127,10 +126,11 @@ class AlertsForm extends FormBase {
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
     drupal_set_message($this->t('Alert settings saved'));
-    $this->getSettings()->setMultiple(array(
+    $this->getSettings()->setMultiple([
       'order_max_age' => $form_state->getValue('order_max_age'),
       'email_subject' => $form_state->getValue('email_subject'),
       'email_recipients' => $form_state->getValue('email_recipients'),
-    ));
+    ]);
   }
+
 }

@@ -1,8 +1,4 @@
 <?php
-/**
- * @file
- * Contains key/value storage for alerts.
- */
 
 namespace Drupal\grafisk_service_order\State;
 
@@ -10,7 +6,11 @@ use Drupal\Core\KeyValueStore\DatabaseStorage;
 use Drupal\Component\Serialization\SerializationInterface;
 use Drupal\Core\Database\Connection;
 
+/**
+ *
+ */
 class Alerts extends DatabaseStorage {
+
   /**
    * @param \Drupal\Component\Serialization\SerializationInterface $serializer
    * @param \Drupal\Core\Database\Connection $connection
@@ -18,4 +18,5 @@ class Alerts extends DatabaseStorage {
   public function __construct(SerializationInterface $serializer, Connection $connection) {
     parent::__construct('grafisk_service_order.alerts', $serializer, $connection);
   }
+
 }

@@ -1,16 +1,14 @@
 <?php
-/**
- * @file
- * Contains the mail service.
- */
 
 namespace Drupal\grafisk_service_order\Service;
 
 use Drupal\Component\Utility\Crypt;
-use Drupal\Component\Utility\Html;
 use Drupal\Core\Url;
 use Drupal\Core\Entity\EntityInterface;
 
+/**
+ *
+ */
 class Mailer {
 
   protected $mailManager;
@@ -25,12 +23,18 @@ class Mailer {
     $this->mailManager = $mailManager;
   }
 
+  /**
+   *
+   */
   public function notifyUser($type, EntityInterface $order) {
-    $this->send($type, $order, false);
+    $this->send($type, $order, FALSE);
   }
 
+  /**
+   *
+   */
   public function notifyAdmin($type, EntityInterface $order) {
-    $this->send($type, $order, true);
+    $this->send($type, $order, TRUE);
   }
 
   /**
@@ -38,7 +42,7 @@ class Mailer {
    *
    * @param string $type
    *   The type of the mail (request, accepted, etc.)
-   * @param EntityInterface $order
+   * @param \Drupal\Core\Entity\EntityInterface $order
    *   Order that this mail is about.
    * @param bool $sendToAdmin
    *   Send notification mail to administrator.
@@ -51,7 +55,7 @@ class Mailer {
     $to = $sendToAdmin ? $config->get('admin_order_created_email_to') : $order->field_gs_email->value;
 
     // Generate content.
-    $content = (object)($sendToAdmin ? $this->generateAdminMailContent($type, $order) : $this->generateUserMailContent($type, $order));
+    $content = (object) ($sendToAdmin ? $this->generateAdminMailContent($type, $order) : $this->generateUserMailContent($type, $order));
 
     // Send the mail.
     $this->mailer($to, $content->subject, $content->body, $from, $fromName);
@@ -62,8 +66,9 @@ class Mailer {
    *
    * @param $type
    *   The type of mail message to build.
-   * @param EntityInterface $order
+   * @param \Drupal\Core\Entity\EntityInterface $order
    *   The order to use.
+   *
    * @return array
    *   Array indexed with "body" and "subject" as keys.
    */
@@ -76,19 +81,19 @@ class Mailer {
         $subject = $messages->get('order_created_email_subject');
 
         // Build render array.
-        $content = array(
+        $content = [
           '#theme' => 'order_created_email',
           '#message' => $messages->get('order_created_email_body'),
-        );
+        ];
 
         break;
 
       default:
         $subject = 'Unknown mail type';
-        $content = array(
+        $content = [
           '#type' => 'markup',
           '#message' => 'Error unknown mail type',
-        );
+        ];
         break;
     }
 
@@ -105,7 +110,7 @@ class Mailer {
 
     $subject = $this->replaceTokens($subject, $order);
     $content['#message'] = $this->replaceTokens($content['#message'], $order);
-    $content['#is_admin'] = false;
+    $content['#is_admin'] = FALSE;
 
     // Render the body content for the mail.
     return [
@@ -119,8 +124,9 @@ class Mailer {
    *
    * @param $type
    *   The type of mail message to build.
-   * @param EntityInterface $order
+   * @param \Drupal\Core\Entity\EntityInterface $order
    *   The order to use.
+   *
    * @return array
    *   Array indexed with "body" and "subject" as keys.
    */
@@ -163,7 +169,7 @@ class Mailer {
 
     $nodeUrl = Url::fromRoute('entity.node.canonical', ['node' => $order->id(), 'uuid' => $order->uuid()])->toString();
     $nodeUrl = Url::fromRoute('user.login', ['destination' => $nodeUrl], ['absolute' => TRUE])->toString();
-    $content['#is_admin'] = true;
+    $content['#is_admin'] = TRUE;
     $content['#order']['drupal_url'] = $nodeUrl;
 
     // Render the body content for the mail.
@@ -220,7 +226,7 @@ class Mailer {
   /**
    * Build render array with order information.
    *
-   * @param EntityInterface $order
+   * @param \Drupal\Core\Entity\EntityInterface $order
    *   Order to generate data for.
    *
    * @return array
@@ -255,17 +261,20 @@ class Mailer {
       'delivery_city' => $order->field_gs_delivery_city->value,
     ];
 
-    return [ '#order' => $data ];
+    return ['#order' => $data];
   }
 
+  /**
+   *
+   */
   protected function generateHarvestData(EntityInterface $order) {
     $harvestData = @json_decode($order->field_gs_harvest_data->value);
     $data = [
-      'project_id' => isset($harvestData->projectId) ? $harvestData->projectId : null,
-      'project_url' => isset($harvestData->projectUrl) ? $harvestData->projectUrl : null,
+      'project_id' => isset($harvestData->projectId) ? $harvestData->projectId : NULL,
+      'project_url' => isset($harvestData->projectUrl) ? $harvestData->projectUrl : NULL,
     ];
 
-    return [ '#harvest' => $data ];
+    return ['#harvest' => $data];
   }
 
   /**
@@ -298,11 +307,11 @@ class Mailer {
 
     // Get hold of the RAW mailer client.
     $key = Crypt::randomBytesBase64();
-    $mailer = $this->mailManager->getInstance([ 'module' => 'grafisk_service_order', 'key' => $key ]);
+    $mailer = $this->mailManager->getInstance(['module' => 'grafisk_service_order', 'key' => $key]);
 
     // Build mail configuration and set the type to HTML.
     $params = [
-      'headers' => array(
+      'headers' => [
         'MIME-Version' => '1.0',
         'Content-Type' => 'text/html; charset=UTF-8; format=flowed; delsp=yes',
         'Content-Transfer-Encoding' => '8Bit',
@@ -311,7 +320,7 @@ class Mailer {
         'Reply-to' => $from,
         'Sender' => $from,
         'From' => $fromName . ' <' . $from . '>',
-      ),
+      ],
       'to' => $to,
       'body' => $body,
       'subject' => $subject,
@@ -320,4 +329,5 @@ class Mailer {
     // Send the mail.
     $mailer->mail($params);
   }
+
 }

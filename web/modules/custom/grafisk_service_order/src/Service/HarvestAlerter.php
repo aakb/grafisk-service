@@ -29,6 +29,9 @@ class HarvestAlerter {
     $this->logger = $logger;
   }
 
+  /**
+   *
+   */
   public function cron() {
     $maxAge = max($this->configuration->get('order_max_age', 24 * 60 * 60), 60 * 60);
     $createdBefore = time() - $maxAge;
@@ -52,6 +55,9 @@ class HarvestAlerter {
     $this->logger->info(__METHOD__);
   }
 
+  /**
+   *
+   */
   private function sendAlert($message) {
     $siteConfig = \Drupal::config('system.site');
     $from = $siteConfig->get('mail') ?: ini_get('sendmail_from');
@@ -61,11 +67,11 @@ class HarvestAlerter {
 
     // Get hold of the RAW mailer client.
     $key = Crypt::randomBytesBase64();
-    $mailer = $this->mailManager->getInstance([ 'module' => 'grafisk_service_order', 'key' => $key ]);
+    $mailer = $this->mailManager->getInstance(['module' => 'grafisk_service_order', 'key' => $key]);
 
     // Build mail configuration and set the type to HTML.
     $params = [
-      'headers' => array(
+      'headers' => [
         'MIME-Version' => '1.0',
         'Content-Type' => 'text/plain; charset=UTF-8; format=flowed; delsp=yes',
         'Content-Transfer-Encoding' => '8Bit',
@@ -74,7 +80,7 @@ class HarvestAlerter {
         'Reply-to' => $from,
         'Sender' => $from,
         'From' => $from,
-      ),
+      ],
       'to' => $to,
       'body' => $body,
       'subject' => $subject,
