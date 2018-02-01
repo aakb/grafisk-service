@@ -2,9 +2,10 @@
 <ruleset name="PHP_CodeSniffer">
  <description>The coding standard.</description>
 
- <file>web/modules/custom/</file>
+ <file>web/modules/custom/grafisk_service_base</file>
+ <file>web/modules/custom/grafisk_service_order</file>
 
- <arg value="np"/>
+ <arg value="p"/>
  <arg value="s"/>
 
  <!-- Check only php files -->

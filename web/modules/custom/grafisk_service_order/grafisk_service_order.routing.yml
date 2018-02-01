@@ -13,3 +13,11 @@ grafisk_service_order.order_address_label:
     _title: 'Address label'
   requirements:
     _permission: 'access content'
+
+grafisk_service_order.alerts:
+  path: '/admin/grafisk_service_order/alerts'
+  defaults:
+    _form: '\Drupal\grafisk_service_order\Form\AlertsForm'
+    _title: 'Order Alerts'
+  requirements:
+    _permission: 'administer site configuration'

@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\grafisk_service_order\Plugin\Field\FieldFormatter\OrderLineFormatter.
- */
-
 namespace Drupal\grafisk_service_order\Plugin\Field\FieldFormatter;
 
 use Drupal\Core\Field\FieldItemListInterface;

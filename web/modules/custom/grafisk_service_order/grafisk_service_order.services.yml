@@ -22,3 +22,15 @@ services:
   grafisk_service_order.order_messages:
     class: Drupal\grafisk_service_order\State\OrderMessages
     arguments: ['@serialization.json', '@database']
+
+  grafisk_service_order.alerts:
+    class: Drupal\grafisk_service_order\State\Alerts
+    arguments: ['@serialization.json', '@database']
+
+  grafisk_service_order.harvest_alerter:
+    class: Drupal\grafisk_service_order\Service\HarvestAlerter
+    arguments:
+      - '@grafisk_service_order.alerts'
+      - '@plugin.manager.mail'
+      - '@twig'
+      - '@logger.channel.grafisk_service_order'

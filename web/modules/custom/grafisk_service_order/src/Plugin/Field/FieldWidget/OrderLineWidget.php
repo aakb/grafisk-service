@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\grafisk_service_order\Plugin\Field\FieldWidget\OrderLineWidget.
- */
-
 namespace Drupal\grafisk_service_order\Plugin\Field\FieldWidget;
 
 use Drupal\Core\Field\FieldItemListInterface;
@@ -23,6 +18,10 @@ use Drupal\Core\Form\FormStateInterface;
  * )
  */
 class OrderLineWidget extends WidgetBase {
+
+  /**
+   *
+   */
   public static function defaultSettings() {
     return [
       'quantity' => [
@@ -36,6 +35,9 @@ class OrderLineWidget extends WidgetBase {
     ] + parent::defaultSettings();
   }
 
+  /**
+   *
+   */
   public function settingsForm(array $form, FormStateInterface $form_state) {
     $element = [
       'quantity' => [
@@ -84,16 +86,19 @@ class OrderLineWidget extends WidgetBase {
     return $element;
   }
 
+  /**
+   *
+   */
   public function settingsSummary() {
     $summary = [];
 
     $summary[] = t('Quantity');
-    $summary[] = '- ' . t('Textfield size: @size', array('@size' => $this->getSetting('quantity')['size']));
-    $summary[] = '- ' . t('Placeholder: @placeholder', array('@placeholder' => $this->getSetting('quantity')['placeholder']));
+    $summary[] = '- ' . t('Textfield size: @size', ['@size' => $this->getSetting('quantity')['size']]);
+    $summary[] = '- ' . t('Placeholder: @placeholder', ['@placeholder' => $this->getSetting('quantity')['placeholder']]);
 
     $summary[] = t('Product type');
-    $summary[] = '- ' . t('Textfield size: @size', array('@size' => $this->getSetting('product_type')['size']));
-    $summary[] = '- ' . t('Placeholder: @placeholder', array('@placeholder' => $this->getSetting('product_type')['placeholder']));
+    $summary[] = '- ' . t('Textfield size: @size', ['@size' => $this->getSetting('product_type')['size']]);
+    $summary[] = '- ' . t('Placeholder: @placeholder', ['@placeholder' => $this->getSetting('product_type')['placeholder']]);
 
     return $summary;
   }
