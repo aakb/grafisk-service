@@ -664,6 +664,80 @@ display:
             default_group_multiple: {  }
             group_items: {  }
           plugin_id: string
+        field_gs_contact_person_value_1:
+          id: field_gs_contact_person_value_1
+          table: node__field_gs_contact_person
+          field: field_gs_contact_person_value
+          relationship: none
+          group_type: group
+          admin_label: ''
+          operator: contains
+          value: ''
+          group: 1
+          exposed: true
+          expose:
+            operator_id: field_gs_contact_person_value_1_op
+            label: Kunde
+            description: ''
+            use_operator: false
+            operator: field_gs_contact_person_value_1_op
+            identifier: field_gs_contact_person_value_1
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              anonymous: '0'
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          plugin_id: string
+        field_gs_harvest_data_value:
+          id: field_gs_harvest_data_value
+          table: node__field_gs_harvest_data
+          field: field_gs_harvest_data_value
+          relationship: none
+          group_type: group
+          admin_label: ''
+          operator: contains
+          value: ''
+          group: 1
+          exposed: true
+          expose:
+            operator_id: field_gs_harvest_data_value_op
+            label: Status
+            description: ''
+            use_operator: false
+            operator: field_gs_harvest_data_value_op
+            identifier: field_gs_harvest_data_value
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              anonymous: '0'
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          plugin_id: string
       sorts: {  }
       header: {  }
       footer: {  }
