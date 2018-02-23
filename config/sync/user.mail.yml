@@ -21,7 +21,7 @@ status_activated:
   subject: 'Kontoinformationer for [user:display-name] på [site:name] (godkendt)'
 status_blocked:
   body: "[user:display-name],\n\nDin konto på [site:name] er blevet blokeret.\n\n--  [site:name] holdet"
-  subject: 'Account details for [user:display-name] at [site:name] (blocked)'
+  subject: 'Kontoinformationer for [user:display-name] på [site:name] (blokeret)'
 status_canceled:
   body: "[user:display-name],\n\nDin konto på [site:name] er blevet lukket.\n\n--  [site:name] holdet"
   subject: 'Kontoinformationer for [user:display-name] på [site:name] (opsagt)'
