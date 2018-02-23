@@ -1,5 +1,9 @@
 # Changelog Grafisk service bestilling
 
+## 1.3.4
+* Updated Drupal core 8.4.5
+* Modified admin view pager
+
 ## 1.3.3
 * Added additional fields to backend filters.
 * Evolved to the point where we one day added a changelog to the project.
