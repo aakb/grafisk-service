@@ -1,5 +1,8 @@
 # Changelog Grafisk service bestilling
 
+## 1.3.5
+* Updated to Drupal core 8.5.3
+
 ## 1.3.4
 * Updated Drupal core 8.4.5
 * Modified admin view pager
