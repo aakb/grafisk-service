@@ -1,15 +1,13 @@
-uuid: bd96c26c-b430-488b-ae58-4822e4cf36da
+uuid: 665824ab-cfae-4d8a-baf8-33083b70327d
 langcode: da
 status: true
 dependencies:
   theme:
     - seven
-_core:
-  default_config_hash: c-06bbElRY5sKmglk74ppgTW93Et4-EJFyNiUZMb8JY
-id: seven_local_tasks
+id: faner
 theme: seven
-region: pre_content
-weight: -3
+region: header
+weight: -2
 provider: null
 plugin: local_tasks_block
 settings:
