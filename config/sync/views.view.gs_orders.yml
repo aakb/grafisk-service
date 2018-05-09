@@ -4,12 +4,13 @@ status: true
 dependencies:
   config:
     - field.storage.node.field_gs_contact_person
+    - field.storage.node.field_gs_delivery_date
     - field.storage.node.field_gs_harvest_data
     - field.storage.node.field_gs_harvest_project_id
     - node.type.gs_order
-    - system.menu.admin
     - user.role.authenticated
   module:
+    - datetime
     - grafisk_service_order
     - node
     - user
@@ -91,12 +92,12 @@ display:
             title: title
             field_gs_contact_person: field_gs_contact_person
             field_gs_harvest_data_1: field_gs_harvest_data_1
-            created: created
+            field_gs_delivery_date: field_gs_delivery_date
             field_gs_harvest_data_2: field_gs_harvest_data_2
           info:
             field_gs_harvest_project_id:
               sortable: true
-              default_sort_order: asc
+              default_sort_order: desc
               align: ''
               separator: ''
               empty_column: false
@@ -120,9 +121,9 @@ display:
               separator: ''
               empty_column: false
               responsive: ''
-            created:
+            field_gs_delivery_date:
               sortable: true
-              default_sort_order: desc
+              default_sort_order: asc
               align: ''
               separator: ''
               empty_column: false
@@ -132,7 +133,7 @@ display:
               separator: ''
               empty_column: false
               responsive: ''
-          default: created
+          default: field_gs_harvest_project_id
           empty_table: false
       row:
         type: fields
@@ -398,14 +399,14 @@ display:
           separator: ', '
           field_api_classes: false
           plugin_id: field
-        created:
-          id: created
-          table: node_field_data
-          field: created
+        field_gs_delivery_date:
+          id: field_gs_delivery_date
+          table: node__field_gs_delivery_date
+          field: field_gs_delivery_date
           relationship: none
           group_type: group
           admin_label: ''
-          label: Bestillingsdato
+          label: 'Ønsket leveringsdato'
           exclude: false
           alter:
             alter_text: false
@@ -447,11 +448,10 @@ display:
           empty_zero: false
           hide_alter_empty: true
           click_sort_column: value
-          type: timestamp
+          type: datetime_custom
           settings:
-            date_format: short
-            custom_date_format: ''
-            timezone: ''
+            timezone_override: ''
+            date_format: 'd/m/Y - H:i:s'
           group_column: value
           group_columns: {  }
           group_rows: true
@@ -462,8 +462,6 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-          entity_type: node
-          entity_field: created
           plugin_id: field
         field_gs_harvest_data_2:
           id: field_gs_harvest_data_2
@@ -575,6 +573,7 @@ display:
             remember_roles:
               authenticated: authenticated
               anonymous: '0'
+            placeholder: ''
           is_grouped: false
           group_info:
             label: 'Harvest project id (field_gs_harvest_project_id)'
@@ -615,6 +614,7 @@ display:
             remember_roles:
               authenticated: authenticated
               anonymous: '0'
+            placeholder: ''
           is_grouped: false
           group_info:
             label: ''
@@ -654,6 +654,7 @@ display:
             remember_roles:
               authenticated: authenticated
               anonymous: '0'
+            placeholder: ''
           is_grouped: false
           group_info:
             label: ''
@@ -691,6 +692,7 @@ display:
             remember_roles:
               authenticated: authenticated
               anonymous: '0'
+            placeholder: ''
           is_grouped: false
           group_info:
             label: ''
@@ -728,18 +730,31 @@ display:
             remember_roles:
               authenticated: authenticated
               anonymous: '0'
-          is_grouped: false
+            placeholder: ''
+          is_grouped: true
           group_info:
-            label: ''
+            label: Status
             description: ''
-            identifier: ''
+            identifier: field_gs_harvest_data_value
             optional: true
             widget: select
             multiple: false
             remember: false
             default_group: All
             default_group_multiple: {  }
-            group_items: {  }
+            group_items:
+              1:
+                title: Aktive
+                operator: contains
+                value: '"active":"true"'
+              2:
+                title: Arkiverede
+                operator: contains
+                value: '"active":"false"'
+              3:
+                title: Nye
+                operator: contains
+                value: '"status":"Ny"'
           plugin_id: string
       sorts: {  }
       header: {  }
@@ -748,7 +763,7 @@ display:
       relationships: {  }
       arguments: {  }
       display_extenders: {  }
-      title: Ordrer
+      title: 'Alle ordrer'
       filter_groups:
         operator: AND
         groups:
@@ -764,25 +779,338 @@ display:
         - user.roles
       tags:
         - 'config:field.storage.node.field_gs_contact_person'
+        - 'config:field.storage.node.field_gs_delivery_date'
         - 'config:field.storage.node.field_gs_harvest_data'
         - 'config:field.storage.node.field_gs_harvest_project_id'
   page_1:
     display_plugin: page
     id: page_1
-    display_title: Page
-    position: 1
+    display_title: Jan
+    position: 3
     display_options:
       display_extenders: {  }
-      path: ordrer
       menu:
-        type: normal
-        title: Ordrer
+        type: tab
+        title: Jan
         description: ''
         expanded: false
-        parent: system.admin
-        weight: 100
+        parent: ''
+        weight: 5
         context: '0'
-        menu_name: admin
+        menu_name: main
+      path: ordrer/jan
+      display_description: ''
+      title: 'Jans ordrer'
+      defaults:
+        title: false
+        filters: false
+        filter_groups: false
+      filters:
+        status:
+          value: '1'
+          table: node_field_data
+          field: status
+          plugin_id: boolean
+          entity_type: node
+          entity_field: status
+          id: status
+          expose:
+            operator: ''
+          group: 1
+        type:
+          id: type
+          table: node_field_data
+          field: type
+          value:
+            gs_order: gs_order
+          entity_type: node
+          entity_field: type
+          plugin_id: bundle
+          group: 1
+        field_gs_harvest_project_id_value:
+          id: field_gs_harvest_project_id_value
+          table: node__field_gs_harvest_project_id
+          field: field_gs_harvest_project_id_value
+          relationship: none
+          group_type: group
+          admin_label: ''
+          operator: contains
+          value: ''
+          group: 1
+          exposed: true
+          expose:
+            operator_id: field_gs_harvest_project_id_value_op
+            label: Ordrenummer
+            description: ''
+            use_operator: false
+            operator: field_gs_harvest_project_id_value_op
+            identifier: field_gs_harvest_project_id_value
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              anonymous: '0'
+            placeholder: ''
+          is_grouped: false
+          group_info:
+            label: 'Harvest project id (field_gs_harvest_project_id)'
+            description: null
+            identifier: field_gs_harvest_project_id_value
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items:
+              1: {  }
+              2: {  }
+              3: {  }
+          plugin_id: string
+        title:
+          id: title
+          table: node_field_data
+          field: title
+          relationship: none
+          group_type: group
+          admin_label: ''
+          operator: contains
+          value: ''
+          group: 1
+          exposed: true
+          expose:
+            operator_id: title_op
+            label: Titel
+            description: ''
+            use_operator: false
+            operator: title_op
+            identifier: title
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              anonymous: '0'
+            placeholder: ''
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          entity_type: node
+          entity_field: title
+          plugin_id: string
+        field_gs_contact_person_value:
+          id: field_gs_contact_person_value
+          table: node__field_gs_contact_person
+          field: field_gs_contact_person_value
+          relationship: none
+          group_type: group
+          admin_label: ''
+          operator: contains
+          value: ''
+          group: 1
+          exposed: true
+          expose:
+            operator_id: field_gs_contact_person_value_op
+            label: Kontaktperson
+            description: ''
+            use_operator: false
+            operator: field_gs_contact_person_value_op
+            identifier: field_gs_contact_person_value
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              anonymous: '0'
+            placeholder: ''
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          plugin_id: string
+        field_gs_contact_person_value_1:
+          id: field_gs_contact_person_value_1
+          table: node__field_gs_contact_person
+          field: field_gs_contact_person_value
+          relationship: none
+          group_type: group
+          admin_label: ''
+          operator: contains
+          value: ''
+          group: 1
+          exposed: true
+          expose:
+            operator_id: field_gs_contact_person_value_1_op
+            label: Kunde
+            description: ''
+            use_operator: false
+            operator: field_gs_contact_person_value_1_op
+            identifier: field_gs_contact_person_value_1
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              anonymous: '0'
+            placeholder: ''
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          plugin_id: string
+        field_gs_harvest_data_value:
+          id: field_gs_harvest_data_value
+          table: node__field_gs_harvest_data
+          field: field_gs_harvest_data_value
+          relationship: none
+          group_type: group
+          admin_label: ''
+          operator: contains
+          value: ''
+          group: 1
+          exposed: true
+          expose:
+            operator_id: field_gs_harvest_data_value_op
+            label: Status
+            description: ''
+            use_operator: false
+            operator: field_gs_harvest_data_value_op
+            identifier: field_gs_harvest_data_value
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              anonymous: '0'
+            placeholder: ''
+          is_grouped: true
+          group_info:
+            label: Status
+            description: ''
+            identifier: field_gs_harvest_data_value
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items:
+              1:
+                title: Aktive
+                operator: contains
+                value: '"active":"true"'
+              2:
+                title: Arkiverede
+                operator: contains
+                value: '"active":"false"'
+              3:
+                title: Nye
+                operator: contains
+                value: '"status":"Ny"'
+          plugin_id: string
+        field_gs_harvest_data_value_2:
+          id: field_gs_harvest_data_value_2
+          table: node__field_gs_harvest_data
+          field: field_gs_harvest_data_value
+          relationship: none
+          group_type: group
+          admin_label: ''
+          operator: contains
+          value: '"status":"I-JT"'
+          group: 2
+          exposed: false
+          expose:
+            operator_id: ''
+            label: ''
+            description: ''
+            use_operator: false
+            operator: ''
+            identifier: ''
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          plugin_id: string
+        field_gs_harvest_data_value_1:
+          id: field_gs_harvest_data_value_1
+          table: node__field_gs_harvest_data
+          field: field_gs_harvest_data_value
+          relationship: none
+          group_type: group
+          admin_label: ''
+          operator: contains
+          value: '"status":"JT"'
+          group: 2
+          exposed: false
+          expose:
+            operator_id: ''
+            label: ''
+            description: ''
+            use_operator: false
+            operator: ''
+            identifier: ''
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          plugin_id: string
+      filter_groups:
+        operator: AND
+        groups:
+          1: AND
+          2: OR
     cache_metadata:
       max-age: 0
       contexts:
@@ -794,5 +1122,710 @@ display:
         - user.roles
       tags:
         - 'config:field.storage.node.field_gs_contact_person'
+        - 'config:field.storage.node.field_gs_delivery_date'
+        - 'config:field.storage.node.field_gs_harvest_data'
+        - 'config:field.storage.node.field_gs_harvest_project_id'
+  page_2:
+    display_plugin: page
+    id: page_2
+    display_title: Alle
+    position: 2
+    display_options:
+      display_extenders: {  }
+      path: ordrer
+      menu:
+        type: 'default tab'
+        title: 'Alle ordrer'
+        description: ''
+        expanded: false
+        parent: ''
+        weight: 0
+        context: '0'
+        menu_name: main
+      tab_options:
+        type: none
+        title: Ordrer
+        description: ''
+        weight: 0
+      display_description: ''
+    cache_metadata:
+      max-age: 0
+      contexts:
+        - 'languages:language_content'
+        - 'languages:language_interface'
+        - url
+        - url.query_args
+        - 'user.node_grants:view'
+        - user.roles
+      tags:
+        - 'config:field.storage.node.field_gs_contact_person'
+        - 'config:field.storage.node.field_gs_delivery_date'
+        - 'config:field.storage.node.field_gs_harvest_data'
+        - 'config:field.storage.node.field_gs_harvest_project_id'
+  page_3:
+    display_plugin: page
+    id: page_3
+    display_title: Aktive
+    position: 3
+    display_options:
+      display_extenders: {  }
+      path: ordrer/aktive
+      menu:
+        type: tab
+        title: 'Aktive ordrer'
+        description: ''
+        expanded: false
+        parent: ''
+        weight: 1
+        context: '0'
+        menu_name: main
+      title: 'Aktive ordrer'
+      defaults:
+        title: false
+        filters: false
+        filter_groups: false
+        style: false
+        row: false
+      display_description: ''
+      filters:
+        status:
+          value: '1'
+          table: node_field_data
+          field: status
+          plugin_id: boolean
+          entity_type: node
+          entity_field: status
+          id: status
+          expose:
+            operator: ''
+          group: 1
+        type:
+          id: type
+          table: node_field_data
+          field: type
+          value:
+            gs_order: gs_order
+          entity_type: node
+          entity_field: type
+          plugin_id: bundle
+          group: 1
+        field_gs_harvest_project_id_value:
+          id: field_gs_harvest_project_id_value
+          table: node__field_gs_harvest_project_id
+          field: field_gs_harvest_project_id_value
+          relationship: none
+          group_type: group
+          admin_label: ''
+          operator: contains
+          value: ''
+          group: 1
+          exposed: true
+          expose:
+            operator_id: field_gs_harvest_project_id_value_op
+            label: Ordrenummer
+            description: ''
+            use_operator: false
+            operator: field_gs_harvest_project_id_value_op
+            identifier: field_gs_harvest_project_id_value
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              anonymous: '0'
+            placeholder: ''
+          is_grouped: false
+          group_info:
+            label: 'Harvest project id (field_gs_harvest_project_id)'
+            description: null
+            identifier: field_gs_harvest_project_id_value
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items:
+              1: {  }
+              2: {  }
+              3: {  }
+          plugin_id: string
+        title:
+          id: title
+          table: node_field_data
+          field: title
+          relationship: none
+          group_type: group
+          admin_label: ''
+          operator: contains
+          value: ''
+          group: 1
+          exposed: true
+          expose:
+            operator_id: title_op
+            label: Titel
+            description: ''
+            use_operator: false
+            operator: title_op
+            identifier: title
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              anonymous: '0'
+            placeholder: ''
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          entity_type: node
+          entity_field: title
+          plugin_id: string
+        field_gs_contact_person_value:
+          id: field_gs_contact_person_value
+          table: node__field_gs_contact_person
+          field: field_gs_contact_person_value
+          relationship: none
+          group_type: group
+          admin_label: ''
+          operator: contains
+          value: ''
+          group: 1
+          exposed: true
+          expose:
+            operator_id: field_gs_contact_person_value_op
+            label: Kontaktperson
+            description: ''
+            use_operator: false
+            operator: field_gs_contact_person_value_op
+            identifier: field_gs_contact_person_value
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              anonymous: '0'
+            placeholder: ''
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          plugin_id: string
+        field_gs_contact_person_value_1:
+          id: field_gs_contact_person_value_1
+          table: node__field_gs_contact_person
+          field: field_gs_contact_person_value
+          relationship: none
+          group_type: group
+          admin_label: ''
+          operator: contains
+          value: ''
+          group: 1
+          exposed: true
+          expose:
+            operator_id: field_gs_contact_person_value_1_op
+            label: Kunde
+            description: ''
+            use_operator: false
+            operator: field_gs_contact_person_value_1_op
+            identifier: field_gs_contact_person_value_1
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              anonymous: '0'
+            placeholder: ''
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          plugin_id: string
+        field_gs_harvest_data_value_1:
+          id: field_gs_harvest_data_value_1
+          table: node__field_gs_harvest_data
+          field: field_gs_harvest_data_value
+          relationship: none
+          group_type: group
+          admin_label: ''
+          operator: not
+          value: '"active":"false"'
+          group: 1
+          exposed: false
+          expose:
+            operator_id: ''
+            label: ''
+            description: ''
+            use_operator: false
+            operator: ''
+            identifier: ''
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          plugin_id: string
+      filter_groups:
+        operator: AND
+        groups:
+          1: AND
+      style:
+        type: table
+        options:
+          grouping: {  }
+          row_class: ''
+          default_row_class: true
+          override: true
+          sticky: false
+          caption: ''
+          summary: ''
+          description: ''
+          columns:
+            field_gs_harvest_project_id: field_gs_harvest_project_id
+            title: title
+            field_gs_contact_person: field_gs_contact_person
+            field_gs_harvest_data_1: field_gs_harvest_data_1
+            field_gs_delivery_date: field_gs_delivery_date
+            field_gs_harvest_data_2: field_gs_harvest_data_2
+          info:
+            field_gs_harvest_project_id:
+              sortable: true
+              default_sort_order: desc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            title:
+              sortable: true
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            field_gs_contact_person:
+              sortable: true
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            field_gs_harvest_data_1:
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            field_gs_delivery_date:
+              sortable: true
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            field_gs_harvest_data_2:
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+          default: field_gs_delivery_date
+          empty_table: false
+      row:
+        type: fields
+        options:
+          inline: {  }
+          separator: ''
+          hide_empty: false
+          default_field_elements: true
+    cache_metadata:
+      max-age: 0
+      contexts:
+        - 'languages:language_content'
+        - 'languages:language_interface'
+        - url
+        - url.query_args
+        - 'user.node_grants:view'
+        - user.roles
+      tags:
+        - 'config:field.storage.node.field_gs_contact_person'
+        - 'config:field.storage.node.field_gs_delivery_date'
+        - 'config:field.storage.node.field_gs_harvest_data'
+        - 'config:field.storage.node.field_gs_harvest_project_id'
+  page_4:
+    display_plugin: page
+    id: page_4
+    display_title: Thomas
+    position: 4
+    display_options:
+      display_extenders: {  }
+      path: ordrer/thomas
+      display_description: ''
+      title: 'Thomas'' ordrer'
+      defaults:
+        title: false
+        filters: false
+        filter_groups: false
+      menu:
+        type: tab
+        title: Thomas
+        description: ''
+        expanded: false
+        parent: ''
+        weight: 10
+        context: '0'
+        menu_name: main
+      filters:
+        status:
+          value: '1'
+          table: node_field_data
+          field: status
+          plugin_id: boolean
+          entity_type: node
+          entity_field: status
+          id: status
+          expose:
+            operator: ''
+          group: 1
+        type:
+          id: type
+          table: node_field_data
+          field: type
+          value:
+            gs_order: gs_order
+          entity_type: node
+          entity_field: type
+          plugin_id: bundle
+          group: 1
+        field_gs_harvest_project_id_value:
+          id: field_gs_harvest_project_id_value
+          table: node__field_gs_harvest_project_id
+          field: field_gs_harvest_project_id_value
+          relationship: none
+          group_type: group
+          admin_label: ''
+          operator: contains
+          value: ''
+          group: 1
+          exposed: true
+          expose:
+            operator_id: field_gs_harvest_project_id_value_op
+            label: Ordrenummer
+            description: ''
+            use_operator: false
+            operator: field_gs_harvest_project_id_value_op
+            identifier: field_gs_harvest_project_id_value
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              anonymous: '0'
+            placeholder: ''
+          is_grouped: false
+          group_info:
+            label: 'Harvest project id (field_gs_harvest_project_id)'
+            description: null
+            identifier: field_gs_harvest_project_id_value
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items:
+              1: {  }
+              2: {  }
+              3: {  }
+          plugin_id: string
+        title:
+          id: title
+          table: node_field_data
+          field: title
+          relationship: none
+          group_type: group
+          admin_label: ''
+          operator: contains
+          value: ''
+          group: 1
+          exposed: true
+          expose:
+            operator_id: title_op
+            label: Titel
+            description: ''
+            use_operator: false
+            operator: title_op
+            identifier: title
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              anonymous: '0'
+            placeholder: ''
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          entity_type: node
+          entity_field: title
+          plugin_id: string
+        field_gs_contact_person_value:
+          id: field_gs_contact_person_value
+          table: node__field_gs_contact_person
+          field: field_gs_contact_person_value
+          relationship: none
+          group_type: group
+          admin_label: ''
+          operator: contains
+          value: ''
+          group: 1
+          exposed: true
+          expose:
+            operator_id: field_gs_contact_person_value_op
+            label: Kontaktperson
+            description: ''
+            use_operator: false
+            operator: field_gs_contact_person_value_op
+            identifier: field_gs_contact_person_value
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              anonymous: '0'
+            placeholder: ''
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          plugin_id: string
+        field_gs_contact_person_value_1:
+          id: field_gs_contact_person_value_1
+          table: node__field_gs_contact_person
+          field: field_gs_contact_person_value
+          relationship: none
+          group_type: group
+          admin_label: ''
+          operator: contains
+          value: ''
+          group: 1
+          exposed: true
+          expose:
+            operator_id: field_gs_contact_person_value_1_op
+            label: Kunde
+            description: ''
+            use_operator: false
+            operator: field_gs_contact_person_value_1_op
+            identifier: field_gs_contact_person_value_1
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              anonymous: '0'
+            placeholder: ''
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          plugin_id: string
+        field_gs_harvest_data_value:
+          id: field_gs_harvest_data_value
+          table: node__field_gs_harvest_data
+          field: field_gs_harvest_data_value
+          relationship: none
+          group_type: group
+          admin_label: ''
+          operator: contains
+          value: ''
+          group: 1
+          exposed: true
+          expose:
+            operator_id: field_gs_harvest_data_value_op
+            label: Status
+            description: ''
+            use_operator: false
+            operator: field_gs_harvest_data_value_op
+            identifier: field_gs_harvest_data_value
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              anonymous: '0'
+            placeholder: ''
+          is_grouped: true
+          group_info:
+            label: Status
+            description: ''
+            identifier: field_gs_harvest_data_value
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items:
+              1:
+                title: Aktive
+                operator: contains
+                value: '"active":"true"'
+              2:
+                title: Arkiverede
+                operator: contains
+                value: '"active":"false"'
+              3:
+                title: Nye
+                operator: contains
+                value: '"status":"Ny"'
+          plugin_id: string
+        field_gs_harvest_data_value_1:
+          id: field_gs_harvest_data_value_1
+          table: node__field_gs_harvest_data
+          field: field_gs_harvest_data_value
+          relationship: none
+          group_type: group
+          admin_label: ''
+          operator: contains
+          value: '"status":"TKV"'
+          group: 2
+          exposed: false
+          expose:
+            operator_id: ''
+            label: ''
+            description: ''
+            use_operator: false
+            operator: ''
+            identifier: ''
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          plugin_id: string
+        field_gs_harvest_data_value_2:
+          id: field_gs_harvest_data_value_2
+          table: node__field_gs_harvest_data
+          field: field_gs_harvest_data_value
+          relationship: none
+          group_type: group
+          admin_label: ''
+          operator: contains
+          value: '"status":"I-TKV"'
+          group: 2
+          exposed: false
+          expose:
+            operator_id: ''
+            label: ''
+            description: ''
+            use_operator: false
+            operator: ''
+            identifier: ''
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          plugin_id: string
+      filter_groups:
+        operator: AND
+        groups:
+          1: AND
+          2: OR
+    cache_metadata:
+      max-age: 0
+      contexts:
+        - 'languages:language_content'
+        - 'languages:language_interface'
+        - url
+        - url.query_args
+        - 'user.node_grants:view'
+        - user.roles
+      tags:
+        - 'config:field.storage.node.field_gs_contact_person'
+        - 'config:field.storage.node.field_gs_delivery_date'
         - 'config:field.storage.node.field_gs_harvest_data'
         - 'config:field.storage.node.field_gs_harvest_project_id'
