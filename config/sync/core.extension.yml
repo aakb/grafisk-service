@@ -18,6 +18,7 @@ module:
   language: 0
   link: 0
   locale: 0
+  menu_ui: 0
   node: 0
   options: 0
   page_cache: 0
@@ -28,6 +29,7 @@ module:
   user: 0
   views: 0
   views_ui: 0
+  menu_link_content: 1
   minimal: 1000
 theme:
   stable: 0

@@ -13,7 +13,7 @@ _core:
 id: seven_admin
 theme: seven
 region: header
-weight: -3
+weight: -1
 provider: null
 plugin: 'system_menu_block:admin'
 settings:
