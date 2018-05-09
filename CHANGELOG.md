@@ -1,5 +1,8 @@
 # Changelog Grafisk service bestilling
 
+## 1.3.6
+* Added views to backend
+
 ## 1.3.5
 * Updated to Drupal core 8.5.3
 
