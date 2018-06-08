@@ -7,7 +7,9 @@
 use Drupal\Core\Entity\Display\EntityViewDisplayInterface;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\node\Entity\Node;
+use Drupal\views\ViewExecutable;
 use Harvest\Model\Project;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
 define('GS_ORDER_NODE_TYPE', 'gs_order');
 
@@ -176,6 +178,19 @@ function grafisk_service_order_update_projects($updatedSince = '-1 day') {
         $data['status'] = $project->get('code') ? $project->get('code') : '';
         $order->field_gs_harvest_data->value = json_encode($data);
         $order->save();
+      }
+    }
+  }
+}
+
+function grafisk_service_order_views_pre_render(ViewExecutable $view) {
+  if (!\Drupal::currentUser()->isAuthenticated()) {
+    $path = $view->getDisplay()->getPath();
+    if ('ordrer/overblik' === $path) {
+      $token = \Drupal::request()->query->get('token');
+      $validToken = \Drupal\Core\Site\Settings::get('ordrer_overblik_token');
+      if (empty($validToken) || $token !== $validToken) {
+        throw new AccessDeniedHttpException(__METHOD__);
       }
     }
   }
