@@ -7,7 +7,9 @@
 use Drupal\Core\Entity\Display\EntityViewDisplayInterface;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\node\Entity\Node;
+use Drupal\views\ViewExecutable;
 use Harvest\Model\Project;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
 define('GS_ORDER_NODE_TYPE', 'gs_order');
 
@@ -177,6 +179,20 @@ function grafisk_service_order_update_projects($updatedSince = '-1 day') {
         $order->field_gs_harvest_data->value = json_encode($data);
         $order->save();
       }
+    }
+  }
+}
+
+function grafisk_service_order_views_pre_render(ViewExecutable $view) {
+  if (!\Drupal::currentUser()->isAuthenticated()) {
+    if ('order_overview' === $view->id() && 'overview' === $view->current_display) {
+      $token = \Drupal::request()->query->get('token');
+      $validToken = \Drupal\Core\Site\Settings::get('ordrer_overblik_token');
+      if (empty($validToken) || $token !== $validToken) {
+        throw new AccessDeniedHttpException(__METHOD__);
+      }
+
+      $view->element['#attached']['library'][] = 'grafisk_service_order/grafisk_service_order.views';
     }
   }
 }
