@@ -1,0 +1,13 @@
+uuid: 34175e28-7028-4113-b481-7efd335f2f71
+langcode: da
+status: true
+dependencies: {  }
+id: administrator
+label: Administrator
+weight: 2
+is_admin: null
+permissions:
+  - 'access content overview'
+  - 'access toolbar'
+  - 'delete any gs_order content'
+  - 'view the administration theme'
