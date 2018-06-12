@@ -34,3 +34,8 @@ services:
       - '@plugin.manager.mail'
       - '@twig'
       - '@logger.channel.grafisk_service_order'
+
+  grafisk_service_order_response_subscriber:
+    class: Drupal\grafisk_service_order\EventSubscriber\ResponseSubscriber
+    tags:
+      - { name: event_subscriber }
