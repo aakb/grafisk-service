@@ -16,7 +16,7 @@
         },
         {
             "type": "composer",
-            "url": "https://packagist.etek.dk"
+            "url": "https://packagist.itkdev.dk"
         }
     ],
     "require": {
@@ -77,7 +77,7 @@
         },
         "merge-plugin": {
             "include": [
-                "web/modules/custom/*/composer.json"
+                   "web/modules/custom/*/composer.json"
             ],
             "recurse": true,
             "replace": false,
