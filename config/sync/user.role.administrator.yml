@@ -10,4 +10,5 @@ permissions:
   - 'access content overview'
   - 'access toolbar'
   - 'delete any gs_order content'
+  - 'edit any gs_order content'
   - 'view the administration theme'
