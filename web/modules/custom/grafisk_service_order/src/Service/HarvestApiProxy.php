@@ -158,12 +158,14 @@ class HarvestApiProxy {
     }
 
     /**
- *Client names are case-insensitive in Harvest.
- */
+     * Client names are case-insensitive in Harvest.
+     */
     $existingClient = NULL;
     foreach ($this->clients as $name => $client) {
-      if (strcasecmp($clientName, $name) === 0) {
+      $encoding = mb_internal_encoding();
+      if (strcmp(mb_strtoupper($clientName, $encoding), mb_strtoupper($name, $encoding))) {
         $existingClient = $client;
+        $clientName = $existingClient->get('name');
         break;
       }
     }
@@ -177,7 +179,7 @@ class HarvestApiProxy {
       $result = $api->updateClient($client);
       if (!$result->isSuccess()) {
         $this->logger->error($result->data);
-        throw new \Exception('Cannot update client');
+        throw new \Exception('Cannot update client: '.$clientName);
       }
 
       return $client->id;
@@ -186,7 +188,7 @@ class HarvestApiProxy {
       $result = $api->createClient($client);
       if (!$result->isSuccess()) {
         $this->logger->error($result->data);
-        throw new \Exception('Cannot create client');
+        throw new \Exception('Cannot create client: '.$clientName);
       }
 
       return $result->data;
