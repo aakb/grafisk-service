@@ -163,7 +163,7 @@ class HarvestApiProxy {
     $existingClient = NULL;
     foreach ($this->clients as $name => $client) {
       $encoding = mb_internal_encoding();
-      if (strcmp(mb_strtoupper($clientName, $encoding), mb_strtoupper($name, $encoding))) {
+      if (strcmp(mb_strtoupper($clientName, $encoding), mb_strtoupper($name, $encoding)) === 0) {
         $existingClient = $client;
         $clientName = $existingClient->get('name');
         break;
