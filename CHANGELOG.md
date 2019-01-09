@@ -1,5 +1,11 @@
 # Changelog Grafisk service bestilling
 
+## 1.4.7
+* Changed phone number in pdf template
+
+## 1.4.2 -1.4.6
+???
+
 ## 1.4.1
 * Updated drupal core 8.5.6
 
