@@ -5,9 +5,10 @@
 ```
 composer install --no-dev
 cd web/sites/default
-drush --yes config-import
-drush locale-update
-drush cache-rebuild
+../../../vendor/bin/drush --yes config-import
+../../../vendor/bin/drush --yes updatedb
+../../../vendor/bin/drush --yes locale-update
+../../../vendor/bin/drush --yes cache-rebuild
 ```
 
 Add these line to `settings.php`:

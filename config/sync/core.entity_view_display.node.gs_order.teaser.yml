@@ -34,6 +34,7 @@ content:
 hidden:
   field_gs_comments: true
   field_gs_contact_person: true
+  field_gs_debtor: true
   field_gs_delivery_address: true
   field_gs_delivery_city: true
   field_gs_delivery_comments: true
@@ -45,6 +46,7 @@ hidden:
   field_gs_email: true
   field_gs_files: true
   field_gs_harvest_data: true
+  field_gs_harvest_project_id: true
   field_gs_marketing_account: true
   field_gs_order_lines: true
   field_gs_phone: true
