@@ -249,7 +249,6 @@ class Mailer {
       'comments' => $order->field_gs_comments->value,
       'files' => $order->field_gs_files,
 
-      'ean' => $order->field_gs_ean->value,
       'debtor' => $order->field_gs_debtor->value,
       'marketing_account' => $order->field_gs_marketing_account->value,
 
