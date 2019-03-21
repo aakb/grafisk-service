@@ -30,7 +30,8 @@
         "drupal/itkore": "~1.0",
         "drupal/field_group": "^1.0@RC",
         "wikimedia/composer-merge-plugin": "^1.4",
-        "itk-dev/composer-virtualenv": "dev-master"
+        "itk-dev/composer-virtualenv": "dev-master",
+        "drupal/system_status": "^2.8"
     },
     "require-dev": {
         "behat/mink": "~1.7",
