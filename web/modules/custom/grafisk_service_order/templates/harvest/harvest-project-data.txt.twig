@@ -11,7 +11,7 @@
 {% endfor %}
 
 {{ 'Comments' | t }}:
-{{ order.field_gs_comments.value }}
+{{ field_gs_comments|default(order.field_gs_comments.value) }}
 {{'Files' | t }}:
 {% for url in file_urls %}
 {{ url }}
@@ -24,7 +24,7 @@
 {% endif %}
 {{ 'Delivery date' | t }}: {{ order.field_gs_delivery_date.value | date('d/m/Y') }}
 {{ 'Delivery comments' | t }}:
-{{ order.field_gs_delivery_comments.value }}
+{{ field_gs_delivery_comments|default(order.field_gs_delivery_comments.value) }}
 
 {{ 'Delivery department' | t }}: {{ order.field_gs_delivery_department.value }}
 {{ 'Delivery address' | t }}: {{ order.field_gs_delivery_address.value }}
